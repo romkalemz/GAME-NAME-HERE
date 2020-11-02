@@ -8,14 +8,14 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class MainGame extends StateBasedGame {
 
-	public MainGame(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
+	public MainGame(String title) {
+		super(title);
+
+		
 	}
 
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
-		// TODO Auto-generated method stub
 		
 	}
 
