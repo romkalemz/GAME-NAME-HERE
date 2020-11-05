@@ -1,8 +1,109 @@
 package time_lapse;
 
-import jig.Entity;
+import java.util.ArrayList;
 
-public class Player extends Entity{
-// new player
+import org.newdawn.slick.Image;
+
+import jig.Entity;
+import jig.ResourceManager;
+import jig.Vector;
+
+/**
+ * The Ball class is an Entity that has a velocity (since it's moving). When
+ * the Ball bounces off a surface, it temporarily displays a image with
+ * cracks for a nice visual effect.
+ * 
+ */
+ class Player extends Entity {
+
 	
+	private float speed;
+	private Image image;
+	
+	
+	private Vector velocity;
+	public void setVelocity(final Vector v) { velocity = v; }
+	public Vector getVelocity() { return velocity; }
+	
+	private int rotate_delay;
+	public void setRotateDelay(int rd) { rotate_delay = rd; }
+	public int getRotateDelay() { return rotate_delay; }
+	
+	public Player(final float x, final float y) {
+		super(x, y);
+		
+		image = ResourceManager.getImage(MainGame.PLAYER_DEFAULT_RSC).getScaledCopy(40, 40);
+		addImageWithBoundingBox(image);
+		
+		reset();
+	}
+	
+
+	
+	public void reset() {
+		velocity = new Vector(0, 0);
+		speed = 0.2f;
+	}
+	
+//	public void setRotation(int dir) {
+//		image.setRotation(dir);
+//		addImageWithBoundingBox(image);
+//	}
+	
+//	public void checkBounds(int screenw, int screenh) {
+//		if(this.getCoarseGrainedMinX()<0) {
+//			this.setPosition(pushback, this.getY());
+//		}else if(this.getCoarseGrainedMaxX()>screenw){
+//			this.setPosition(screenw-pushback, this.getY());
+//		}
+//		
+//		if(this.getCoarseGrainedMinY()<0) {
+//			this.setPosition(this.getX(), pushback);
+//		}else if(this.getCoarseGrainedMaxY()>screenh){
+//			this.setPosition(this.getX(), screenh-pushback);
+//		}
+//		
+//	}
+//	
+//	public void checkCollision(Map map) {
+//		
+//		// CHECKING OUTER SIDES OF PLAYERS' TILES METHOD
+//		int sideX = (int) Math.floor(getX() / map.tileSize);
+//		int sideY = (int) Math.floor(getY() / map.tileSize);
+//		Tile t;
+//		// checking W side
+//		if(sideX + 1 < map.number_of_tilesX) {
+//			t = map.getTile(sideX +1, sideY);
+//			if(t.isSolid() && collides(t) != null) {
+//				setX(t.getCoarseGrainedMinX() - pushback);
+//			}
+//		}
+//		// checking N side
+//		if(sideY + 1 < map.number_of_tilesY) {
+//			t = map.getTile(sideX, sideY + 1);
+//			if(t.isSolid() && collides(t) != null) {
+//				setY(t.getCoarseGrainedMinY() - pushback);
+//			}
+//		}
+//		// checking E side
+//		if(sideX - 1 > 0) {
+//			t = map.getTile(sideX - 1, sideY);
+//			if(t.isSolid() && collides(t) != null) {
+//				setX(t.getCoarseGrainedMaxX() + pushback);
+//			}
+//		}
+//		// checking S side
+//		if(sideY - 1 > 0) {
+//			t = map.getTile(sideX, sideY - 1);
+//			if(t.isSolid() && collides(t) != null) {
+//				setY(t.getCoarseGrainedMaxY() + pushback);
+//			}
+//		}	
+//	}
+	
+
+	public void update(final int delta) {
+		translate(velocity.scale(delta * speed));
+	}
+
 }
