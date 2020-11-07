@@ -1,6 +1,5 @@
 package time_lapse;
 
-import java.util.Iterator;
 
 import jig.ResourceManager;
 
@@ -35,13 +34,13 @@ class SplashScreen extends BasicGameState {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) {
 		timer = 3000;
+		LevelManager.setLevel(game);
 	}
 	
 	@Override
 	public void render(GameContainer container, StateBasedGame game,
 			Graphics g) throws SlickException {
 
-		MainGame tl = (MainGame)game;
 		g.drawImage(ResourceManager.getImage(MainGame.SPLASH_SCREEN_RSC), 40,
 				40);
 		container.setShowFPS(false);

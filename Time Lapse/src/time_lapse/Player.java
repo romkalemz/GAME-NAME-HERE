@@ -1,7 +1,5 @@
 package time_lapse;
 
-import java.util.ArrayList;
-
 import org.newdawn.slick.Image;
 
 import jig.Entity;
