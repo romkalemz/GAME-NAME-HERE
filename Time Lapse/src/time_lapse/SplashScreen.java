@@ -1,6 +1,5 @@
 package time_lapse;
 
-import java.util.Iterator;
 
 import jig.ResourceManager;
 
