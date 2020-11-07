@@ -81,31 +81,31 @@ class PlayingState extends BasicGameState {
 //			}
 //		}
 		
-		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)) {
-			tl.player.setRotation(225);
-			tl.player.setRotateDelay(50);
-			
-		}
-		if (input.isKeyDown(Input.KEY_RIGHT) && input.isKeyDown(Input.KEY_DOWN)) {
-			tl.player.setRotation(315);
-			tl.player.setRotateDelay(50);
-			
-		}
-		if (input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)) {
-			tl.player.setRotation(45);
-			tl.player.setRotateDelay(50);
-			
-		}
-		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_LEFT)) {
-			tl.player.setRotation(135);
-			tl.player.setRotateDelay(50);
-			
-		}
+//		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)) {
+//			tl.player.setRotation(225);
+//			tl.player.setRotateDelay(50);
+//			
+//		}
+//		if (input.isKeyDown(Input.KEY_RIGHT) && input.isKeyDown(Input.KEY_DOWN)) {
+//			tl.player.setRotation(315);
+//			tl.player.setRotateDelay(50);
+//			
+//		}
+//		if (input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)) {
+//			tl.player.setRotation(45);
+//			tl.player.setRotateDelay(50);
+//			
+//		}
+//		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_LEFT)) {
+//			tl.player.setRotation(135);
+//			tl.player.setRotateDelay(50);
+//			
+//		}
 	}
 	
 	
 	@Override
 	public int getID() {
-		return 0;
+		return MainGame.PLAYINGSTATE;
 	}
 }
