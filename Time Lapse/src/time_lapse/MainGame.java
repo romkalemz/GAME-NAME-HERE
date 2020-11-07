@@ -15,6 +15,15 @@ public class MainGame extends StateBasedGame {
 	public static final int SPLASHSCREEN = 0;
 	public static final int PLAYINGSTATE = 1;
 	
+	/*
+	 * TODO: Will need to adjust MapSize later
+	 * Map will be larger with scrolling
+	 * May need to adjust tilesize
+	 */
+	public static final int TILESIZE = 32;
+	public static final int MAPSIZEX = 25;
+	public static final int MAPSIZEY = 18;
+	
 	public static final String PLAYER_DEFAULT_RSC = "resources/player_default.png";;
 	public static final String SPLASH_SCREEN_RSC = "resources/splash_screen.png";;
 	public static final String TILE_DIRT_RSC = "resources/dirt_tile.png";
@@ -23,8 +32,7 @@ public class MainGame extends StateBasedGame {
 	
 	// items in the game
 	public Player player;
-	
-	Tile tmpTile;
+	public Map map;
 	
 	public MainGame(String title) {
 		super(title);
@@ -43,7 +51,7 @@ public class MainGame extends StateBasedGame {
 		ResourceManager.loadImage(SPLASH_SCREEN_RSC);
 		ResourceManager.loadImage(TILE_DIRT_RSC);
 		
-		tmpTile = new Tile(80, 80, 0);
+		map = new Map(MAPSIZEX, MAPSIZEY, TILESIZE);
 		player = new Player(400, 300);
 	}
 	
