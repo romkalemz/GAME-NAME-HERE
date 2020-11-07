@@ -1,22 +1,18 @@
 package time_lapse;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.state.StateBasedGame;
 
 import jig.Entity;
 import jig.ResourceManager;
 import jig.Vector;
 
-/**
- * The Ball class is an Entity that has a velocity (since it's moving). When
- * the Ball bounces off a surface, it temporarily displays a image with
- * cracks for a nice visual effect.
- * 
- */
  class Player extends Entity {
 
 	
 	private float speed;
 	private Image image;
+	private int pushback = 20; 		// a number the player is pushed back by
 	
 	
 	private Vector velocity;
@@ -48,20 +44,20 @@ import jig.Vector;
 //		addImageWithBoundingBox(image);
 //	}
 	
-//	public void checkBounds(int screenw, int screenh) {
-//		if(this.getCoarseGrainedMinX()<0) {
-//			this.setPosition(pushback, this.getY());
-//		}else if(this.getCoarseGrainedMaxX()>screenw){
-//			this.setPosition(screenw-pushback, this.getY());
-//		}
-//		
-//		if(this.getCoarseGrainedMinY()<0) {
-//			this.setPosition(this.getX(), pushback);
-//		}else if(this.getCoarseGrainedMaxY()>screenh){
-//			this.setPosition(this.getX(), screenh-pushback);
-//		}
-//		
-//	}
+	public void checkBounds(Map m) {
+		if(this.getCoarseGrainedMinX() < 0) {
+			this.setPosition(pushback, this.getY());
+		}else if(this.getCoarseGrainedMaxX() > m.getScreenSizeX()) {
+			this.setPosition(m.getScreenSizeX() - pushback, this.getY());
+		}
+		
+		if(this.getCoarseGrainedMinY() < 0) {
+			this.setPosition(this.getX(), pushback);
+		}else if(this.getCoarseGrainedMaxY() > m.getScreenSizeY()) {
+			this.setPosition(this.getX(), m.getScreenSizeY() - pushback);
+		}
+		
+	}
 //	
 //	public void checkCollision(Map map) {
 //		
@@ -100,7 +96,10 @@ import jig.Vector;
 //	}
 	
 
-	public void update(final int delta) {
+	public void update(StateBasedGame game, final int delta) {
+		MainGame g = (MainGame) game;
+		checkBounds(g.map);
+		//checkCollision();
 		translate(velocity.scale(delta * speed));
 	}
 
