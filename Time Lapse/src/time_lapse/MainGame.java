@@ -18,11 +18,11 @@ public class MainGame extends StateBasedGame {
 	/*
 	 * TODO: Will need to adjust MapSize later
 	 * Map will be larger with scrolling
-	 * May need to adjust tilesize
+	 * May need to adjust tilesize as needed
 	 */
 	public static final int TILESIZE = 32;
-	public static final int MAPSIZEX = 25;
-	public static final int MAPSIZEY = 18;
+	public static final int MAPSIZEX = 37;
+	public static final int MAPSIZEY = 25;
 	
 	public static final String PLAYER_DEFAULT_RSC = "resources/player_default.png";;
 	public static final String SPLASH_SCREEN_RSC = "resources/splash_screen.png";;
