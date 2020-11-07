@@ -26,6 +26,7 @@ class PlayingState extends BasicGameState {
 		MainGame tl = (MainGame)game;
 		
 		// render entities
+		tl.tmpTile.render(g);
 		tl.player.render(g);
 		
 	}

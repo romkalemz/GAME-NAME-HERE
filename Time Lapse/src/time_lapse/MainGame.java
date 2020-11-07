@@ -17,14 +17,14 @@ public class MainGame extends StateBasedGame {
 	
 	public static final String PLAYER_DEFAULT_RSC = "resources/player_default.png";;
 	public static final String SPLASH_SCREEN_RSC = "resources/splash_screen.png";;
-
+	public static final String TILE_DIRT_RSC = "resources/dirt_tile.png";
 	// resource strings
 	
 	
 	// items in the game
 	public Player player;
 	
-	
+	Tile tmpTile;
 	
 	public MainGame(String title) {
 		super(title);
@@ -41,8 +41,9 @@ public class MainGame extends StateBasedGame {
 		// LOAD RESOURCES
 		ResourceManager.loadImage(PLAYER_DEFAULT_RSC);
 		ResourceManager.loadImage(SPLASH_SCREEN_RSC);
+		ResourceManager.loadImage(TILE_DIRT_RSC);
 		
-		
+		tmpTile = new Tile(80, 80, 0);
 		player = new Player(400, 300);
 	}
 	
