@@ -13,11 +13,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 
 class PlayingState extends BasicGameState {
-
+	private boolean debugMode;
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		// TODO Auto-generated method stub
-		
+		debugMode = false;
 	}
 
 	@Override
@@ -26,7 +26,12 @@ class PlayingState extends BasicGameState {
 		MainGame tl = (MainGame)game;
 		
 		// render entities
+		
+		
 		tl.map.renderMap(container, game, g);
+
+		tl.debug.renderDebug(container, game, g, debugMode);
+		
 		tl.player.render(g);
 		
 	}
@@ -36,7 +41,12 @@ class PlayingState extends BasicGameState {
 	
 		Input input = container.getInput();
 		MainGame tl = (MainGame)game;
-		
+		if(input.isKeyPressed(Input.KEY_F1)) {
+			if(debugMode)
+				debugMode = false;
+			else
+				debugMode = true;
+		}
 		playerMove(tl, input);
 		
 		tl.player.update(delta);
@@ -58,7 +68,21 @@ class PlayingState extends BasicGameState {
 		if (input.isKeyDown(Input.KEY_D)) {
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(1, 0)));
 		}
-	
+		
+		if (tl.player.getCoarseGrainedMaxX() > 1200) {
+			tl.player.setPosition(1200-(40/2),tl.player.getY());
+		}
+		if(tl.player.getCoarseGrainedMinX() < 0) {
+			tl.player.setPosition(40/2,tl.player.getY());
+		}
+		if (tl.player.getCoarseGrainedMaxY() > 800) {
+			tl.player.setPosition(tl.player.getX(),800-(40/2));
+		}
+		if (tl.player.getCoarseGrainedMinY() < 0) {
+			tl.player.setPosition(tl.player.getX(),40/2);
+		}
+		
+		
 		// player direction / aim
 		// wait for a slight cooldown to allow slower response times to angled facing position
 //		if (tl.player.getRotateDelay() <= 0) {
