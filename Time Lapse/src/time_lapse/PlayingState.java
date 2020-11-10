@@ -26,12 +26,8 @@ class PlayingState extends BasicGameState {
 		MainGame tl = (MainGame)game;
 		
 		// render entities
-		
-		
-		tl.map.renderMap(container, game, g);
-
+		tl.map.renderMap(g);
 		tl.debug.renderDebug(container, game, g, debugMode);
-		
 		tl.player.render(g);
 		
 	}
@@ -49,7 +45,7 @@ class PlayingState extends BasicGameState {
 		}
 		playerMove(tl, input);
 		
-		tl.player.update(delta);
+		tl.player.update(game, delta);
 		
 	}
 
@@ -105,7 +101,7 @@ class PlayingState extends BasicGameState {
 //				
 //			}
 //		}
-		
+//		
 //		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)) {
 //			tl.player.setRotation(225);
 //			tl.player.setRotateDelay(50);

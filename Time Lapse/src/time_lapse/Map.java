@@ -11,6 +11,8 @@ public class Map {
 	private int tileSize;
 	private int mapSizeX;
 	private int mapSizeY;
+	private int mapScreenSizeX = 1200;
+	private int mapScreenSizeY = 800;
 	private Tile[][] tiles;
 	
 	public Map(int mapSizeX, int mapSizeY, int tileSize) {
@@ -29,12 +31,19 @@ public class Map {
 	public int getMapSizeY() {
 		return this.mapSizeY;
 	}
+	public int getScreenSizeX() {
+		return this.mapScreenSizeX;
+	}
+	public int getScreenSizeY() {
+		return this.mapScreenSizeY;
+	}
+	
 	// setTile is called in LevelManager to add tile into array
 	public void setTile(int x, int y, Tile tile) {
 		tiles[x][y] = tile;
 	}
 	// renderMap is called in PlayingState render
-	public void renderMap(GameContainer container, StateBasedGame game, Graphics g) {
+	public void renderMap(Graphics g) {
 		for(int x = 0; x < this.mapSizeX; x++) {
 			for(int y = 0; y< this.mapSizeY; y++) {
 				if(tiles[x][y] != null) {
