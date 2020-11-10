@@ -63,21 +63,7 @@ class PlayingState extends BasicGameState {
 		}
 		if (input.isKeyDown(Input.KEY_D)) {
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(1, 0)));
-		}
-		
-		if (tl.player.getCoarseGrainedMaxX() > 1200) {
-			tl.player.setPosition(1200-(40/2),tl.player.getY());
-		}
-		if(tl.player.getCoarseGrainedMinX() < 0) {
-			tl.player.setPosition(40/2,tl.player.getY());
-		}
-		if (tl.player.getCoarseGrainedMaxY() > 800) {
-			tl.player.setPosition(tl.player.getX(),800-(40/2));
-		}
-		if (tl.player.getCoarseGrainedMinY() < 0) {
-			tl.player.setPosition(tl.player.getX(),40/2);
-		}
-		
+		}	
 		
 		// player direction / aim
 		// wait for a slight cooldown to allow slower response times to angled facing position
