@@ -33,6 +33,7 @@ public class MainGame extends StateBasedGame {
 	// items in the game
 	public Player player;
 	public Map map;
+	public Debug debug;
 	
 	public MainGame(String title) {
 		super(title);
@@ -53,6 +54,7 @@ public class MainGame extends StateBasedGame {
 		
 		map = new Map(MAPSIZEX, MAPSIZEY, TILESIZE);
 		player = new Player(400, 300);
+		debug = new Debug(10,20,"asdfasdf");
 	}
 	
 	

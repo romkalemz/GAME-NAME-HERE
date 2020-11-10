@@ -13,11 +13,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 
 class PlayingState extends BasicGameState {
-
+	private boolean debugMode;
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		// TODO Auto-generated method stub
-		
+		debugMode = false;
 	}
 
 	@Override
@@ -27,6 +27,7 @@ class PlayingState extends BasicGameState {
 		
 		// render entities
 		tl.map.renderMap(g);
+		tl.debug.renderDebug(container, game, g, debugMode);
 		tl.player.render(g);
 		
 	}
@@ -36,7 +37,12 @@ class PlayingState extends BasicGameState {
 	
 		Input input = container.getInput();
 		MainGame tl = (MainGame)game;
-		
+		if(input.isKeyPressed(Input.KEY_F1)) {
+			if(debugMode)
+				debugMode = false;
+			else
+				debugMode = true;
+		}
 		playerMove(tl, input);
 		
 		tl.player.update(game, delta);
@@ -57,8 +63,8 @@ class PlayingState extends BasicGameState {
 		}
 		if (input.isKeyDown(Input.KEY_D)) {
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(1, 0)));
-		}
-	
+		}	
+		
 		// player direction / aim
 		// wait for a slight cooldown to allow slower response times to angled facing position
 //		if (tl.player.getRotateDelay() <= 0) {
