@@ -1,9 +1,9 @@
 package time_lapse;
 
-import jig.Entity;
+
 import jig.Vector;
 
-import org.newdawn.slick.Game;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -13,11 +13,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 
 class PlayingState extends BasicGameState {
-
+	private boolean debugMode;
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		// TODO Auto-generated method stub
-		
+		debugMode = false;
 	}
 
 	@Override
@@ -26,6 +26,8 @@ class PlayingState extends BasicGameState {
 		MainGame tl = (MainGame)game;
 		
 		// render entities
+		tl.map.renderMap(g);
+		tl.debug.renderDebug(container, game, g, debugMode);
 		tl.player.render(g);
 		
 	}
@@ -35,10 +37,15 @@ class PlayingState extends BasicGameState {
 	
 		Input input = container.getInput();
 		MainGame tl = (MainGame)game;
-		
+		if(input.isKeyPressed(Input.KEY_F1)) {
+			if(debugMode)
+				debugMode = false;
+			else
+				debugMode = true;
+		}
 		playerMove(tl, input);
 		
-		tl.player.update(delta);
+		tl.player.update(game, delta);
 		
 	}
 
@@ -56,8 +63,8 @@ class PlayingState extends BasicGameState {
 		}
 		if (input.isKeyDown(Input.KEY_D)) {
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(1, 0)));
-		}
-	
+		}	
+		
 		// player direction / aim
 		// wait for a slight cooldown to allow slower response times to angled facing position
 //		if (tl.player.getRotateDelay() <= 0) {
@@ -80,7 +87,7 @@ class PlayingState extends BasicGameState {
 //				
 //			}
 //		}
-		
+//		
 //		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)) {
 //			tl.player.setRotation(225);
 //			tl.player.setRotateDelay(50);
