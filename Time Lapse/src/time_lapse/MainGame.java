@@ -24,16 +24,17 @@ public class MainGame extends StateBasedGame {
 	public static final int MAPSIZEX = 37;
 	public static final int MAPSIZEY = 25;
 	
+	// resource strings
 	public static final String PLAYER_DEFAULT_RSC = "resources/player_default.png";;
 	public static final String SPLASH_SCREEN_RSC = "resources/splash_screen.png";;
-	public static final String TILE_DIRT_RSC = "resources/dirt_tile.png";
-	// resource strings
-	
+	public static final String TILE_DIRT_RSC = "resources/dirt_tile.png";	
 	
 	// items in the game
 	public Player player;
 	public Map map;
 	public Debug debug;
+	public Server GameHandler;
+	public Client PlayerHandler;
 	
 	public MainGame(String title) {
 		super(title);
@@ -55,6 +56,8 @@ public class MainGame extends StateBasedGame {
 		map = new Map(MAPSIZEX, MAPSIZEY, TILESIZE);
 		player = new Player(400, 300);
 		debug = new Debug(10,20,"asdfasdf");
+		
+
 	}
 	
 	
@@ -64,7 +67,7 @@ public class MainGame extends StateBasedGame {
 			app = new AppGameContainer(new MainGame("Time Lapse v0.1"));
 			app.setDisplayMode(1200, 800, false);
 			app.setVSync(true);
-			app.setShowFPS(false);
+			app.setShowFPS(true);
 			app.start();
 		} catch (SlickException e) {
 			e.printStackTrace();

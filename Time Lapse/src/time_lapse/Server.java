@@ -7,40 +7,63 @@ import java.lang.ClassNotFoundException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+public class Server extends Thread {
     
     //static ServerSocket variable
     private static ServerSocket server;
     //socket server port on which it will listen
     private static int port = 9001;
     
-    public static void main(String args[]) throws IOException, ClassNotFoundException{
+    @Override
+    public void run() {
         //create the socket server object
-        server = new ServerSocket(port);
+    	System.out.println("WE IN");
+        try { server = new ServerSocket(port); } 
+        catch (IOException e) { e.printStackTrace(); }
+        
         //keep listens indefinitely until receives 'exit' call or program terminates
         while(true){
             System.out.println("Waiting for the client request");
             //creating socket and waiting for client connection
-            Socket socket = server.accept();
+            Socket socket = null;
+			try { socket = server.accept(); } 
+			catch (IOException e) { e.printStackTrace(); }
+			
             //read from socket to ObjectInputStream object
-            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            ObjectInputStream ois = null;
+			try { ois = new ObjectInputStream(socket.getInputStream()); } 
+			catch (IOException e) { e.printStackTrace(); }
+			
             //convert ObjectInputStream object to String
-            String message = (String) ois.readObject();
+            String message = null;
+			try { message = (String) ois.readObject(); } 
+			catch (ClassNotFoundException | IOException e) { e.printStackTrace(); }
+			
             System.out.println("Message Received: " + message);
             //create ObjectOutputStream object
-            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectOutputStream oos = null;
+			try { oos = new ObjectOutputStream(socket.getOutputStream()); } 
+			catch (IOException e) { e.printStackTrace(); }
+			
             //write object to Socket
-            oos.writeObject("Hi Client "+message);
+            try { oos.writeObject("Hi Client "+message); } 
+            catch (IOException e) { e.printStackTrace(); }
+            
             //close resources
-            ois.close();
-            oos.close();
-            socket.close();
+            try { ois.close(); } 
+            catch (IOException e) { e.printStackTrace(); }
+            try { oos.close(); } 
+            catch (IOException e) { e.printStackTrace(); }
+            try { socket.close(); } 
+            catch (IOException e) { e.printStackTrace(); }
+            
             //terminate the server if client sends exit request
             if(message.equalsIgnoreCase("exit")) break;
         }
         System.out.println("Shutting down Socket server!!");
         //close the ServerSocket object
-        server.close();
+        try { server.close(); } 
+        catch (IOException e) { e.printStackTrace(); }
     }
     
 }
