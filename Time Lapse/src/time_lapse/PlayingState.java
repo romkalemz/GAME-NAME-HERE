@@ -16,7 +16,7 @@ class PlayingState extends BasicGameState {
 	private boolean debugMode;
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		// TODO Auto-generated method stub
+		MainGame tl = (MainGame)game;
 		debugMode = false;
 	}
 
