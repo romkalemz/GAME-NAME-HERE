@@ -1,69 +1,53 @@
 package time_lapse;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.lang.ClassNotFoundException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
+
+/*
+ * Server accepts client connection and creates new thread for
+ * client handler that manages communication. 
+ */
 
 public class Server extends Thread {
-    
-    //static ServerSocket variable
-    private static ServerSocket server;
-    //socket server port on which it will listen
-    private static int port = 9001;
-    
-    @Override
-    public void run() {
-        //create the socket server object
-    	System.out.println("WE IN");
-        try { server = new ServerSocket(port); } 
-        catch (IOException e) { e.printStackTrace(); }
-        
-        //keep listens indefinitely until receives 'exit' call or program terminates
-        while(true){
-            System.out.println("Waiting for the client request");
-            //creating socket and waiting for client connection
-            Socket socket = null;
-			try { socket = server.accept(); } 
-			catch (IOException e) { e.printStackTrace(); }
-			
-            //read from socket to ObjectInputStream object
-            ObjectInputStream ois = null;
-			try { ois = new ObjectInputStream(socket.getInputStream()); } 
-			catch (IOException e) { e.printStackTrace(); }
-			
-            //convert ObjectInputStream object to String
-            String message = null;
-			try { message = (String) ois.readObject(); } 
-			catch (ClassNotFoundException | IOException e) { e.printStackTrace(); }
-			
-            System.out.println("Message Received: " + message);
-            //create ObjectOutputStream object
-            ObjectOutputStream oos = null;
-			try { oos = new ObjectOutputStream(socket.getOutputStream()); } 
-			catch (IOException e) { e.printStackTrace(); }
-			
-            //write object to Socket
-            try { oos.writeObject("Hi Client "+message); } 
-            catch (IOException e) { e.printStackTrace(); }
-            
-            //close resources
-            try { ois.close(); } 
-            catch (IOException e) { e.printStackTrace(); }
-            try { oos.close(); } 
-            catch (IOException e) { e.printStackTrace(); }
-            try { socket.close(); } 
-            catch (IOException e) { e.printStackTrace(); }
-            
-            //terminate the server if client sends exit request
-            if(message.equalsIgnoreCase("exit")) break;
-        }
-        System.out.println("Shutting down Socket server!!");
-        //close the ServerSocket object
-        try { server.close(); } 
-        catch (IOException e) { e.printStackTrace(); }
-    }
-    
+
+	@Override
+	public void run() {
+		System.out.println("Server starting...");
+		
+		ServerSocket server = null;
+		try {
+			server = new ServerSocket(5056);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		while (true) {
+			Socket socket = null;
+			try {
+				// Holds here until client is found
+				socket = server.accept();
+
+				System.out.println("A new client is connected : " + socket);
+
+				System.out.println("Assigning new thread for this client");
+				// Creates new thread to run clienHandler
+				Thread t = new ClientHandler(socket);
+				// start thread with t.start() not with t.run()
+				t.start();
+
+			} catch (Exception e) {
+				try {
+					server.close();
+					socket.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			}
+
+		}
+	
+	}
+
 }
