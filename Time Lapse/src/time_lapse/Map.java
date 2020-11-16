@@ -11,6 +11,7 @@ public class Map {
 	private int tileSize;
 	private int numOfTilesX;
 	private int numOfTilesY;
+	// mapsize is calculated by tileSize * numOfTiles
 	private int mapSizeX = 2368;
 	private int mapSizeY = 1280;
 	private int screenSizeX = 1200;
@@ -18,9 +19,9 @@ public class Map {
 	private Tile[][] tiles;
 	
 	// Used for calculating scrolling map
-	private float translateX;
-	private float maxX;
-	private float prevMaxX;
+	private float translateX, translateY;
+	private float minScrollX, minScrollY;
+	private float prevMaxX, prevMaxY;
 	
 	public Map(int numOfTilesX, int numOfTilesY, int tileSize) {
 		this.tileSize = tileSize;
@@ -29,9 +30,13 @@ public class Map {
 		tiles = new Tile[numOfTilesX][numOfTilesY];
 		this.tileSize = tileSize;
 		translateX = 0;
-		maxX = 900;
+		translateY = 0;
+		minScrollX = 900;
+		minScrollY = 533;
 		prevMaxX = 900;
+		prevMaxY = 533;
 	}
+	
 	public int getTileSize() {
 		return this.tileSize;
 	}
@@ -57,13 +62,15 @@ public class Map {
 	public void updateMap(StateBasedGame game) {
 		MainGame tl = (MainGame) game;
 		float playerPosX = tl.player.getX();
+		float playerPosY = tl.player.getY();
 		float playerSpeedX = tl.player.getVelocity().getX();
+		float playerSpeedY = tl.player.getVelocity().getY();
 		// If player distance (from origin) is larger than prev dist
-		if (playerPosX > prevMaxX && prevMaxX < 1968) {
+		if (playerPosX > prevMaxX && prevMaxX < 2068) {
 			// Start scrolling when player pos is larger than 400
-			if (playerPosX > maxX && playerSpeedX > 0) {
+			if (playerPosX > minScrollX && playerSpeedX > 0) {
 				prevMaxX = playerPosX;
-				translateX = maxX - playerPosX;
+				translateX = minScrollX - playerPosX;
 			}
 		} else if (playerPosX < prevMaxX-600 && playerPosX > 300 && playerSpeedX < 0) {
 			// if player is going left, save prevmax so when player
@@ -71,13 +78,23 @@ public class Map {
 			prevMaxX = playerPosX + 600;
 			translateX = 300 - playerPosX;
 		}
+		// Same concept for y-axis
+		if(playerPosY > prevMaxY && prevMaxY < 1013) {
+			if(playerPosY > minScrollY && playerSpeedY > 0) {
+				prevMaxY = playerPosY;
+				translateY = minScrollY - playerPosY;
+			}
+		} else if(playerPosY < prevMaxY - 267 && playerPosY > 267 && playerSpeedY < 0) {
+			prevMaxY = playerPosY + 267;
+			translateY = 267 - playerPosY;
+		}
 	}
 	
 	// renderMap is called in PlayingState render
 	public void renderMap(Graphics g) {
 		// g.translate translates all rendered graphics
 		// based on calculations from updateMap()
-		g.translate(translateX, 0);
+		g.translate(translateX, translateY);
 		for(int x = 0; x < this.numOfTilesX; x++) {
 			for(int y = 0; y< this.numOfTilesY; y++) {
 				if(tiles[x][y] != null) {
