@@ -41,8 +41,8 @@ class SplashScreen extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game,
 			Graphics g) throws SlickException {
 
-		g.drawImage(ResourceManager.getImage(MainGame.SPLASH_SCREEN_RSC), 40,
-				40);
+		g.drawImage(ResourceManager.getImage(MainGame.SPLASH_SCREEN_RSC), 0,
+				0);
 		container.setShowFPS(false);
 
 	}
@@ -57,11 +57,13 @@ class SplashScreen extends BasicGameState {
 		if (timer <= 0)
 			game.enterState(MainGame.PLAYINGSTATE, new EmptyTransition(), new HorizontalSplitTransition() );
 
-		
+		if(input.isKeyDown(Input.KEY_SPACE)) {			
+			game.enterState(MainGame.PLAYINGSTATE);
+		}
 		if(input.isKeyDown(Input.KEY_1)) {			
 			game.enterState(MainGame.SPLASHSCREEN);
 		}
-		if(input.isKeyDown(Input.KEY_3)) {			
+		if(input.isKeyDown(Input.KEY_2)) {			
 			game.enterState(MainGame.PLAYINGSTATE);
 		}
 

@@ -6,6 +6,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Random;
 
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -17,21 +18,50 @@ public class LevelManager {
 
 	public static void setLevel(StateBasedGame game) {
 		MainGame tl = (MainGame) game;
-
+		
 		// Store array of strings from txt file of level
 		String[] mapData = getLevelText(1);
 		
 		int tileSize = tl.map.getTileSize();
 		int viewStart = tileSize / 2;
 		
+		/* This code is for the random tree spawning */
+		Random randomNum = new Random();
+		int lowerBound = 3; // In Tile class we have 3 different kinds of trees with types 3-5.
+		int upperBound = 6; // This will give us a random number between that range.
+		int random = 0;
+		
+		
+		
 		for(int y = 0; y < tl.map.getNumOfTilesY(); y++) {
 			int [] type = new int[mapData[y].length()];
 			for (int i = 0; i < mapData[y].length(); i ++) {
 				//Convert each char to int
-				type[i] = Character.getNumericValue(mapData[y].charAt(i));
+				if(Character.getNumericValue(mapData[y].charAt(i)) ==  0) {
+					type[i] = 0;
+				}
+				if(Character.getNumericValue(mapData[y].charAt(i)) ==  3) {
+					random = randomNum.nextInt(upperBound - lowerBound) + lowerBound;
+					type[i] = random;
+					//System.out.println(random);
+				}
+				
 			}
 			for(int x = 0; x < tl.map.getNumOfTilesX(); x++) {
-				tl.map.setTile(x, y, new Tile(viewStart + (x*tileSize), viewStart + (y*tileSize), type[x]));
+				/* This is how we will spawn certain kinds of tiles */
+				/* Each tile has a value assigned to it which can be connected with an image in the Tile class */
+				if(type[x] == 0) {
+					tl.map.setTile(x, y, new Tile(viewStart + (x*tileSize), viewStart + (y*tileSize), type[x], 0));
+				}
+				if(type[x] == 3) {
+					tl.map.setTile(x, y, new Tile(viewStart + (x*tileSize), viewStart + (y*tileSize), type[x], 1));
+				}
+				if(type[x] == 4) {
+					tl.map.setTile(x, y, new Tile(viewStart + (x*tileSize), viewStart + (y*tileSize), type[x], 1));
+				}
+				if(type[x] == 5) {
+					tl.map.setTile(x, y, new Tile(viewStart + (x*tileSize), viewStart + (y*tileSize), type[x], 1));
+				}
 			}
 		}
 		

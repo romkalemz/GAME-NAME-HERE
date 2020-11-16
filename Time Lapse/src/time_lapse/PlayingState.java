@@ -52,11 +52,17 @@ class PlayingState extends BasicGameState {
 		playerMove(tl, input);
 		tl.map.updateMap(game);
 		tl.player.update(game, delta);
+		tl.player.checkWall(tl.map);
 		
 	}
 
 	private void playerMove(MainGame tl, Input input) {
 		tl.player.setVelocity(new Vector(0, 0));
+		
+		if (input.isKeyDown(Input.KEY_1)) {
+			tl.enterState(MainGame.SPLASHSCREEN);
+		}
+		
 		// player movement
 		if (input.isKeyDown(Input.KEY_W)) {
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(0, -1)));
