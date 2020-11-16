@@ -58,6 +58,10 @@ public class Map {
 		tiles[x][y] = tile;
 	}
 	
+	public Tile[][] getTileMap(){
+		return this.tiles;
+	}
+	
 	// updateMap calculates render for map scrolling
 	public void updateMap(StateBasedGame game) {
 		MainGame tl = (MainGame) game;

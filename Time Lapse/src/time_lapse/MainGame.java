@@ -28,7 +28,10 @@ public class MainGame extends StateBasedGame {
 	public static final String PLAYER_DEFAULT_RSC = "resources/player_default.png";;
 	public static final String SPLASH_SCREEN_RSC = "resources/splash_screen.jpg";;
 	public static final String TILE_DIRT_RSC = "resources/dirt_tile.png";	
-	
+	public static final String TREE_DIRT_RSC = "resources/tree_tile.png";	
+	public static final String LEFT_TREE_DIRT_RSC = "resources/right_tree_tile.png";	
+	public static final String RIGHT_TREE_DIRT_RSC = "resources/left_tree_tile.png";	
+
 	// items in the game
 	public Player player;
 	public Map map;
@@ -52,7 +55,10 @@ public class MainGame extends StateBasedGame {
 		ResourceManager.loadImage(PLAYER_DEFAULT_RSC);
 		ResourceManager.loadImage(SPLASH_SCREEN_RSC);
 		ResourceManager.loadImage(TILE_DIRT_RSC);
-		
+		ResourceManager.loadImage(TREE_DIRT_RSC);
+		ResourceManager.loadImage(LEFT_TREE_DIRT_RSC);
+		ResourceManager.loadImage(RIGHT_TREE_DIRT_RSC);
+
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);
 		player = new Player(400, 300);
 		debug = new Debug(10,20,"asdfasdf");
@@ -71,7 +77,7 @@ public class MainGame extends StateBasedGame {
 		AppGameContainer app;
 		try {
 			app = new AppGameContainer(new MainGame("Time Lapse v0.1"));
-			app.setDisplayMode(1200, 800, false);
+			app.setDisplayMode(1200, 800, false); // 2400, 1400 is great for level design. Normal is 1200, 800
 			app.setVSync(true);
 			app.setShowFPS(true);
 			app.start();

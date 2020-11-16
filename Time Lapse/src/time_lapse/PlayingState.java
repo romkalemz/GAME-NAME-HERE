@@ -46,6 +46,7 @@ class PlayingState extends BasicGameState {
 		playerMove(tl, input);
 		tl.map.updateMap(game);
 		tl.player.update(game, delta);
+		tl.player.checkWall(tl.map);
 		
 	}
 

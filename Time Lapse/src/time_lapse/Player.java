@@ -58,6 +58,23 @@ import jig.Vector;
 		}
 		
 	}
+	
+	public void checkWall(Map m) {
+		Tile[][] tiles = m.getTileMap();
+		
+		for(int x = 0; x < m.getNumOfTilesX(); x++) {
+			for(int y = 0; y< m.getNumOfTilesY(); y++) {
+				if(tiles[x][y].getType() != 0) {
+					if(this.collides(tiles[x][y]) != null) {
+						System.out.println("Collided");
+						
+					}
+				}
+			}
+		}
+	}
+	
+	
 //	
 //	public void checkCollision(Map map) {
 //		
