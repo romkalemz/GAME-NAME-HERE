@@ -44,7 +44,7 @@ class PlayingState extends BasicGameState {
 				debugMode = true;
 		}
 		playerMove(tl, input);
-		
+		tl.map.updateMap(game);
 		tl.player.update(game, delta);
 		
 	}

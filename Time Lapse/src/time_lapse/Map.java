@@ -9,21 +9,42 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class Map {
 	private int tileSize;
-	private int mapSizeX;
-	private int mapSizeY;
-	private int mapScreenSizeX = 1200;
-	private int mapScreenSizeY = 800;
+	private int numOfTilesX;
+	private int numOfTilesY;
+	// mapsize is calculated by tileSize * numOfTiles
+	private int mapSizeX = 2368;
+	private int mapSizeY = 1280;
+	private int screenSizeX = 1200;
+	private int screenSizeY = 800;
 	private Tile[][] tiles;
 	
-	public Map(int mapSizeX, int mapSizeY, int tileSize) {
+	// Used for calculating scrolling map
+	private float translateX, translateY;
+	private float minScrollX, minScrollY;
+	private float prevMaxX, prevMaxY;
+	
+	public Map(int numOfTilesX, int numOfTilesY, int tileSize) {
 		this.tileSize = tileSize;
-		this.mapSizeX = mapSizeX;
-		this.mapSizeY = mapSizeY;
-		tiles = new Tile[mapSizeX][mapSizeY];
+		this.numOfTilesX = numOfTilesX;
+		this.numOfTilesY = numOfTilesY;
+		tiles = new Tile[numOfTilesX][numOfTilesY];
 		this.tileSize = tileSize;
+		translateX = 0;
+		translateY = 0;
+		minScrollX = 900;
+		minScrollY = 533;
+		prevMaxX = 900;
+		prevMaxY = 533;
 	}
+	
 	public int getTileSize() {
 		return this.tileSize;
+	}
+	public int getNumOfTilesX() {
+		return this.numOfTilesX;
+	}
+	public int getNumOfTilesY() {
+		return this.numOfTilesY;
 	}
 	public int getMapSizeX() {
 		return this.mapSizeX;
@@ -31,21 +52,51 @@ public class Map {
 	public int getMapSizeY() {
 		return this.mapSizeY;
 	}
-	public int getScreenSizeX() {
-		return this.mapScreenSizeX;
-	}
-	public int getScreenSizeY() {
-		return this.mapScreenSizeY;
-	}
 	
 	// setTile is called in LevelManager to add tile into array
 	public void setTile(int x, int y, Tile tile) {
 		tiles[x][y] = tile;
 	}
+	
+	// updateMap calculates render for map scrolling
+	public void updateMap(StateBasedGame game) {
+		MainGame tl = (MainGame) game;
+		float playerPosX = tl.player.getX();
+		float playerPosY = tl.player.getY();
+		float playerSpeedX = tl.player.getVelocity().getX();
+		float playerSpeedY = tl.player.getVelocity().getY();
+		// If player distance (from origin) is larger than prev dist
+		if (playerPosX > prevMaxX && prevMaxX < mapSizeX - 300) {
+			// Start scrolling when player pos is larger than 400
+			if (playerPosX > minScrollX && playerSpeedX > 0) {
+				prevMaxX = playerPosX;
+				translateX = minScrollX - playerPosX;
+			}
+		} else if (playerPosX < prevMaxX-600 && playerPosX > 300 && playerSpeedX < 0) {
+			// if player is going left, save prevmax so when player
+			// travels right, map scrolls
+			prevMaxX = playerPosX + 600;
+			translateX = 300 - playerPosX;
+		}
+		// Same concept for y-axis
+		if(playerPosY > prevMaxY && prevMaxY < mapSizeY - 267) {
+			if(playerPosY > minScrollY && playerSpeedY > 0) {
+				prevMaxY = playerPosY;
+				translateY = minScrollY - playerPosY;
+			}
+		} else if(playerPosY < prevMaxY - 267 && playerPosY > 267 && playerSpeedY < 0) {
+			prevMaxY = playerPosY + 267;
+			translateY = 267 - playerPosY;
+		}
+	}
+	
 	// renderMap is called in PlayingState render
 	public void renderMap(Graphics g) {
-		for(int x = 0; x < this.mapSizeX; x++) {
-			for(int y = 0; y< this.mapSizeY; y++) {
+		// g.translate translates all rendered graphics
+		// based on calculations from updateMap()
+		g.translate(translateX, translateY);
+		for(int x = 0; x < this.numOfTilesX; x++) {
+			for(int y = 0; y< this.numOfTilesY; y++) {
 				if(tiles[x][y] != null) {
 					tiles[x][y].render(g);
 				}
