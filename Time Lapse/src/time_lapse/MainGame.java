@@ -33,8 +33,10 @@ public class MainGame extends StateBasedGame {
 	public Player player;
 	public Map map;
 	public Debug debug;
+	public Enemy enemy;
 	public Server GameHandler;
 	public Client PlayerHandler;
+	
 	
 	public MainGame(String title) {
 		super(title);
@@ -55,6 +57,7 @@ public class MainGame extends StateBasedGame {
 		
 		map = new Map(MAPSIZEX, MAPSIZEY, TILESIZE);
 		player = new Player(400, 300);
+		enemy = new Enemy(200, 400, 1);
 		debug = new Debug(10,20,"asdfasdf");
 		
 		//Start threads for server/client

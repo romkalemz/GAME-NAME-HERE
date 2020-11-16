@@ -29,6 +29,7 @@ class PlayingState extends BasicGameState {
 		tl.map.renderMap(g);
 		tl.debug.renderDebug(container, game, g, debugMode);
 		tl.player.render(g);
+		tl.enemy.render(g);
 		
 	}
 
