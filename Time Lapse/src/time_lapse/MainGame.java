@@ -1,5 +1,7 @@
 package time_lapse;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -33,7 +35,7 @@ public class MainGame extends StateBasedGame {
 	public Player player;
 	public Map map;
 	public Debug debug;
-	public Enemy enemy;
+	public ArrayList<Enemy> enemy;
 	public Server GameHandler;
 	public Client PlayerHandler;
 	
@@ -56,8 +58,11 @@ public class MainGame extends StateBasedGame {
 		ResourceManager.loadImage(TILE_DIRT_RSC);
 		
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);
+		enemy = new ArrayList<Enemy>();
+		enemy = EnemySpawner.Spawn(enemy, 200, 300, 1);
+		enemy = EnemySpawner.Spawn(enemy, 500, 500, 2);
+		enemy = EnemySpawner.Spawn(enemy, 400, 800, 3);
 		player = new Player(400, 300);
-		enemy = new Enemy(200, 400, 1);
 		debug = new Debug(10,20,"asdfasdf");
 		
 		//Start threads for server/client

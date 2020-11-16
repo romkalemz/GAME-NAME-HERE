@@ -1,7 +1,5 @@
 package time_lapse;
 
-
-
 import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -27,7 +25,12 @@ public class Enemy extends Entity {
 		super(x,y);
 		newEnemy = ResourceManager.getImage(MainGame.PLAYER_DEFAULT_RSC).getScaledCopy(40, 40);
 		addImageWithBoundingBox(newEnemy);
-		newEnemy.setColor(2, 255, 0, 0);
+		if(type == 1)
+			newEnemy.setColor(2, 255, 0, 0);
+		else if(type == 2)
+			newEnemy.setColor(2, 0, 255, 0);
+		else if(type == 3)
+			newEnemy.setColor(2, 0, 0, 255);
 		
 		reset();
 	}
@@ -39,14 +42,14 @@ public class Enemy extends Entity {
 	public void checkBounds(Map m) {
 		if(this.getCoarseGrainedMinX() < 0) {
 			this.setPosition(pushback, this.getY());
-		}else if(this.getCoarseGrainedMaxX() > m.getScreenSizeX()) {
-			this.setPosition(m.getScreenSizeX() - pushback, this.getY());
+		}else if(this.getCoarseGrainedMaxX() > m.getMapSizeX()) {
+			this.setPosition(m.getMapSizeX() - pushback, this.getY());
 		}
 		
 		if(this.getCoarseGrainedMinY() < 0) {
 			this.setPosition(this.getX(), pushback);
-		}else if(this.getCoarseGrainedMaxY() > m.getScreenSizeY()) {
-			this.setPosition(this.getX(), m.getScreenSizeY() - pushback);
+		}else if(this.getCoarseGrainedMaxY() > m.getMapSizeY()) {
+			this.setPosition(this.getX(), m.getMapSizeY() - pushback);
 		}
 		
 	}
