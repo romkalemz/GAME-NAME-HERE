@@ -31,7 +31,9 @@ public class LevelManager {
 				type[i] = Character.getNumericValue(mapData[y].charAt(i));
 			}
 			for(int x = 0; x < tl.map.getMapSizeX(); x++) {
-				tl.map.setTile(x, y, new Tile(viewStart + (x*tileSize), viewStart + (y*tileSize), type[x]));
+				if(type[x] == 0) {
+					tl.map.setTile(x, y, new Tile(viewStart + (x*tileSize), viewStart + (y*tileSize), type[x]));
+				}
 			}
 		}
 		

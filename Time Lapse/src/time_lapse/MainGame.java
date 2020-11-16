@@ -26,7 +26,7 @@ public class MainGame extends StateBasedGame {
 	
 	// resource strings
 	public static final String PLAYER_DEFAULT_RSC = "resources/player_default.png";;
-	public static final String SPLASH_SCREEN_RSC = "resources/splash_screen.png";;
+	public static final String SPLASH_SCREEN_RSC = "resources/splash_screen.jpg";;
 	public static final String TILE_DIRT_RSC = "resources/dirt_tile.png";	
 	
 	// items in the game
