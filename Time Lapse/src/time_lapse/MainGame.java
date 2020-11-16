@@ -21,8 +21,8 @@ public class MainGame extends StateBasedGame {
 	 * May need to adjust tilesize as needed
 	 */
 	public static final int TILESIZE = 32;
-	public static final int NUM_OF_TILESX = 37;
-	public static final int NUM_OF_TILESY = 25;
+	public static final int NUM_OF_TILESX = 74;
+	public static final int NUM_OF_TILESY = 40;
 	
 	// resource strings
 	public static final String PLAYER_DEFAULT_RSC = "resources/player_default.png";;

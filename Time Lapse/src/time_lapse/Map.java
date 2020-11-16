@@ -17,12 +17,20 @@ public class Map {
 	private int screenSizeY = 800;
 	private Tile[][] tiles;
 	
-	public Map(int mapSizeX, int mapSizeY, int tileSize) {
+	// Used for calculating scrolling map
+	private float translateX;
+	private float maxX;
+	private float prevMaxX;
+	
+	public Map(int numOfTilesX, int numOfTilesY, int tileSize) {
 		this.tileSize = tileSize;
-		this.numOfTilesX = mapSizeX;
-		this.numOfTilesY = mapSizeY;
-		tiles = new Tile[mapSizeX][mapSizeY];
+		this.numOfTilesX = numOfTilesX;
+		this.numOfTilesY = numOfTilesY;
+		tiles = new Tile[numOfTilesX][numOfTilesY];
 		this.tileSize = tileSize;
+		translateX = 0;
+		maxX = 900;
+		prevMaxX = 900;
 	}
 	public int getTileSize() {
 		return this.tileSize;
@@ -47,11 +55,29 @@ public class Map {
 	
 	// updateMap calculates render for map scrolling
 	public void updateMap(StateBasedGame game) {
-		
+		MainGame tl = (MainGame) game;
+		float playerPosX = tl.player.getX();
+		float playerSpeedX = tl.player.getVelocity().getX();
+		// If player distance (from origin) is larger than prev dist
+		if (playerPosX > prevMaxX && prevMaxX < 1968) {
+			// Start scrolling when player pos is larger than 400
+			if (playerPosX > maxX && playerSpeedX > 0) {
+				prevMaxX = playerPosX;
+				translateX = maxX - playerPosX;
+			}
+		} else if (playerPosX < prevMaxX-600 && playerPosX > 300 && playerSpeedX < 0) {
+			// if player is going left, save prevmax so when player
+			// travels right, map scrolls
+			prevMaxX = playerPosX + 600;
+			translateX = 300 - playerPosX;
+		}
 	}
 	
 	// renderMap is called in PlayingState render
 	public void renderMap(Graphics g) {
+		// g.translate translates all rendered graphics
+		// based on calculations from updateMap()
+		g.translate(translateX, 0);
 		for(int x = 0; x < this.numOfTilesX; x++) {
 			for(int y = 0; y< this.numOfTilesY; y++) {
 				if(tiles[x][y] != null) {
