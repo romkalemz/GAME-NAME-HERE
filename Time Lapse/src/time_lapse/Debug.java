@@ -13,7 +13,7 @@ public class Debug extends Entity{
 		X = x;
 		Y = y;
 	}
-	public void renderDebug(GameContainer container, StateBasedGame game, Graphics g, boolean isOn) {
+	public void renderDebug(Graphics g, boolean isOn) {
 		String indicator = " ";
 		
 		if(isOn)
