@@ -66,7 +66,7 @@ public class Map {
 		float playerSpeedX = tl.player.getVelocity().getX();
 		float playerSpeedY = tl.player.getVelocity().getY();
 		// If player distance (from origin) is larger than prev dist
-		if (playerPosX > prevMaxX && prevMaxX < 2068) {
+		if (playerPosX > prevMaxX && prevMaxX < mapSizeX - 300) {
 			// Start scrolling when player pos is larger than 400
 			if (playerPosX > minScrollX && playerSpeedX > 0) {
 				prevMaxX = playerPosX;
@@ -79,7 +79,7 @@ public class Map {
 			translateX = 300 - playerPosX;
 		}
 		// Same concept for y-axis
-		if(playerPosY > prevMaxY && prevMaxY < 1013) {
+		if(playerPosY > prevMaxY && prevMaxY < mapSizeY - 267) {
 			if(playerPosY > minScrollY && playerSpeedY > 0) {
 				prevMaxY = playerPosY;
 				translateY = minScrollY - playerPosY;
