@@ -47,14 +47,14 @@ import jig.Vector;
 	public void checkBounds(Map m) {
 		if(this.getCoarseGrainedMinX() < 0) {
 			this.setPosition(pushback, this.getY());
-		}else if(this.getCoarseGrainedMaxX() > m.getScreenSizeX()) {
-			this.setPosition(m.getScreenSizeX() - pushback, this.getY());
+		}else if(this.getCoarseGrainedMaxX() > m.getMapSizeX()) {
+			this.setPosition(m.getMapSizeX() - pushback, this.getY());
 		}
 		
 		if(this.getCoarseGrainedMinY() < 0) {
 			this.setPosition(this.getX(), pushback);
-		}else if(this.getCoarseGrainedMaxY() > m.getScreenSizeY()) {
-			this.setPosition(this.getX(), m.getScreenSizeY() - pushback);
+		}else if(this.getCoarseGrainedMaxY() > m.getMapSizeY()) {
+			this.setPosition(this.getX(), m.getMapSizeY() - pushback);
 		}
 		
 	}

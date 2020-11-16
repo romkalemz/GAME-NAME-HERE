@@ -9,21 +9,29 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class Map {
 	private int tileSize;
-	private int mapSizeX;
-	private int mapSizeY;
-	private int mapScreenSizeX = 1200;
-	private int mapScreenSizeY = 800;
+	private int numOfTilesX;
+	private int numOfTilesY;
+	private int mapSizeX = 2368;
+	private int mapSizeY = 1280;
+	private int screenSizeX = 1200;
+	private int screenSizeY = 800;
 	private Tile[][] tiles;
 	
 	public Map(int mapSizeX, int mapSizeY, int tileSize) {
 		this.tileSize = tileSize;
-		this.mapSizeX = mapSizeX;
-		this.mapSizeY = mapSizeY;
+		this.numOfTilesX = mapSizeX;
+		this.numOfTilesY = mapSizeY;
 		tiles = new Tile[mapSizeX][mapSizeY];
 		this.tileSize = tileSize;
 	}
 	public int getTileSize() {
 		return this.tileSize;
+	}
+	public int getNumOfTilesX() {
+		return this.numOfTilesX;
+	}
+	public int getNumOfTilesY() {
+		return this.numOfTilesY;
 	}
 	public int getMapSizeX() {
 		return this.mapSizeX;
@@ -31,21 +39,21 @@ public class Map {
 	public int getMapSizeY() {
 		return this.mapSizeY;
 	}
-	public int getScreenSizeX() {
-		return this.mapScreenSizeX;
-	}
-	public int getScreenSizeY() {
-		return this.mapScreenSizeY;
-	}
 	
 	// setTile is called in LevelManager to add tile into array
 	public void setTile(int x, int y, Tile tile) {
 		tiles[x][y] = tile;
 	}
+	
+	// updateMap calculates render for map scrolling
+	public void updateMap(StateBasedGame game) {
+		
+	}
+	
 	// renderMap is called in PlayingState render
 	public void renderMap(Graphics g) {
-		for(int x = 0; x < this.mapSizeX; x++) {
-			for(int y = 0; y< this.mapSizeY; y++) {
+		for(int x = 0; x < this.numOfTilesX; x++) {
+			for(int y = 0; y< this.numOfTilesY; y++) {
 				if(tiles[x][y] != null) {
 					tiles[x][y].render(g);
 				}

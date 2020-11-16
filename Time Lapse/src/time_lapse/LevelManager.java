@@ -24,13 +24,13 @@ public class LevelManager {
 		int tileSize = tl.map.getTileSize();
 		int viewStart = tileSize / 2;
 		
-		for(int y = 0; y < tl.map.getMapSizeY(); y++) {
+		for(int y = 0; y < tl.map.getNumOfTilesY(); y++) {
 			int [] type = new int[mapData[y].length()];
 			for (int i = 0; i < mapData[y].length(); i ++) {
 				//Convert each char to int
 				type[i] = Character.getNumericValue(mapData[y].charAt(i));
 			}
-			for(int x = 0; x < tl.map.getMapSizeX(); x++) {
+			for(int x = 0; x < tl.map.getNumOfTilesX(); x++) {
 				tl.map.setTile(x, y, new Tile(viewStart + (x*tileSize), viewStart + (y*tileSize), type[x]));
 			}
 		}
