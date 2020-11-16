@@ -21,8 +21,8 @@ public class MainGame extends StateBasedGame {
 	 * May need to adjust tilesize as needed
 	 */
 	public static final int TILESIZE = 32;
-	public static final int MAPSIZEX = 37;
-	public static final int MAPSIZEY = 25;
+	public static final int NUM_OF_TILESX = 74;
+	public static final int NUM_OF_TILESY = 40;
 	
 	// resource strings
 	public static final String PLAYER_DEFAULT_RSC = "resources/player_default.png";;
@@ -55,7 +55,7 @@ public class MainGame extends StateBasedGame {
 		ResourceManager.loadImage(SPLASH_SCREEN_RSC);
 		ResourceManager.loadImage(TILE_DIRT_RSC);
 		
-		map = new Map(MAPSIZEX, MAPSIZEY, TILESIZE);
+		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);
 		player = new Player(400, 300);
 		enemy = new Enemy(200, 400, 1);
 		debug = new Debug(10,20,"asdfasdf");
