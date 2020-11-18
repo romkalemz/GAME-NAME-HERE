@@ -39,8 +39,6 @@ public class MainGame extends StateBasedGame {
 	public Map map;
 	public Debug debug;
 	public ArrayList<Enemy> enemy;
-	public Server GameHandler;
-	public Client PlayerHandler;
 	
 	
 	public MainGame(String title) {
@@ -71,13 +69,6 @@ public class MainGame extends StateBasedGame {
 		player = new Player(400, 300);
 		debug = new Debug(10,20,"asdfasdf");
 		
-		//Start threads for server/client
-		Thread serverThread = new Server();
-		serverThread.start();
-		
-		Thread clientThread = new Client();
-		clientThread.start();
-
 	}
 	
 	
