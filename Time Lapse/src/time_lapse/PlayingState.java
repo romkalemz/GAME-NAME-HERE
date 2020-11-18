@@ -16,14 +16,14 @@ class PlayingState extends BasicGameState {
 	private boolean debugMode;
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		MainGame tl = (MainGame)game;
+		Game tl = (Game)game;
 		debugMode = false;
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		
-		MainGame tl = (MainGame)game;
+		Game tl = (Game)game;
 		
 		// render entities
 		tl.map.renderMap(g);
@@ -42,7 +42,7 @@ class PlayingState extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 	
 		Input input = container.getInput();
-		MainGame tl = (MainGame)game;
+		Game tl = (Game)game;
 		if(input.isKeyPressed(Input.KEY_F1)) {
 			if(debugMode)
 				debugMode = false;
@@ -56,11 +56,11 @@ class PlayingState extends BasicGameState {
 		
 	}
 
-	private void playerMove(MainGame tl, Input input) {
+	private void playerMove(Game tl, Input input) {
 		tl.player.setVelocity(new Vector(0, 0));
 		
 		if (input.isKeyDown(Input.KEY_1)) {
-			tl.enterState(MainGame.SPLASHSCREEN);
+			tl.enterState(Game.SPLASHSCREEN);
 		}
 		
 		// player movement
@@ -125,6 +125,6 @@ class PlayingState extends BasicGameState {
 	
 	@Override
 	public int getID() {
-		return MainGame.PLAYINGSTATE;
+		return Game.PLAYINGSTATE;
 	}
 }

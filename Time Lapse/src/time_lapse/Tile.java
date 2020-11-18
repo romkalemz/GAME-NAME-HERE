@@ -13,25 +13,25 @@ public class Tile extends Entity {
 	public Tile(final float x, final float y, int type, int isSolid) {
 		super(x,y);
 		if(type == 0) {
-			Image img = ResourceManager.getImage(MainGame.TILE_DIRT_RSC);
+			Image img = ResourceManager.getImage(Game.TILE_DIRT_RSC);
 			img.setFilter(Image.FILTER_LINEAR);
 			addImageWithBoundingBox(img);
 			this.isSolid = 0;
 		}
 		if(type == 3) {
-			Image img = ResourceManager.getImage(MainGame.TREE_DIRT_RSC);
+			Image img = ResourceManager.getImage(Game.TREE_DIRT_RSC);
 			img.setFilter(Image.FILTER_LINEAR);
 			addImageWithBoundingBox(img);
 			this.isSolid = 1;
 		}
 		if(type == 4) {
-			Image img = ResourceManager.getImage(MainGame.LEFT_TREE_DIRT_RSC);
+			Image img = ResourceManager.getImage(Game.LEFT_TREE_DIRT_RSC);
 			img.setFilter(Image.FILTER_LINEAR);
 			addImageWithBoundingBox(img);
 			this.isSolid = 1;
 		}
 		if(type == 5) {
-			Image img = ResourceManager.getImage(MainGame.RIGHT_TREE_DIRT_RSC);
+			Image img = ResourceManager.getImage(Game.RIGHT_TREE_DIRT_RSC);
 			img.setFilter(Image.FILTER_LINEAR);
 			addImageWithBoundingBox(img);
 			this.isSolid = 1;

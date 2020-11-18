@@ -64,7 +64,7 @@ public class Map {
 	
 	// updateMap calculates render for map scrolling
 	public void updateMap(StateBasedGame game) {
-		MainGame tl = (MainGame) game;
+		Game tl = (Game) game;
 		float playerPosX = tl.player.getX();
 		float playerPosY = tl.player.getY();
 		float playerSpeedX = tl.player.getVelocity().getX();
