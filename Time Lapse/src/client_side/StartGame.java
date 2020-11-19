@@ -15,13 +15,20 @@ public class StartGame {
 	public static void main(String[] args) {
 		
 		// connect to the server
-		Client player1 = new Client();
-		
-		try {
-			player1.connect();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		// threading so that you can connect to server,
+		// and run game in one main function
+		Thread runClient = new Thread() {
+			public void run() {
+				Client player1 = new Client();
+				
+				try {
+					player1.connect();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		runClient.start();
 		
 		// start the game (render side)
 		AppGameContainer app;

@@ -22,15 +22,14 @@ public class Server {
 		
 		// listen for connections to be made to server
 		while(true) {
-				Socket client = server.accept();
+			
+			Socket client = server.accept();
 				
-				System.out.println("A new client is connected : " + client);
-				
-				Thread listener = new Listener(client);
-				listener.start();
+			System.out.println("A new client is connected : " + client);
+			// create a listener for that specific client (multiplayer possiblies)
+			Thread listener = new Listener(client);
+			listener.start();
 		}
-		
-
 	}
 
 }

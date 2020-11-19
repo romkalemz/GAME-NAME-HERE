@@ -34,6 +34,7 @@ public class Listener extends Thread {
 				
 			} catch (ClassNotFoundException | IOException e) {
 				e.printStackTrace();
+				break;
 			}
 		}
 		// close if the client is disconnecting
