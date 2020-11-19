@@ -11,7 +11,7 @@ import jig.Entity;
 import jig.ResourceManager;
 
 
-public class MainGame extends StateBasedGame {
+public class Game extends StateBasedGame {
 	
 	// possible states
 	public static final int SPLASHSCREEN = 0;
@@ -27,8 +27,8 @@ public class MainGame extends StateBasedGame {
 	public static final int NUM_OF_TILESY = 40;
 	
 	// resource strings
-	public static final String PLAYER_DEFAULT_RSC = "resources/player_default.png";;
-	public static final String SPLASH_SCREEN_RSC = "resources/splash_screen.jpg";;
+	public static final String PLAYER_DEFAULT_RSC = "resources/player_default.png";
+	public static final String SPLASH_SCREEN_RSC = "resources/splash_screen.jpg";
 	public static final String TILE_DIRT_RSC = "resources/dirt_tile.png";	
 	public static final String TREE_DIRT_RSC = "resources/tree_tile.png";	
 	public static final String LEFT_TREE_DIRT_RSC = "resources/right_tree_tile.png";	
@@ -39,11 +39,9 @@ public class MainGame extends StateBasedGame {
 	public Map map;
 	public Debug debug;
 	public ArrayList<Enemy> enemy;
-	public Server GameHandler;
-	public Client PlayerHandler;
 	
 	
-	public MainGame(String title) {
+	public Game(String title) {
 		super(title);
 		
 		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
@@ -70,29 +68,6 @@ public class MainGame extends StateBasedGame {
 		enemy = EnemySpawner.Spawn(enemy, 400, 800, 3);
 		player = new Player(400, 300);
 		debug = new Debug(10,20,"asdfasdf");
-		
-		//Start threads for server/client
-		Thread serverThread = new Server();
-		serverThread.start();
-		
-		Thread clientThread = new Client();
-		clientThread.start();
 
 	}
-	
-	
-	public static void main(String[] args) {
-		AppGameContainer app;
-		try {
-			app = new AppGameContainer(new MainGame("Time Lapse v0.1"));
-			app.setDisplayMode(1200, 800, false); // 2400, 1400 is great for level design. Normal is 1200, 800
-			app.setVSync(true);
-			app.setShowFPS(true);
-			app.start();
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-
-	}
-	
 }

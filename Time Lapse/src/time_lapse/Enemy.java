@@ -23,7 +23,7 @@ public class Enemy extends Entity {
 	
 	public Enemy(final float x, final float y, int type){
 		super(x,y);
-		newEnemy = ResourceManager.getImage(MainGame.PLAYER_DEFAULT_RSC).getScaledCopy(40, 40);
+		newEnemy = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(40, 40);
 		addImageWithBoundingBox(newEnemy);
 		if(type == 1)
 			newEnemy.setColor(2, 255, 0, 0);
@@ -55,7 +55,7 @@ public class Enemy extends Entity {
 	}
 	
 	public void update(StateBasedGame game, final int delta) {
-		MainGame g = (MainGame) game;
+		Game g = (Game) game;
 		checkBounds(g.map);
 		//checkCollision();
 		translate(velocity.scale(delta * speed));

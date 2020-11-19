@@ -26,7 +26,7 @@ import jig.Vector;
 	public Player(final float x, final float y) {
 		super(x, y);
 		
-		image = ResourceManager.getImage(MainGame.PLAYER_DEFAULT_RSC).getScaledCopy(40, 40);
+		image = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(40, 40);
 		addImageWithBoundingBox(image);
 		
 		reset();
@@ -114,7 +114,7 @@ import jig.Vector;
 	
 
 	public void update(StateBasedGame game, final int delta) {
-		MainGame g = (MainGame) game;
+		Game g = (Game) game;
 		checkBounds(g.map);
 		//checkCollision();
 		translate(velocity.scale(delta * speed));
