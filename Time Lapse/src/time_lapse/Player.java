@@ -66,7 +66,7 @@ import jig.Vector;
 			for(int y = 0; y< m.getNumOfTilesY(); y++) {
 				if(tiles[x][y].getType() != 0) {
 					if(this.collides(tiles[x][y]) != null) {
-						System.out.println("Collided");
+						//System.out.println("Collided");
 						
 					}
 				}

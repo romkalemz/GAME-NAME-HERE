@@ -28,11 +28,14 @@ public class Game extends StateBasedGame {
 	
 	// resource strings
 	public static final String PLAYER_DEFAULT_RSC = "resources/player_default.png";
-	public static final String SPLASH_SCREEN_RSC = "resources/splash_screen.jpg";
+	public static final String SPLASH_SCREEN_ON_RSC = "resources/light_on.jpg";
+	public static final String SPLASH_SCREEN_DIM_RSC = "resources/light_dim.jpg";
+	public static final String SPLASH_SCREEN_OFF_RSC = "resources/light_off.jpg";
 	public static final String TILE_DIRT_RSC = "resources/dirt_tile.png";	
 	public static final String TREE_DIRT_RSC = "resources/tree_tile.png";	
 	public static final String LEFT_TREE_DIRT_RSC = "resources/right_tree_tile.png";	
-	public static final String RIGHT_TREE_DIRT_RSC = "resources/left_tree_tile.png";	
+	public static final String RIGHT_TREE_DIRT_RSC = "resources/left_tree_tile.png";
+
 
 	// items in the game
 	public Player player;
@@ -55,7 +58,9 @@ public class Game extends StateBasedGame {
 		
 		// LOAD RESOURCES
 		ResourceManager.loadImage(PLAYER_DEFAULT_RSC);
-		ResourceManager.loadImage(SPLASH_SCREEN_RSC);
+		ResourceManager.loadImage(SPLASH_SCREEN_ON_RSC);
+		ResourceManager.loadImage(SPLASH_SCREEN_DIM_RSC);
+		ResourceManager.loadImage(SPLASH_SCREEN_OFF_RSC);
 		ResourceManager.loadImage(TILE_DIRT_RSC);
 		ResourceManager.loadImage(TREE_DIRT_RSC);
 		ResourceManager.loadImage(LEFT_TREE_DIRT_RSC);
