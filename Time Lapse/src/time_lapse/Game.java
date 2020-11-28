@@ -35,6 +35,7 @@ public class Game extends StateBasedGame {
 	public static final String TREE_DIRT_RSC = "resources/tree_tile.png";	
 	public static final String LEFT_TREE_DIRT_RSC = "resources/right_tree_tile.png";	
 	public static final String RIGHT_TREE_DIRT_RSC = "resources/left_tree_tile.png";
+	public static final String ITEM_TEMP = null;
 
 
 	// items in the game
