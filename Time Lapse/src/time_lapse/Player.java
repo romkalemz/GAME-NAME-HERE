@@ -10,18 +10,43 @@ import jig.Vector;
  class Player extends Entity {
 
 	
-	private float speed;
+	// stats 
+	private float movement_speed;
+	private int rate_of_fire;
+	private float bullet_speed;
+	private int attack_damage;
+	private float hp, max_hp;
+	
+	// setters and getters for stats
+	public void setMovementSpeed(float n) { movement_speed = n; }
+	public float getMovementSpeed() { return movement_speed; }
+	
+	public void setRateOfFire(int rof) { rate_of_fire = rof; }
+	public int getRateOfFire() { return rate_of_fire; }
+	
+	public void setBulletSpeed(float s) { bullet_speed = s; }
+	public float getBulletSpeed() { return bullet_speed; }
+	
+	public void setAttackDamage(int d) { attack_damage = d; }
+	public int getAttackDamage() { return attack_damage; }
+	
+	public void setHP(float a) { hp = a; }
+	public float getHP() { return hp; }
+	
+	// other attributes to player
 	private Image image;
 	private int pushback = 20; 		// a number the player is pushed back by
+	private Vector velocity;	
+	private int rotate_delay;
 	
-	
-	private Vector velocity;
 	public void setVelocity(final Vector v) { velocity = v; }
+	
 	public Vector getVelocity() { return velocity; }
 	
-	private int rotate_delay;
 	public void setRotateDelay(int rd) { rotate_delay = rd; }
+	
 	public int getRotateDelay() { return rotate_delay; }
+	
 	
 	public Player(final float x, final float y) {
 		super(x, y);
@@ -36,7 +61,14 @@ import jig.Vector;
 	
 	public void reset() {
 		velocity = new Vector(0, 0);
-		speed = 0.2f;
+		
+		// reset, or set initial stats
+		movement_speed = 0.2f;
+		rate_of_fire = 450;
+		attack_damage = 1;
+		max_hp = hp = 3;
+		bullet_speed = 0.3f;
+		
 	}
 	
 //	public void setRotation(int dir) {
@@ -117,7 +149,7 @@ import jig.Vector;
 		Game g = (Game) game;
 		checkBounds(g.map);
 		//checkCollision();
-		translate(velocity.scale(delta * speed));
+		translate(velocity.scale(delta * movement_speed));
 	}
 
 }

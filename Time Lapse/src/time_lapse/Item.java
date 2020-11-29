@@ -8,27 +8,14 @@ import jig.Entity;
 
 public class Item extends Entity {
 	
-	private String name;
 	private String type;
 	
-	public String getName() { return name; }
 	public String getType() { return type; }
 	
 
-	public Item(String name, String type) {
-		
-		this.name = name;
+	public Item(final float x, final float y, String type) {
+		super(x, y);
 		this.type = type;
-		
-		setType();
-		
-	}
-	
-	private void setType() {
-		
-		if(type == "arrow") {
-			
-		}
 		
 	}
 	
