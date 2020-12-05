@@ -44,7 +44,7 @@ public class Game extends StateBasedGame {
 	public Map map;
 	public Debug debug;
 	public ArrayList<Enemy> enemy;
-	public ArrayList<Item> item;
+	public ArrayList<Item> items;
 	
 	
 	public Game(String title) {
@@ -76,14 +76,14 @@ public class Game extends StateBasedGame {
 		enemy = EnemySpawner.Spawn(enemy, 500, 500, 2);
 		enemy = EnemySpawner.Spawn(enemy, 400, 800, 3);
 		
-		item = new ArrayList<Item>();
-		item = ItemHandler.Spawn(item, 200, 400, "hammer");
+		items = new ArrayList<Item>();
+		items = ItemHandler.Spawn(items, 200, 400, "hammer");
 		
 		player = new Player(400, 300);
 		debug = new Debug(10,20,"asdfasdf");
 
 		// load images for all active entities / tiles
 		ImageManager img_control = new ImageManager();
-		img_control.setImage(item.get(0), ITEM_HAMMER_RSC);
+		img_control.setImage(items.get(0), ITEM_HAMMER_RSC);
 	}
 }
