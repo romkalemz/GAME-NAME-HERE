@@ -37,6 +37,7 @@ public class Game extends StateBasedGame {
 	public static final String RIGHT_TREE_DIRT_RSC = "resources/left_tree_tile.png";
 	//public static final String ITEM_TEMP = null;
 	private static final String ITEM_HAMMER_RSC = "resources/hammer.png";
+	private static final String UI_BG_RSC = "resources/gameUI.png";
 
 
 	// items in the game
@@ -45,6 +46,7 @@ public class Game extends StateBasedGame {
 	public Debug debug;
 	public ArrayList<Enemy> enemy;
 	public ArrayList<Item> items;
+	public UIHandler UIHandler;
 	
 	
 	public Game(String title) {
@@ -69,6 +71,7 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(LEFT_TREE_DIRT_RSC);
 		ResourceManager.loadImage(RIGHT_TREE_DIRT_RSC);
 		ResourceManager.loadImage(ITEM_HAMMER_RSC);
+		ResourceManager.loadImage(UI_BG_RSC);
 
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);
 		enemy = new ArrayList<Enemy>();
@@ -81,6 +84,9 @@ public class Game extends StateBasedGame {
 		
 		player = new Player(400, 300);
 		debug = new Debug(10,20,"asdfasdf");
+		
+		UIHandler = new UIHandler(ResourceManager.getImage(UI_BG_RSC));
+		
 
 		// load images for all active entities / tiles
 		ImageManager img_control = new ImageManager();

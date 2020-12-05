@@ -42,6 +42,8 @@ class PlayingState extends BasicGameState {
 				tl.items.get(i).render(g);
 			}
 		}
+		
+		tl.UIHandler.render(tl, g);
 	}
 
 	@Override
@@ -73,6 +75,7 @@ class PlayingState extends BasicGameState {
 			
 			if(g.player.collides(item) != null) {
 				// add item to the UI
+				g.UIHandler.addItem(item);
 				
 				// remove item from the map
 				g.items.remove(i);
