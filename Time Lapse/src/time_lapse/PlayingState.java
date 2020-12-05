@@ -35,7 +35,13 @@ class PlayingState extends BasicGameState {
 				tl.enemy.get(i).render(g);
 			}
 		}
-		//tl.enemy.render(g);	
+		//tl.enemy.render(g);
+		
+		if(!tl.item.isEmpty()) {
+			for(int i = 0; i < tl.item.size(); i++) {
+				tl.item.get(i).render(g);
+			}
+		}
 	}
 
 	@Override
