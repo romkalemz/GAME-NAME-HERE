@@ -107,4 +107,11 @@ public class Map {
 			}
 		}
 	}
+
+	public Tile getTile(int x, int y) {
+		if( x<0 || y<0 || x>=numOfTilesX || y>=numOfTilesY)
+			return null;
+		else
+			return tiles[x][y];
+	}
 }
