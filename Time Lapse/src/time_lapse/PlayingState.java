@@ -35,7 +35,15 @@ class PlayingState extends BasicGameState {
 				tl.enemy.get(i).render(g);
 			}
 		}
-		//tl.enemy.render(g);	
+		//tl.enemy.render(g);
+		
+		if(!tl.items.isEmpty()) {
+			for(int i = 0; i < tl.items.size(); i++) {
+				tl.items.get(i).render(g);
+			}
+		}
+		
+		tl.UIHandler.render(tl, g);
 	}
 
 	@Override
@@ -49,10 +57,31 @@ class PlayingState extends BasicGameState {
 			else
 				debugMode = true;
 		}
+		
 		playerMove(tl, input);
+		itemCollision(tl, delta);
+		
 		tl.map.updateMap(game);
-		tl.player.update(game, delta);
-		tl.player.checkWall(tl.map);
+		tl.player.update(tl, delta);
+		tl.player.checkCollision(tl.map);
+		
+		
+	}
+
+	private void itemCollision(Game g, int delta) {
+		// remove items that have collided with the player
+		for(int i = 0; i < g.items.size(); i++) {
+			Item item = g.items.get(i);
+			
+			if(g.player.collides(item) != null) {
+				// add item to the UI
+				g.UIHandler.addItem(item);
+				
+				// remove item from the map
+				g.items.remove(i);
+			}
+			
+		}
 		
 	}
 
