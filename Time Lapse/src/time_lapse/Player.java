@@ -91,58 +91,53 @@ import jig.Vector;
 		
 	}
 	
-	public void checkWall(Map m) {
-		Tile[][] tiles = m.getTileMap();
+	public void checkCollision(Map m) {
+//		Tile[][] tiles = m.getTileMap();
+//		
+//		for(int x = 0; x < m.getNumOfTilesX(); x++) {
+//			for(int y = 0; y< m.getNumOfTilesY(); y++) {
+//				if(tiles[x][y].getType() != 0) {
+//					if(this.collides(tiles[x][y]) != null) {
+//						//System.out.println("Collided");
+//						
+//					}
+//				}
+//			}
+//		}
 		
-		for(int x = 0; x < m.getNumOfTilesX(); x++) {
-			for(int y = 0; y< m.getNumOfTilesY(); y++) {
-				if(tiles[x][y].getType() != 0) {
-					if(this.collides(tiles[x][y]) != null) {
-						//System.out.println("Collided");
-						
-					}
-				}
+		// get all 4 adjacent tiles next to player
+		Tile t;
+		int sideX = (int) Math.floor(getX() / m.getTileSize());
+		int sideY = (int) Math.floor(getY() / m.getTileSize());
+		// checking W side
+		if(sideX + 1 < m.getNumOfTilesX()) {
+			t = m.getTile(sideX +1, sideY);
+			if(t.getSolid() && collides(t) != null) {
+				setX(t.getCoarseGrainedMinX() - pushback);
+			}
+		}
+		// checking N side
+		if(sideY + 1 < m.getNumOfTilesY()) {
+			t = m.getTile(sideX, sideY + 1);
+			if(t.getSolid() && collides(t) != null) {
+				setY(t.getCoarseGrainedMinY() - pushback);
+			}
+		}
+		// checking E side
+		if(sideX - 1 > 0) {
+			t = m.getTile(sideX - 1, sideY);
+			if(t.getSolid() && collides(t) != null) {
+				setX(t.getCoarseGrainedMaxX() + pushback);
+			}
+		}
+		// checking S side
+		if(sideY - 1 > 0) {
+			t = m.getTile(sideX, sideY - 1);
+			if(t.getSolid() && collides(t) != null) {
+				setY(t.getCoarseGrainedMaxY() + pushback);
 			}
 		}
 	}
-	
-	
-//	
-//	public void checkCollision(Map map) {
-//		
-//		// CHECKING OUTER SIDES OF PLAYERS' TILES METHOD
-//		int sideX = (int) Math.floor(getX() / map.tileSize);
-//		int sideY = (int) Math.floor(getY() / map.tileSize);
-//		Tile t;
-//		// checking W side
-//		if(sideX + 1 < map.number_of_tilesX) {
-//			t = map.getTile(sideX +1, sideY);
-//			if(t.isSolid() && collides(t) != null) {
-//				setX(t.getCoarseGrainedMinX() - pushback);
-//			}
-//		}
-//		// checking N side
-//		if(sideY + 1 < map.number_of_tilesY) {
-//			t = map.getTile(sideX, sideY + 1);
-//			if(t.isSolid() && collides(t) != null) {
-//				setY(t.getCoarseGrainedMinY() - pushback);
-//			}
-//		}
-//		// checking E side
-//		if(sideX - 1 > 0) {
-//			t = map.getTile(sideX - 1, sideY);
-//			if(t.isSolid() && collides(t) != null) {
-//				setX(t.getCoarseGrainedMaxX() + pushback);
-//			}
-//		}
-//		// checking S side
-//		if(sideY - 1 > 0) {
-//			t = map.getTile(sideX, sideY - 1);
-//			if(t.isSolid() && collides(t) != null) {
-//				setY(t.getCoarseGrainedMaxY() + pushback);
-//			}
-//		}	
-//	}
 	
 
 	public void update(StateBasedGame game, final int delta) {
