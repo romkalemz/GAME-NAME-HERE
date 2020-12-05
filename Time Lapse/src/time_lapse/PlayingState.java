@@ -63,8 +63,6 @@ class PlayingState extends BasicGameState {
 		
 		tl.map.updateMap(game);
 		tl.player.update(tl, delta);
-		tl.player.checkCollision(tl.map);
-		
 		
 	}
 
@@ -108,47 +106,46 @@ class PlayingState extends BasicGameState {
 		
 		// player direction / aim
 		// wait for a slight cooldown to allow slower response times to angled facing position
-//		if (tl.player.getRotateDelay() <= 0) {
-//			if (input.isKeyDown(Input.KEY_UP)) {
-//				tl.player.setRotation(180);
-//				
-//			}
-//			
-//			if (input.isKeyDown(Input.KEY_RIGHT)) {
-//				tl.player.setRotation(270);
-//				
-//			}
-//			if (input.isKeyDown(Input.KEY_DOWN)) {
-//				tl.player.setRotation(0);
-//				
-//
-//			}
-//			if (input.isKeyDown(Input.KEY_LEFT)) {
-//				tl.player.setRotation(90);
-//				
-//			}
-//		}
-//		
-//		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)) {
-//			tl.player.setRotation(225);
-//			tl.player.setRotateDelay(50);
-//			
-//		}
-//		if (input.isKeyDown(Input.KEY_RIGHT) && input.isKeyDown(Input.KEY_DOWN)) {
-//			tl.player.setRotation(315);
-//			tl.player.setRotateDelay(50);
-//			
-//		}
-//		if (input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)) {
-//			tl.player.setRotation(45);
-//			tl.player.setRotateDelay(50);
-//			
-//		}
-//		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_LEFT)) {
-//			tl.player.setRotation(135);
-//			tl.player.setRotateDelay(50);
-//			
-//		}
+		if (tl.player.getRotateDelay() <= 0) {
+			if (input.isKeyDown(Input.KEY_UP)) {
+				tl.player.setRotation(180);
+				
+			}
+			
+			if (input.isKeyDown(Input.KEY_RIGHT)) {
+				tl.player.setRotation(270);
+				
+			}
+			if (input.isKeyDown(Input.KEY_DOWN)) {
+				tl.player.setRotation(0);
+				
+
+			}
+			if (input.isKeyDown(Input.KEY_LEFT)) {
+				tl.player.setRotation(90);
+				
+			}
+		}
+		
+		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)) {
+			tl.player.setRotation(225);
+			tl.player.setRotateDelay(50);
+			
+		}
+		if (input.isKeyDown(Input.KEY_RIGHT) && input.isKeyDown(Input.KEY_DOWN)) {
+			tl.player.setRotation(315);
+			tl.player.setRotateDelay(50);
+			
+		}
+		if (input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)) {
+			tl.player.setRotation(45);
+			tl.player.setRotateDelay(50);
+			
+		}
+		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_LEFT)) {
+			tl.player.setRotation(135);
+			tl.player.setRotateDelay(50);
+		}
 	}
 	
 	

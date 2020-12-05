@@ -71,10 +71,10 @@ import jig.Vector;
 		
 	}
 	
-//	public void setRotation(int dir) {
-//		image.setRotation(dir);
-//		addImageWithBoundingBox(image);
-//	}
+	public void setRotation(int dir) {
+		image.setRotation(dir);
+		addImageWithBoundingBox(image);
+	}
 	
 	public void checkBounds(Map m) {
 		if(this.getCoarseGrainedMinX() < 0) {
@@ -127,11 +127,19 @@ import jig.Vector;
 		}
 	}
 	
+	private void updateVariables(final int delta) {
+		rotate_delay -= delta;
+	}
+	
 
 	public void update(StateBasedGame game, final int delta) {
 		Game g = (Game) game;
+		
 		checkBounds(g.map);
-		//checkCollision();
+		checkCollision(g.map);
+		
+		updateVariables(delta);
+		
 		translate(velocity.scale(delta * movement_speed));
 	}
 
