@@ -35,6 +35,8 @@ public class Game extends StateBasedGame {
 	public static final String TREE_DIRT_RSC = "resources/tree_tile.png";	
 	public static final String LEFT_TREE_DIRT_RSC = "resources/right_tree_tile.png";	
 	public static final String RIGHT_TREE_DIRT_RSC = "resources/left_tree_tile.png";
+	public static final String BOULDER_RSC = "resources/boulder_tile.png";	
+
 	//public static final String ITEM_TEMP = null;
 	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
 	public static final String UI_BG_RSC = "resources/gameUI.png";
@@ -72,6 +74,7 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(SPLASH_SCREEN_DIM_RSC);
 		ResourceManager.loadImage(SPLASH_SCREEN_OFF_RSC);
 		ResourceManager.loadImage(TILE_DIRT_RSC);
+		ResourceManager.loadImage(BOULDER_RSC);
 		ResourceManager.loadImage(TREE_DIRT_RSC);
 		ResourceManager.loadImage(LEFT_TREE_DIRT_RSC);
 		ResourceManager.loadImage(RIGHT_TREE_DIRT_RSC);

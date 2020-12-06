@@ -37,10 +37,13 @@ public class LevelManager {
 			int [] type = new int[mapData[y].length()];
 			for (int i = 0; i < mapData[y].length(); i ++) {
 				//Convert each char to int
-				if(Character.getNumericValue(mapData[y].charAt(i)) ==  0) {
+				if(Character.getNumericValue(mapData[y].charAt(i)) ==  0) {	// Normal dirt tile
 					type[i] = 0;
 				}
-				if(Character.getNumericValue(mapData[y].charAt(i)) ==  3) {
+				if(Character.getNumericValue(mapData[y].charAt(i)) ==  6) {	// Boulder tiles
+					type[i] = 6;
+				}
+				if(Character.getNumericValue(mapData[y].charAt(i)) ==  3) {	// Get random tree tiles
 					random = randomNum.nextInt(upperBound - lowerBound) + lowerBound;
 					type[i] = random;
 					//System.out.println(random);
@@ -61,6 +64,9 @@ public class LevelManager {
 				}
 				if(type[x] == 5) {
 					tl.map.setTile(x, y, new Tile(viewStart + (x*tileSize), viewStart + (y*tileSize), type[x], 1));
+				}
+				if(type[x] == 6) {
+					tl.map.setTile(x, y, new Tile(viewStart + (x*tileSize), viewStart + (y*tileSize), 6, 6));
 				}
 			}
 		}

@@ -7,7 +7,10 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Scanner;
 
+
 public class Client {
+	
+	
 	
 	public void connect() throws IOException {
 		
