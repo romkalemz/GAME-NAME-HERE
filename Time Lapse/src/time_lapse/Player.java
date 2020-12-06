@@ -38,6 +38,7 @@ import jig.Vector;
 	private int pushback = 20; 		// a number the player is pushed back by
 	private Vector velocity;	
 	private int rotate_delay;
+	private int shoot_delay;
 	
 	public void setVelocity(final Vector v) { velocity = v; }
 	
@@ -46,6 +47,10 @@ import jig.Vector;
 	public void setRotateDelay(int rd) { rotate_delay = rd; }
 	
 	public int getRotateDelay() { return rotate_delay; }
+	
+	public void setShootDelay() { shoot_delay = rate_of_fire; }
+	
+	public int getShootDelay() { return shoot_delay; }
 	
 	
 	public Player(final float x, final float y) {
@@ -129,6 +134,7 @@ import jig.Vector;
 	
 	private void updateVariables(final int delta) {
 		rotate_delay -= delta;
+		shoot_delay -= delta;
 	}
 	
 

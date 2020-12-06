@@ -36,9 +36,9 @@ public class Game extends StateBasedGame {
 	public static final String LEFT_TREE_DIRT_RSC = "resources/right_tree_tile.png";	
 	public static final String RIGHT_TREE_DIRT_RSC = "resources/left_tree_tile.png";
 	//public static final String ITEM_TEMP = null;
-	private static final String ITEM_HAMMER_RSC = "resources/hammer.png";
-	private static final String UI_BG_RSC = "resources/gameUI.png";
-	private static final String PROJECTILE_DEFAULT_RSC = "resources/temp_projectile.png";
+	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
+	public static final String UI_BG_RSC = "resources/gameUI.png";
+	public static final String PROJECTILE_DEFAULT_RSC = "resources/temp_projectile.png";
 
 
 	// items in the game
