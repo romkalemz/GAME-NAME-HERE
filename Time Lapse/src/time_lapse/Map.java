@@ -52,7 +52,12 @@ public class Map {
 	public int getMapSizeY() {
 		return this.mapSizeY;
 	}
-	
+	public float getTranslateX() {
+		return this.translateX;
+	}
+	public float getTranslateY() {
+		return this.translateY;
+	}
 	// setTile is called in LevelManager to add tile into array
 	public void setTile(int x, int y, Tile tile) {
 		tiles[x][y] = tile;
@@ -64,7 +69,7 @@ public class Map {
 	
 	// updateMap calculates render for map scrolling
 	public void updateMap(StateBasedGame game) {
-		MainGame tl = (MainGame) game;
+		Game tl = (Game) game;
 		float playerPosX = tl.player.getX();
 		float playerPosY = tl.player.getY();
 		float playerSpeedX = tl.player.getVelocity().getX();
@@ -106,5 +111,12 @@ public class Map {
 				}
 			}
 		}
+	}
+
+	public Tile getTile(int x, int y) {
+		if( x<0 || y<0 || x>=numOfTilesX || y>=numOfTilesY)
+			return null;
+		else
+			return tiles[x][y];
 	}
 }

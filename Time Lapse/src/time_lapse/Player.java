@@ -10,23 +10,53 @@ import jig.Vector;
  class Player extends Entity {
 
 	
-	private float speed;
+	// stats 
+	private float movement_speed;
+	private int rate_of_fire;
+	private float bullet_speed;
+	private int attack_damage;
+	private float hp, max_hp;
+	
+	// setters and getters for stats
+	public void setMovementSpeed(float n) { movement_speed = n; }
+	public float getMovementSpeed() { return movement_speed; }
+	
+	public void setRateOfFire(int rof) { rate_of_fire = rof; }
+	public int getRateOfFire() { return rate_of_fire; }
+	
+	public void setBulletSpeed(float s) { bullet_speed = s; }
+	public float getBulletSpeed() { return bullet_speed; }
+	
+	public void setAttackDamage(int d) { attack_damage = d; }
+	public int getAttackDamage() { return attack_damage; }
+	
+	public void setHP(float a) { hp = a; }
+	public float getHP() { return hp; }
+	
+	// other attributes to player
 	private Image image;
 	private int pushback = 20; 		// a number the player is pushed back by
+	private Vector velocity;	
+	private int rotate_delay;
+	private int shoot_delay;
 	
-	
-	private Vector velocity;
 	public void setVelocity(final Vector v) { velocity = v; }
+	
 	public Vector getVelocity() { return velocity; }
 	
-	private int rotate_delay;
 	public void setRotateDelay(int rd) { rotate_delay = rd; }
+	
 	public int getRotateDelay() { return rotate_delay; }
+	
+	public void setShootDelay() { shoot_delay = rate_of_fire; }
+	
+	public int getShootDelay() { return shoot_delay; }
+	
 	
 	public Player(final float x, final float y) {
 		super(x, y);
 		
-		image = ResourceManager.getImage(MainGame.PLAYER_DEFAULT_RSC).getScaledCopy(40, 40);
+		image = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(40, 40);
 		addImageWithBoundingBox(image);
 		
 		reset();
@@ -36,13 +66,20 @@ import jig.Vector;
 	
 	public void reset() {
 		velocity = new Vector(0, 0);
-		speed = 0.2f;
+		
+		// reset, or set initial stats
+		movement_speed = 0.2f;
+		rate_of_fire = 450;
+		attack_damage = 1;
+		max_hp = hp = 3;
+		bullet_speed = 0.3f;
+		
 	}
 	
-//	public void setRotation(int dir) {
-//		image.setRotation(dir);
-//		addImageWithBoundingBox(image);
-//	}
+	public void setRotation(int dir) {
+		image.setRotation(dir);
+		addImageWithBoundingBox(image);
+	}
 	
 	public void checkBounds(Map m) {
 		if(this.getCoarseGrainedMinX() < 0) {
@@ -59,65 +96,57 @@ import jig.Vector;
 		
 	}
 	
-	public void checkWall(Map m) {
-		Tile[][] tiles = m.getTileMap();
+	public void checkCollision(Map m) {
 		
-		for(int x = 0; x < m.getNumOfTilesX(); x++) {
-			for(int y = 0; y< m.getNumOfTilesY(); y++) {
-				if(tiles[x][y].getType() != 0) {
-					if(this.collides(tiles[x][y]) != null) {
-						System.out.println("Collided");
-						
-					}
-				}
+		// get all 4 adjacent tiles next to player
+		Tile t;
+		int sideX = (int) Math.floor(getX() / m.getTileSize());
+		int sideY = (int) Math.floor(getY() / m.getTileSize());
+		// checking W side
+		if(sideX + 1 < m.getNumOfTilesX()) {
+			t = m.getTile(sideX +1, sideY);
+			if(t.getSolid() && collides(t) != null) {
+				setX(t.getCoarseGrainedMinX() - pushback);
+			}
+		}
+		// checking N side
+		if(sideY + 1 < m.getNumOfTilesY()) {
+			t = m.getTile(sideX, sideY + 1);
+			if(t.getSolid() && collides(t) != null) {
+				setY(t.getCoarseGrainedMinY() - pushback);
+			}
+		}
+		// checking E side
+		if(sideX - 1 > 0) {
+			t = m.getTile(sideX - 1, sideY);
+			if(t.getSolid() && collides(t) != null) {
+				setX(t.getCoarseGrainedMaxX() + pushback);
+			}
+		}
+		// checking S side
+		if(sideY - 1 > 0) {
+			t = m.getTile(sideX, sideY - 1);
+			if(t.getSolid() && collides(t) != null) {
+				setY(t.getCoarseGrainedMaxY() + pushback);
 			}
 		}
 	}
 	
-	
-//	
-//	public void checkCollision(Map map) {
-//		
-//		// CHECKING OUTER SIDES OF PLAYERS' TILES METHOD
-//		int sideX = (int) Math.floor(getX() / map.tileSize);
-//		int sideY = (int) Math.floor(getY() / map.tileSize);
-//		Tile t;
-//		// checking W side
-//		if(sideX + 1 < map.number_of_tilesX) {
-//			t = map.getTile(sideX +1, sideY);
-//			if(t.isSolid() && collides(t) != null) {
-//				setX(t.getCoarseGrainedMinX() - pushback);
-//			}
-//		}
-//		// checking N side
-//		if(sideY + 1 < map.number_of_tilesY) {
-//			t = map.getTile(sideX, sideY + 1);
-//			if(t.isSolid() && collides(t) != null) {
-//				setY(t.getCoarseGrainedMinY() - pushback);
-//			}
-//		}
-//		// checking E side
-//		if(sideX - 1 > 0) {
-//			t = map.getTile(sideX - 1, sideY);
-//			if(t.isSolid() && collides(t) != null) {
-//				setX(t.getCoarseGrainedMaxX() + pushback);
-//			}
-//		}
-//		// checking S side
-//		if(sideY - 1 > 0) {
-//			t = map.getTile(sideX, sideY - 1);
-//			if(t.isSolid() && collides(t) != null) {
-//				setY(t.getCoarseGrainedMaxY() + pushback);
-//			}
-//		}	
-//	}
+	private void updateVariables(final int delta) {
+		rotate_delay -= delta;
+		shoot_delay -= delta;
+	}
 	
 
 	public void update(StateBasedGame game, final int delta) {
-		MainGame g = (MainGame) game;
+		Game g = (Game) game;
+		
 		checkBounds(g.map);
-		//checkCollision();
-		translate(velocity.scale(delta * speed));
+		checkCollision(g.map);
+		
+		updateVariables(delta);
+		
+		translate(velocity.scale(delta * movement_speed));
 	}
 
 }

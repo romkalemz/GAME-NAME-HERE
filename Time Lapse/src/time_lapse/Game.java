@@ -11,7 +11,7 @@ import jig.Entity;
 import jig.ResourceManager;
 
 
-public class MainGame extends StateBasedGame {
+public class Game extends StateBasedGame {
 	
 	// possible states
 	public static final int SPLASHSCREEN = 0;
@@ -27,23 +27,34 @@ public class MainGame extends StateBasedGame {
 	public static final int NUM_OF_TILESY = 40;
 	
 	// resource strings
-	public static final String PLAYER_DEFAULT_RSC = "resources/player_default.png";;
-	public static final String SPLASH_SCREEN_RSC = "resources/splash_screen.jpg";;
+	public static final String PLAYER_DEFAULT_RSC = "resources/player_default.png";
+	public static final String SPLASH_SCREEN_ON_RSC = "resources/light_on.jpg";
+	public static final String SPLASH_SCREEN_DIM_RSC = "resources/light_dim.jpg";
+	public static final String SPLASH_SCREEN_OFF_RSC = "resources/light_off.jpg";
 	public static final String TILE_DIRT_RSC = "resources/dirt_tile.png";	
 	public static final String TREE_DIRT_RSC = "resources/tree_tile.png";	
 	public static final String LEFT_TREE_DIRT_RSC = "resources/right_tree_tile.png";	
-	public static final String RIGHT_TREE_DIRT_RSC = "resources/left_tree_tile.png";	
+	public static final String RIGHT_TREE_DIRT_RSC = "resources/left_tree_tile.png";
+	//public static final String ITEM_TEMP = null;
+	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
+	public static final String UI_BG_RSC = "resources/gameUI.png";
+	public static final String PROJECTILE_DEFAULT_RSC = "resources/temp_projectile.png";
+
 
 	// items in the game
 	public Player player;
 	public Map map;
-	public Debug debug;
+
 	public ArrayList<Enemy> enemy;
-	public Server GameHandler;
-	public Client PlayerHandler;
+	public ArrayList<Item> items;
+	public ArrayList<Projectile> projectiles;
+	
+	public Debug debug;
+	public UIHandler UIHandler;
+	public ImageManager image_control;
 	
 	
-	public MainGame(String title) {
+	public Game(String title) {
 		super(title);
 		
 		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
@@ -57,42 +68,36 @@ public class MainGame extends StateBasedGame {
 		
 		// LOAD RESOURCES
 		ResourceManager.loadImage(PLAYER_DEFAULT_RSC);
-		ResourceManager.loadImage(SPLASH_SCREEN_RSC);
+		ResourceManager.loadImage(SPLASH_SCREEN_ON_RSC);
+		ResourceManager.loadImage(SPLASH_SCREEN_DIM_RSC);
+		ResourceManager.loadImage(SPLASH_SCREEN_OFF_RSC);
 		ResourceManager.loadImage(TILE_DIRT_RSC);
 		ResourceManager.loadImage(TREE_DIRT_RSC);
 		ResourceManager.loadImage(LEFT_TREE_DIRT_RSC);
 		ResourceManager.loadImage(RIGHT_TREE_DIRT_RSC);
+		ResourceManager.loadImage(ITEM_HAMMER_RSC);
+		ResourceManager.loadImage(UI_BG_RSC);
+		ResourceManager.loadImage(PROJECTILE_DEFAULT_RSC);
 
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);
+		
+		player = new Player(400, 300);
+		
 		enemy = new ArrayList<Enemy>();
 		enemy = EnemySpawner.Spawn(enemy, 200, 300, 1);
 		enemy = EnemySpawner.Spawn(enemy, 500, 500, 2);
 		enemy = EnemySpawner.Spawn(enemy, 400, 800, 3);
-		player = new Player(400, 300);
+		
+		items = new ArrayList<Item>();
+		items = ItemHandler.Spawn(items, 200, 400, "hammer");
+		
+		projectiles = new ArrayList<Projectile>();
+
 		debug = new Debug(10,20,"asdfasdf");
+		UIHandler = new UIHandler(ResourceManager.getImage(UI_BG_RSC));
 		
-		//Start threads for server/client
-		Thread serverThread = new Server();
-		serverThread.start();
-		
-		Thread clientThread = new Client();
-		clientThread.start();
-
+		// load images for all active entities / tiles
+		image_control = new ImageManager();
+		image_control.setImage(items.get(0), ITEM_HAMMER_RSC);
 	}
-	
-	
-	public static void main(String[] args) {
-		AppGameContainer app;
-		try {
-			app = new AppGameContainer(new MainGame("Time Lapse v0.1"));
-			app.setDisplayMode(1200, 800, false); // 2400, 1400 is great for level design. Normal is 1200, 800
-			app.setVSync(true);
-			app.setShowFPS(true);
-			app.start();
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-
-	}
-	
 }
