@@ -22,12 +22,16 @@ public class UIHandler {
 	}
 
 	public void render(Game tl, Graphics g) {
+		// offset difference of map scrolled
+		float translateX = tl.map.getTranslateX();
+		float translateY = tl.map.getTranslateY();
+		
 		image.setFilter(Image.FILTER_LINEAR);
-		g.drawImage(image, 300, 675);
+		g.drawImage(image, 300 - translateX, 675 - translateY);
 		
 		// draw all the items collected
 		for (int i = 0; i < items_collected.size(); i++) {
-			items_collected.get(i).setPosition(350 + (i*100), 750);
+			items_collected.get(i).setPosition(350 + (i*100) - translateX, 750 - translateY);
 			items_collected.get(i).render(g);
 		}
 	}

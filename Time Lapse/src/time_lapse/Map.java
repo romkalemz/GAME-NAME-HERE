@@ -52,7 +52,12 @@ public class Map {
 	public int getMapSizeY() {
 		return this.mapSizeY;
 	}
-	
+	public float getTranslateX() {
+		return this.translateX;
+	}
+	public float getTranslateY() {
+		return this.translateY;
+	}
 	// setTile is called in LevelManager to add tile into array
 	public void setTile(int x, int y, Tile tile) {
 		tiles[x][y] = tile;
