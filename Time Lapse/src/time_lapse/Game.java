@@ -36,17 +36,22 @@ public class Game extends StateBasedGame {
 	public static final String LEFT_TREE_DIRT_RSC = "resources/right_tree_tile.png";	
 	public static final String RIGHT_TREE_DIRT_RSC = "resources/left_tree_tile.png";
 	//public static final String ITEM_TEMP = null;
-	private static final String ITEM_HAMMER_RSC = "resources/hammer.png";
-	private static final String UI_BG_RSC = "resources/gameUI.png";
+	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
+	public static final String UI_BG_RSC = "resources/gameUI.png";
+	public static final String PROJECTILE_DEFAULT_RSC = "resources/temp_projectile.png";
 
 
 	// items in the game
 	public Player player;
 	public Map map;
-	public Debug debug;
+
 	public ArrayList<Enemy> enemy;
 	public ArrayList<Item> items;
+	public ArrayList<Projectile> projectiles;
+	
+	public Debug debug;
 	public UIHandler UIHandler;
+	public ImageManager image_control;
 	
 	
 	public Game(String title) {
@@ -72,8 +77,12 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(RIGHT_TREE_DIRT_RSC);
 		ResourceManager.loadImage(ITEM_HAMMER_RSC);
 		ResourceManager.loadImage(UI_BG_RSC);
+		ResourceManager.loadImage(PROJECTILE_DEFAULT_RSC);
 
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);
+		
+		player = new Player(400, 300);
+		
 		enemy = new ArrayList<Enemy>();
 		enemy = EnemySpawner.Spawn(enemy, 200, 300, 1);
 		enemy = EnemySpawner.Spawn(enemy, 500, 500, 2);
@@ -82,14 +91,13 @@ public class Game extends StateBasedGame {
 		items = new ArrayList<Item>();
 		items = ItemHandler.Spawn(items, 200, 400, "hammer");
 		
-		player = new Player(400, 300);
+		projectiles = new ArrayList<Projectile>();
+
 		debug = new Debug(10,20,"asdfasdf");
-		
 		UIHandler = new UIHandler(ResourceManager.getImage(UI_BG_RSC));
 		
-
 		// load images for all active entities / tiles
-		ImageManager img_control = new ImageManager();
-		img_control.setImage(items.get(0), ITEM_HAMMER_RSC);
+		image_control = new ImageManager();
+		image_control.setImage(items.get(0), ITEM_HAMMER_RSC);
 	}
 }
