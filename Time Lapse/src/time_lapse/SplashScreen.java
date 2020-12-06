@@ -40,7 +40,7 @@ class SplashScreen extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game,
 			Graphics g) throws SlickException {
 
-			if(timer < 500 ) {
+			if(timer < 501 ) {
 				g.drawImage(ResourceManager.getImage(Game.SPLASH_SCREEN_ON_RSC), 0,
 						0);
 				if(timer <= 0) {
