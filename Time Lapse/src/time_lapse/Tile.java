@@ -36,6 +36,12 @@ public class Tile extends Entity {
 			addImageWithBoundingBox(img);
 			this.isSolid = true;
 		}
+		if(type == 6) {
+			Image img = ResourceManager.getImage(Game.BOULDER_RSC);
+			img.setFilter(Image.FILTER_LINEAR);
+			addImageWithBoundingBox(img);
+			this.isSolid = true;
+		}
 		this.type = type;
 	}
 	
