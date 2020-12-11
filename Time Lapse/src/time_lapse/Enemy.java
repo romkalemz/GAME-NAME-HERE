@@ -1,5 +1,7 @@
 package time_lapse;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -11,6 +13,8 @@ public class Enemy extends Entity {
 	
 	private int pushback; 		// a number the player is pushed back by
 	private float speed;
+	private ArrayList<Vector> path;	// the path the enemy follows in the game
+	public ArrayList<Vector> getPath() { return path; }
 	
 	private Image newEnemy;
 	private Vector velocity;
@@ -32,6 +36,7 @@ public class Enemy extends Entity {
 		else if(type == 3)
 			newEnemy.setColor(2, 0, 0, 255);
 		
+		path = new ArrayList<Vector>();
 		reset();
 	}
 	public void reset() {
@@ -52,6 +57,15 @@ public class Enemy extends Entity {
 			this.setPosition(this.getX(), m.getMapSizeY() - pushback);
 		}
 		
+	}
+	
+	public void setPath(Tile current) {
+		path.clear();
+		while(current != null) {
+			Vector loc = current.getPosition();
+			path.add(loc);
+			current = current.getPrev();
+		}
 	}
 	
 	public void update(StateBasedGame game, final int delta) {
