@@ -132,6 +132,12 @@ import jig.Vector;
 		}
 	}
 	
+	public void adjustStats(Item i) {
+		if(i.getType() == "hammer") {
+			attack_damage += 1;
+		}
+	}
+	
 	private void updateVariables(final int delta) {
 		rotate_delay -= delta;
 		shoot_delay -= delta;

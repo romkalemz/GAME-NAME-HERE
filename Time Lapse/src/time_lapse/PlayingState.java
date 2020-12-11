@@ -86,7 +86,8 @@ class PlayingState extends BasicGameState {
 			if(g.player.collides(item) != null) {
 				// add item to the UI
 				g.UIHandler.addItem(item);
-				
+				// adjust stats of the player
+				g.player.adjustStats(item);
 				// remove item from the map
 				g.items.remove(i);
 			}
