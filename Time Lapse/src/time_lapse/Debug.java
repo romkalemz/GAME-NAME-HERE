@@ -13,14 +13,23 @@ public class Debug extends Entity{
 		X = x;
 		Y = y;
 	}
-	public void renderDebug(Graphics g, boolean isOn) {
-		String indicator = " ";
+	public void renderDebug(Graphics g, Game game) {
+//		String indicator = " ";
+//		
+//		if(isOn)
+//			indicator = "Debug Mode On";
+//		else
+//			indicator = " ";
 		
-		if(isOn)
-			indicator = "Debug Mode On";
-		else
-			indicator = " ";
+		g.drawString("Debug Mode On", X, Y);
+		Tile[][] tiles = game.map.getTileMap();
+		for(int x = 0; x < game.map.getMapSizeX(); x++) {
+			for(int y = 0; y < game.map.getMapSizeY(); y++) {
+				if(tiles[x][y].getSolid() == true)
+					g.drawGradientLine(tiles[x][y].getPrev().getX(), tiles[x][y].getPrev().getY(), 255, 255, 255, .2f,
+						tiles[x][y].getX(), tiles[x][y].getY(), 255, 255, 255, 0.2f);
+			}
+		}
 		
-		g.drawString(indicator, X, Y);
 	}
 }

@@ -1,5 +1,7 @@
 package time_lapse;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 
 import jig.Entity;
@@ -9,6 +11,25 @@ public class Tile extends Entity {
 	
 	private int type;
 	private boolean isSolid;
+	
+	// Dikjstra fields
+	private float cost;
+	private boolean visited;
+	private ArrayList<Tile> neighbors;
+	private Tile prev;
+	private boolean corner;
+	
+	public void setCost(float c) { cost = c; }
+	public float getCost() { return cost; }
+	public void setVisited(boolean sv) { visited = sv; }
+	public boolean getVisited() { return visited; }
+	public void setNeighbors(ArrayList<Tile> n) { neighbors = n; }
+	public ArrayList<Tile> getNeighbors() { return neighbors; }
+	public void setPrev(Tile p) { prev = p; }
+	public Tile getPrev() { return prev; }
+	public void setCorner(boolean c) { corner = c; }
+	public boolean getCorner() { return corner; }
+	
 	
 	public Tile(final float x, final float y, int type, int isSolid) {
 		super(x,y);
@@ -43,6 +64,13 @@ public class Tile extends Entity {
 			this.isSolid = true;
 		}
 		this.type = type;
+		reset();
+	}
+	
+	public void reset() {
+		visited = false;
+		cost = (float) Double.POSITIVE_INFINITY;
+		prev = null;
 	}
 	
 	

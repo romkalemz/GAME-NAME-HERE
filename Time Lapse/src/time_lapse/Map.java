@@ -1,8 +1,13 @@
 package time_lapse;
 
+import java.util.ArrayList;
+import java.util.PriorityQueue;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
+
+import jig.Entity;
 
 /*
  * Map renders tiles and maintains information
@@ -97,6 +102,8 @@ public class Map {
 			prevMaxY = playerPosY + 267;
 			translateY = 267 - playerPosY;
 		}
+		// updates the dikstra elements for the map
+		updateEnemies(tl);
 	}
 	
 	// renderMap is called in PlayingState render
@@ -118,5 +125,113 @@ public class Map {
 			return null;
 		else
 			return tiles[x][y];
+	}
+	
+	// find shortest path between two entities
+	// returns an array of points needed to follow
+	public void dijkstraPath(Entity player) { 
+		// populate graph with costs of tiles from player to enemies
+		// place initial tile and neighbors into queue and adjust costs
+		Tile startTile = getTile((int)player.getX(), (int)player.getY());				// grab first tile
+		startTile.setCost(0);								// set cost of travel to 0
+		// unexplored tiles are placed in the queue
+		PriorityQueue<Tile> Q = new PriorityQueue<Tile>();
+		Q.add(startTile);								// add to the queue/stack
+		// if tile is unexplored, visit it and adjust costs
+		while(!Q.isEmpty()) {
+			Tile curTile = Q.poll();						// pop the head of the stack
+			curTile.setVisited(true);
+			curTile.setNeighbors(findNeighbors(curTile));		// finds all valid tiles around it
+			// adjust and compare values of neighboring tiles, add to Q
+			for (int i = 0; i < curTile.getNeighbors().size(); i++) {
+				Tile neighbor = curTile.getNeighbors().get(i);
+				// check if you can walk on the neighbor tile AND adjust costs
+				// first check if this is a neighboring corner tile
+				double travelDistance = travelCost(curTile, neighbor);
+				if(!neighbor.getSolid() && neighbor.getCost() > curTile.getCost() + travelDistance) {
+					neighbor.setCost((float) (curTile.getCost() + travelDistance));	// reduce cost of neighbor
+																	// since its closer than before
+					neighbor.setPrev(curTile);			// keep track of the prev
+														// so you can backtrack
+				}
+
+				if(!neighbor.getVisited())
+					Q.add(neighbor);
+				}
+		}
+	}
+	
+	// find the surrounding tiles for the given tile
+	public ArrayList<Tile> findNeighbors(Tile t) {
+		int x = (int) t.getX();
+		int y = (int) t.getY();
+		
+		ArrayList<Tile> n = new ArrayList<Tile>();
+		// SW
+		if(x > 0 && y < numOfTilesY - 1) {
+			tiles[x-1][y+1].setCorner(true);
+			n.add(tiles[x-1][y+1]);
+		}
+		// W
+		if(x > 0) {
+			n.add(tiles[x-1][y]);
+		}
+		// NW
+		if(x > 0 && y < 0) {
+			tiles[x-1][y-1].setCorner(true);
+			n.add(tiles[x-1][y-1]);
+		}
+		// N
+		if(y > 0) {
+			n.add(tiles[x][y-1]);
+		}
+		// NE
+		if(x < numOfTilesX - 1 && y > 0) {
+			tiles[x+1][y-1].setCorner(true);
+			n.add(tiles[x+1][y-1]);
+		}
+		// E
+		if(x < numOfTilesX - 1) {
+			n.add(tiles[x+1][y]);
+		}
+		// SE
+		if(x > 0 && y < numOfTilesY - 1) {
+			tiles[x-1][y+1].setCorner(true);
+			n.add(tiles[x-1][y+1]);
+		}
+		// E
+		if(y < numOfTilesY - 1) {
+			n.add(tiles[x][y+1]);
+		}
+		
+		return n;	
+	}
+	
+	private double travelCost(Tile t1, Tile t2) {
+		
+		double lx = Math.abs(t1.getX() - t2.getX());
+		double ly = Math.abs(t1.getY() - t2.getY());
+		double distance;
+		if (lx == 0)			// vertical distance travel
+			distance = ly;
+		else if (ly == 0)		//horizontal distance travel
+			distance = lx;
+		else					//diagonal distance travel
+			distance = Math.hypot(lx, ly);
+		return distance / 40;	//converting to tile distance
+	}
+	
+	public void updateEnemies(Game game) {
+		Game g = (Game) game;
+		// reset dijkstra elements for each tile
+		for (int x = 0; x < numOfTilesX; x++)
+			for (int y = 0; y < numOfTilesY; y++)
+				tiles[x][y].reset();
+		
+		// find shortest path from enemies to player
+		for(int i = 0; i < g.enemy.size(); i++) {
+			dijkstraPath(g.player);
+			//g.enemy.get(i).setPath(getTile((int) g.enemy.get(i).getX(), (int) g.enemy.get(i).getY()));
+		}
 	}
 }
