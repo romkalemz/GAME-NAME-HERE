@@ -132,7 +132,7 @@ public class Map {
 	public void dijkstraPath(Entity player) { 
 		// populate graph with costs of tiles from player to enemies
 		// place initial tile and neighbors into queue and adjust costs
-		Tile startTile = getTile((int)player.getX(), (int)player.getY());				// grab first tile
+		Tile startTile = getTile((int)player.getX() / tileSize, (int)player.getY() / tileSize);				// grab first tile
 		startTile.setCost(0);								// set cost of travel to 0
 		// unexplored tiles are placed in the queue
 		PriorityQueue<Tile> Q = new PriorityQueue<Tile>();
@@ -163,8 +163,8 @@ public class Map {
 	
 	// find the surrounding tiles for the given tile
 	public ArrayList<Tile> findNeighbors(Tile t) {
-		int x = (int) t.getX();
-		int y = (int) t.getY();
+		int x = (int) t.getX() / tileSize;
+		int y = (int) t.getY() / tileSize;
 		
 		ArrayList<Tile> n = new ArrayList<Tile>();
 		// SW
@@ -231,7 +231,7 @@ public class Map {
 		// find shortest path from enemies to player
 		for(int i = 0; i < g.enemy.size(); i++) {
 			dijkstraPath(g.player);
-			//g.enemy.get(i).setPath(getTile((int) g.enemy.get(i).getX(), (int) g.enemy.get(i).getY()));
+			g.enemy.get(i).setPath(getTile((int) g.enemy.get(i).getX() / tileSize, (int) g.enemy.get(i).getY() / tileSize));
 		}
 	}
 }

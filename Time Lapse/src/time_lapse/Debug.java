@@ -1,9 +1,11 @@
 package time_lapse;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
 
 import jig.Entity;
+import jig.Vector;
 
 public class Debug extends Entity{
 	private int X;
@@ -14,21 +16,21 @@ public class Debug extends Entity{
 		Y = y;
 	}
 	public void renderDebug(Graphics g, Game game) {
-//		String indicator = " ";
-//		
-//		if(isOn)
-//			indicator = "Debug Mode On";
-//		else
-//			indicator = " ";
+		Game tl = (Game)game;
 		
 		g.drawString("Debug Mode On", X, Y);
-		Tile[][] tiles = game.map.getTileMap();
-		for(int x = 0; x < game.map.getMapSizeX(); x++) {
-			for(int y = 0; y < game.map.getMapSizeY(); y++) {
-				if(tiles[x][y].getSolid() == true)
-					g.drawGradientLine(tiles[x][y].getPrev().getX(), tiles[x][y].getPrev().getY(), 255, 255, 255, .2f,
-						tiles[x][y].getX(), tiles[x][y].getY(), 255, 255, 255, 0.2f);
-			}
+		
+		// rendering the pathing for each enemy
+		for(int i = 0; i < tl.enemy.size(); i++)
+			renderPath(g, tl.enemy.get(i));
+	}
+	
+	private void renderPath(Graphics g, Enemy e) {
+		for(int i = 0; i < e.getPath().size()-1; i++) {
+			Vector first = e.getPath().get(i);
+			Vector next = e.getPath().get(i+1);
+			g.drawGradientLine(first.getX(), first.getY(), new Color(255, 255, 255),
+							   next.getX(), next.getY(), new Color(255, 255, 255));
 		}
 		
 	}

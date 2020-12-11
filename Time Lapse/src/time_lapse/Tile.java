@@ -7,7 +7,7 @@ import org.newdawn.slick.Image;
 import jig.Entity;
 import jig.ResourceManager;
 
-public class Tile extends Entity {
+public class Tile extends Entity implements Comparable<Tile> {
 	
 	private int type;
 	private boolean isSolid;
@@ -80,5 +80,10 @@ public class Tile extends Entity {
 	
 	public int getType() {
 		return type;
+	}
+	@Override
+	public int compareTo(Tile o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
