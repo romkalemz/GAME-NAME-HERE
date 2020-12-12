@@ -37,6 +37,7 @@ public class Game extends StateBasedGame {
 	public static final String RIGHT_TREE_DIRT_RSC = "resources/left_tree_tile.png";
 	public static final String BOULDER_RSC = "resources/boulder_tile.png";	
 	public static final String LEVEL1_TRANSITION_RSC = "resources/level1_transition.png";
+	public static final String LEVEL2_TRANSITION_RSC = "resources/level2_transition.png";
 	
 	//public static final String ITEM_TEMP = null;
 	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
@@ -86,6 +87,7 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(UI_BG_RSC);
 		ResourceManager.loadImage(PROJECTILE_DEFAULT_RSC);
 		ResourceManager.loadImage(LEVEL1_TRANSITION_RSC);
+		ResourceManager.loadImage(LEVEL2_TRANSITION_RSC);
 		
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);
 		

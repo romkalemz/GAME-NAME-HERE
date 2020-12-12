@@ -26,7 +26,11 @@ public class TransitionState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		// TODO Auto-generated method stub
 		Game tl = (Game)game;
-		g.drawImage(ResourceManager.getImage(Game.LEVEL1_TRANSITION_RSC), 400, 250);
+		if(tl.currLevel == 2) {
+			g.drawImage(ResourceManager.getImage(Game.LEVEL1_TRANSITION_RSC), 450, 300);
+		} else if(tl.currLevel == 3) {
+			g.drawImage(ResourceManager.getImage(Game.LEVEL2_TRANSITION_RSC), 450, 300);
+		}
 	}
 
 	@Override
