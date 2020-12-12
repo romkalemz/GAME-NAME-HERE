@@ -100,9 +100,17 @@ class PlayingState extends BasicGameState {
 		tl.player.setVelocity(new Vector(0, 0));
 		
 		if (input.isKeyDown(Input.KEY_1)) {
+			tl.currLevel = 1;
 			tl.enterState(Game.SPLASHSCREEN);
 		}
-		
+		if(input.isKeyDown(Input.KEY_2)) {
+			tl.currLevel = 2;
+			tl.enterState(Game.TRANSITIONSTATE);
+		}
+		if(input.isKeyDown(Input.KEY_3)) {
+			tl.currLevel = 3;
+			tl.enterState(Game.TRANSITIONSTATE);
+		}
 		// player movement
 		if (input.isKeyDown(Input.KEY_W)) {
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(0, -1)));

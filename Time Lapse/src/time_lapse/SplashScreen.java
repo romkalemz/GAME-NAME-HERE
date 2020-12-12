@@ -33,7 +33,8 @@ class SplashScreen extends BasicGameState {
 	
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) {
-		LevelManager.setLevel(game);
+		Game tl = (Game)game;
+		LevelManager.setLevel(game, tl.currLevel);
 	}
 	
 	@Override
