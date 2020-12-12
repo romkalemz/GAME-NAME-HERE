@@ -16,7 +16,7 @@ public class Game extends StateBasedGame {
 	// possible states
 	public static final int SPLASHSCREEN = 0;
 	public static final int PLAYINGSTATE = 1;
-	
+	public static final int TRANSITIONSTATE = 2;
 	/*
 	 * TODO: Will need to adjust MapSize later
 	 * Map will be larger with scrolling
@@ -36,7 +36,8 @@ public class Game extends StateBasedGame {
 	public static final String LEFT_TREE_DIRT_RSC = "resources/right_tree_tile.png";	
 	public static final String RIGHT_TREE_DIRT_RSC = "resources/left_tree_tile.png";
 	public static final String BOULDER_RSC = "resources/boulder_tile.png";	
-
+	public static final String LEVEL1_TRANSITION_RSC = "resource/level1_transition.png";
+	
 	//public static final String ITEM_TEMP = null;
 	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
 	public static final String UI_BG_RSC = "resources/gameUI.png";
@@ -67,6 +68,7 @@ public class Game extends StateBasedGame {
 		// Load states
 		addState(new SplashScreen());
 		addState(new PlayingState());
+		addState(new TransitionState());
 		
 		// LOAD RESOURCES
 		ResourceManager.loadImage(PLAYER_DEFAULT_RSC);
