@@ -19,7 +19,7 @@ public class LevelManager {
 	public static void setLevel(StateBasedGame game, int lvlNum) {
 		Game tl = (Game) game;
 		
-		tl.map.clearAndReset(game);
+		tl.map.clearAndReset(tl);
 		
 		// Store array of strings from txt file of level
 		String[] mapData = getLevelText(lvlNum);
@@ -32,8 +32,6 @@ public class LevelManager {
 		int lowerBound = 3; // In Tile class we have 3 different kinds of trees with types 3-5.
 		int upperBound = 6; // This will give us a random number between that range.
 		int random = 0;
-		
-		
 		
 		for(int y = 0; y < tl.map.getNumOfTilesY(); y++) {
 			int [] type = new int[mapData[y].length()];
@@ -73,18 +71,17 @@ public class LevelManager {
 			}
 		}
 		
+		// set entities corresponding to lvl
 		if(lvlNum == 1) {
-			setLevel1(game);
+			setLevel1(tl);
 		} else if (lvlNum == 2) {
-			
+			setLevel2(tl);
 		} else if (lvlNum == 3) {
-			
+			setLevel3(tl);
 		}
 		
 	}
-	private static void setLevel1(StateBasedGame game) {
-		Game tl = (Game) game;
-		
+	private static void setLevel1(Game tl) {
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 500, 500, 2);
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 400, 800, 3);
@@ -93,7 +90,12 @@ public class LevelManager {
 		
 		// load images for all active entities / tiles
 		tl.image_control.setImage(tl.items.get(0), Game.ITEM_HAMMER_RSC);
-		
+	}
+	private static void setLevel2(Game tl) {
+		tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);
+	}
+	private static void setLevel3(Game tl) {
+		tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);
 	}
 	// Reads level text file and converts into string array
 	private static String[] getLevelText(int level) {

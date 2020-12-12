@@ -89,6 +89,7 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(LEVEL1_TRANSITION_RSC);
 		ResourceManager.loadImage(LEVEL2_TRANSITION_RSC);
 		
+		// Initialize stuff
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);
 		
 		player = new Player(400, 300);
