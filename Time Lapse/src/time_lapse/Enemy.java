@@ -15,7 +15,9 @@ public class Enemy extends Entity {
 	private float speed;
 	private ArrayList<Vector> path;	// the path the enemy follows in the game
 	public ArrayList<Vector> getPath() { return path; }
+	private int enemyType;
 	
+	private int followPoint;
 	private Image newEnemy;
 	private Vector velocity;
 	public void setVelocity(final Vector v) { velocity = v; }
@@ -29,13 +31,16 @@ public class Enemy extends Entity {
 		super(x,y);
 		newEnemy = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(40, 40);
 		addImageWithBoundingBox(newEnemy);
-		if(type == 1)
+		enemyType = type;
+		if(type == 1) {
 			newEnemy.setColor(2, 255, 0, 0);
-		else if(type == 2)
+		}
+		else if(type == 2){
 			newEnemy.setColor(2, 0, 255, 0);
-		else if(type == 3)
+		}
+		else if(type == 3) {
 			newEnemy.setColor(2, 0, 0, 255);
-		
+		}
 		path = new ArrayList<Vector>();
 		reset();
 	}
@@ -58,6 +63,28 @@ public class Enemy extends Entity {
 		}
 		
 	}
+	
+	public void traversePath() {
+		Vector vel = new Vector(0, 0);
+		if(path.isEmpty())
+			return;
+		if(path.size() == 1)
+			followPoint = 0;
+		Vector des = path.get(followPoint);
+		Vector dif = new Vector(des.getX()-getX(), des.getY()-getY());
+		
+		if (dif.length() <= 3) {
+			followPoint++;
+			if(followPoint >= path.size())
+				followPoint = 0;
+			setPosition(des.getX(), des.getY());
+		}
+		else
+			vel = new Vector(dif.getX() / dif.length(), dif.getY() / dif.length());
+		
+		velocity = vel;
+	}
+
 	
 	public void setPath(Tile current) {
 		path.clear();
