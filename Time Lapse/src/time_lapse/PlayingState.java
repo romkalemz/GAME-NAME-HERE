@@ -99,7 +99,8 @@ class PlayingState extends BasicGameState {
 		tl.player.setVelocity(new Vector(0, 0));
 		
 		if (input.isKeyDown(Input.KEY_1)) {
-			tl.enterState(Game.SPLASHSCREEN);
+			tl.currLevel = 1;
+			tl.enterState(Game.TRANSITIONSTATE);
 		}
 		
 		// player movement
