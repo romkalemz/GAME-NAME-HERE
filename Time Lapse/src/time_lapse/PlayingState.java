@@ -64,9 +64,20 @@ class PlayingState extends BasicGameState {
 			else
 				debugMode = true;
 		}
+		if (input.isKeyDown(Input.KEY_1)) {
+			tl.currLevel = 1;
+			tl.enterState(Game.SPLASHSCREEN);
+		}
+		if(input.isKeyDown(Input.KEY_2)) {
+			tl.currLevel = 2;
+			tl.enterState(Game.TRANSITIONSTATE);
+		}
+		if(input.isKeyDown(Input.KEY_3)) {
+			tl.currLevel = 3;
+			tl.enterState(Game.TRANSITIONSTATE);
+		}
 		
-		playerMove(tl, input);
-		
+		playerControls(tl, input);
 		itemCollision(tl, delta);
 		
 		tl.map.updateMap(game);
@@ -83,7 +94,7 @@ class PlayingState extends BasicGameState {
 		for(int i = 0; i < g.items.size(); i++) {
 			Item item = g.items.get(i);
 			
-			if(g.player.collides(item) != null) {
+			if(g.player.collides(item) != null && g.player.getActiveDelay() <= 0) {
 				// add item to the UI
 				g.UIHandler.addItem(item);
 				// adjust stats of the player
@@ -96,21 +107,19 @@ class PlayingState extends BasicGameState {
 		
 	}
 
-	private void playerMove(Game tl, Input input) {
-		tl.player.setVelocity(new Vector(0, 0));
+	private void playerControls(Game tl, Input input) {
+		// drop activatable
+		if(input.isKeyDown(Input.KEY_Q) && tl.player.getActiveDelay() <= 0) {
+			tl.player.canActivate(false);				// remove the option of using SPACE to activate power
+			addItem(tl, tl.UIHandler.getActivatable());	// add the item back to the game
+			tl.UIHandler.setActivatable(null);			// remove the item from the UI
+			
+			
+		}
+		// activate activatable
 		
-		if (input.isKeyDown(Input.KEY_1)) {
-			tl.currLevel = 1;
-			tl.enterState(Game.SPLASHSCREEN);
-		}
-		if(input.isKeyDown(Input.KEY_2)) {
-			tl.currLevel = 2;
-			tl.enterState(Game.TRANSITIONSTATE);
-		}
-		if(input.isKeyDown(Input.KEY_3)) {
-			tl.currLevel = 3;
-			tl.enterState(Game.TRANSITIONSTATE);
-		}
+		
+		tl.player.setVelocity(new Vector(0, 0));
 		// player movement
 		if (input.isKeyDown(Input.KEY_W)) {
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(0, -1)));
@@ -195,6 +204,16 @@ class PlayingState extends BasicGameState {
 		}
 	}
 	
+	private void addItem(Game tl, Item activatable) {
+		// drop the item where the player is located
+		System.out.println(activatable);
+		activatable.setPosition(tl.player.getPosition());
+		// set pick up delay so that the player doesn't instantly pick it back up
+		tl.player.setActiveDelay(500);
+		// add the item back to the item list array in the game
+		tl.items.add(activatable);
+	}
+
 	private void addProjectile(Game g, Entity e, Vector v) {
 		Projectile p = new Projectile(e.getX(), e.getY());
 		g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC);

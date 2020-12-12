@@ -20,6 +20,8 @@ import jig.Vector;
 	private int item_cooldown;
 	
 	// setters and getters for stats
+	public void canActivate(boolean b) { activatable = b; }
+	
 	public void setMovementSpeed(float n) { movement_speed = n; }
 	public float getMovementSpeed() { return movement_speed; }
 	
@@ -41,19 +43,19 @@ import jig.Vector;
 	private Vector velocity;	
 	private int rotate_delay;
 	private int shoot_delay;
+	private int active_delay;
 	
 	public void setVelocity(final Vector v) { velocity = v; }
-	
 	public Vector getVelocity() { return velocity; }
 	
 	public void setRotateDelay(int rd) { rotate_delay = rd; }
-	
 	public int getRotateDelay() { return rotate_delay; }
 	
 	public void setShootDelay() { shoot_delay = rate_of_fire; }
-	
 	public int getShootDelay() { return shoot_delay; }
 	
+	public void setActiveDelay(int delay) { active_delay = delay; }
+	public int getActiveDelay()	{ return active_delay; }
 	
 	public Player(final float x, final float y) {
 		super(x, y);
@@ -68,14 +70,14 @@ import jig.Vector;
 	
 	public void reset() {
 		velocity = new Vector(0, 0);
-		
+		setPosition(400, 300);
 		// reset, or set initial stats
 		movement_speed = 0.2f;
 		rate_of_fire = 450;
 		attack_damage = 1;
 		max_hp = hp = 100;
 		bullet_speed = 0.3f;
-		
+		activatable = false;
 	}
 	
 	public void setRotation(int dir) {
@@ -155,6 +157,7 @@ import jig.Vector;
 	private void updateVariables(final int delta) {
 		rotate_delay -= delta;
 		shoot_delay -= delta;
+		active_delay -= delta;
 	}
 	
 

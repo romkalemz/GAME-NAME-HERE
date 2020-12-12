@@ -13,17 +13,25 @@ public class UIHandler {
 	ArrayList<Item> items_collected;
 	Item activatable;
 	
+	public void setActivatable(Item i) { activatable = i; }
+	public Item getActivatable() { return activatable; }
+	
 	public UIHandler(Image i1) {
 		items_collected =new ArrayList<Item>();
 		//this.image_activate = i2;
 		this.image_items = i1;
 	}
 	
+	public void reset() {
+		items_collected.clear();
+		activatable = null;
+	}
+	
 	public void addItem(Item item) {
 		if(item.isActivatable())
-			activatable = item;
+			setActivatable(item);
 		else
-		items_collected.add(item);
+			items_collected.add(item);
 	}
 
 	public void render(Game tl, Graphics g) {
