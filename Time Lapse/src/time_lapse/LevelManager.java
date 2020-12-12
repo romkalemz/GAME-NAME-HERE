@@ -19,6 +19,8 @@ public class LevelManager {
 	public static void setLevel(StateBasedGame game, int lvlNum) {
 		Game tl = (Game) game;
 		
+		tl.map.clearAndReset(game);
+		
 		// Store array of strings from txt file of level
 		String[] mapData = getLevelText(lvlNum);
 		
@@ -71,8 +73,28 @@ public class LevelManager {
 			}
 		}
 		
+		if(lvlNum == 1) {
+			setLevel1(game);
+		} else if (lvlNum == 2) {
+			
+		} else if (lvlNum == 3) {
+			
+		}
+		
 	}
-
+	private static void setLevel1(StateBasedGame game) {
+		Game tl = (Game) game;
+		
+		tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);
+		tl.enemy = EnemySpawner.Spawn(tl.enemy, 500, 500, 2);
+		tl.enemy = EnemySpawner.Spawn(tl.enemy, 400, 800, 3);
+		
+		tl.items = ItemHandler.Spawn(tl.items, 200, 400, "hammer");
+		
+		// load images for all active entities / tiles
+		tl.image_control.setImage(tl.items.get(0), Game.ITEM_HAMMER_RSC);
+		
+	}
 	// Reads level text file and converts into string array
 	private static String[] getLevelText(int level) {
 		URL u = ClassLoader.getSystemResource("./resources/Level" + level);

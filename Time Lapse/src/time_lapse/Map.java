@@ -41,7 +41,22 @@ public class Map {
 		prevMaxX = 900;
 		prevMaxY = 533;
 	}
-	
+	public void clearAndReset(StateBasedGame game) {
+		Game tl = (Game) game;
+		//Reset scrolling world
+		translateX = 0;
+		translateY = 0;
+		minScrollX = 900;
+		minScrollY = 533;
+		prevMaxX = 900;
+		prevMaxY = 533;
+		
+		// clear all entities
+		tl.items.clear();
+		tl.enemy.clear();
+		tl.projectiles.clear();
+		tl.player.setPosition(400, 300);
+	}
 	public int getTileSize() {
 		return this.tileSize;
 	}
