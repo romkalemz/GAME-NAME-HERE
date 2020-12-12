@@ -93,21 +93,22 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(LEVEL1_TRANSITION_RSC);
 		ResourceManager.loadImage(LEVEL2_TRANSITION_RSC);
 		
+		// Initialize stuff
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);
 		
 		player = new Player(400, 300);
 		
 		enemy = new ArrayList<Enemy>();
-		enemy = EnemySpawner.Spawn(enemy, 200, 300, 1);
-		enemy = EnemySpawner.Spawn(enemy, 500, 500, 2);
-		enemy = EnemySpawner.Spawn(enemy, 400, 800, 3);
 		
 		items = new ArrayList<Item>();
+<<<<<<< HEAD
 		items = ItemHandler.Spawn(items, 200, 400, "hammer");
 		items = ItemHandler.Spawn(items, 300, 500, "feather");
 		items = ItemHandler.Spawn(items, 100, 200, "shield");
 		items = ItemHandler.Spawn(items, 240, 200, "arrow");
 		items = ItemHandler.Spawn(items, 250, 400, "accelerator");
+=======
+>>>>>>> refs/remotes/origin/develop
 		
 		projectiles = new ArrayList<Projectile>();
 
@@ -116,11 +117,14 @@ public class Game extends StateBasedGame {
 		
 		// load images for all active entities / tiles
 		image_control = new ImageManager();
+<<<<<<< HEAD
 		image_control.setImage(items.get(0), ITEM_HAMMER_RSC);
 		image_control.setImage(items.get(1), ITEM_FEATHER_RSC);
 		image_control.setImage(items.get(2), ITEM_SHIELD_RSC);
 		image_control.setImage(items.get(3), ITEM_ARROW_RSC);
 		image_control.setImage(items.get(4), ITEM_ACCELERATOR_RSC);
 		
+=======
+>>>>>>> refs/remotes/origin/develop
 	}
 }
