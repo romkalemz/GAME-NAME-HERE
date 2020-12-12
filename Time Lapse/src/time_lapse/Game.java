@@ -89,17 +89,14 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(LEVEL1_TRANSITION_RSC);
 		ResourceManager.loadImage(LEVEL2_TRANSITION_RSC);
 		
+		// Initialize stuff
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);
 		
 		player = new Player(400, 300);
 		
 		enemy = new ArrayList<Enemy>();
-		enemy = EnemySpawner.Spawn(enemy, 200, 300, 1);
-		enemy = EnemySpawner.Spawn(enemy, 500, 500, 2);
-		enemy = EnemySpawner.Spawn(enemy, 400, 800, 3);
 		
 		items = new ArrayList<Item>();
-		items = ItemHandler.Spawn(items, 200, 400, "hammer");
 		
 		projectiles = new ArrayList<Projectile>();
 
@@ -108,6 +105,5 @@ public class Game extends StateBasedGame {
 		
 		// load images for all active entities / tiles
 		image_control = new ImageManager();
-		image_control.setImage(items.get(0), ITEM_HAMMER_RSC);
 	}
 }
