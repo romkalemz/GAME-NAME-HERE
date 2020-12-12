@@ -16,7 +16,7 @@ public class Game extends StateBasedGame {
 	// possible states
 	public static final int SPLASHSCREEN = 0;
 	public static final int PLAYINGSTATE = 1;
-	
+	public static final int TRANSITIONSTATE = 2;
 	/*
 	 * TODO: Will need to adjust MapSize later
 	 * Map will be larger with scrolling
@@ -36,7 +36,9 @@ public class Game extends StateBasedGame {
 	public static final String LEFT_TREE_DIRT_RSC = "resources/right_tree_tile.png";	
 	public static final String RIGHT_TREE_DIRT_RSC = "resources/left_tree_tile.png";
 	public static final String BOULDER_RSC = "resources/boulder_tile.png";	
-
+	public static final String LEVEL1_TRANSITION_RSC = "resources/level1_transition.png";
+	public static final String LEVEL2_TRANSITION_RSC = "resources/level2_transition.png";
+	
 	//public static final String ITEM_TEMP = null;
 	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
 	public static final String UI_BG_RSC = "resources/gameUI.png";
@@ -46,7 +48,9 @@ public class Game extends StateBasedGame {
 	// items in the game
 	public Player player;
 	public Map map;
-
+	
+	public int currLevel = 1;
+	
 	public ArrayList<Enemy> enemy;
 	public ArrayList<Item> items;
 	public ArrayList<Projectile> projectiles;
@@ -67,6 +71,7 @@ public class Game extends StateBasedGame {
 		// Load states
 		addState(new SplashScreen());
 		addState(new PlayingState());
+		addState(new TransitionState());
 		
 		// LOAD RESOURCES
 		ResourceManager.loadImage(PLAYER_DEFAULT_RSC);
@@ -81,7 +86,9 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(ITEM_HAMMER_RSC);
 		ResourceManager.loadImage(UI_BG_RSC);
 		ResourceManager.loadImage(PROJECTILE_DEFAULT_RSC);
-
+		ResourceManager.loadImage(LEVEL1_TRANSITION_RSC);
+		ResourceManager.loadImage(LEVEL2_TRANSITION_RSC);
+		
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);
 		
 		player = new Player(400, 300);
