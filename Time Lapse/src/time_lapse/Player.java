@@ -16,6 +16,8 @@ import jig.Vector;
 	private float bullet_speed;
 	private int attack_damage;
 	private float hp, max_hp, shield_hp;
+	private boolean activatable;
+	private int item_cooldown;
 	
 	// setters and getters for stats
 	public void setMovementSpeed(float n) { movement_speed = n; }
@@ -141,6 +143,12 @@ import jig.Vector;
 		}
 		if(i.getType() == "feather") {
 			movement_speed += 0.025f;
+		}
+		if(i.getType() == "arrow") {
+			bullet_speed += 0.05f;
+		}
+		if(i.getType() == "accelerator") {
+			activatable = true;
 		}
 	}
 	

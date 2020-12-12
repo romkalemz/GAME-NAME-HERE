@@ -44,6 +44,8 @@ public class Game extends StateBasedGame {
 	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
 	public static final String ITEM_FEATHER_RSC = "resources/item_temp.png";
 	public static final String ITEM_SHIELD_RSC = "resources/item_temp.png";
+	public static final String ITEM_ARROW_RSC = "resources/item_temp.png";
+	public static final String ITEM_ACCELERATOR_RSC = "resources/item_temp.png";
 
 	// items in the game
 	public Player player;
@@ -104,6 +106,8 @@ public class Game extends StateBasedGame {
 		items = ItemHandler.Spawn(items, 200, 400, "hammer");
 		items = ItemHandler.Spawn(items, 300, 500, "feather");
 		items = ItemHandler.Spawn(items, 100, 200, "shield");
+		items = ItemHandler.Spawn(items, 240, 200, "arrow");
+		items = ItemHandler.Spawn(items, 250, 400, "accelerator");
 		
 		projectiles = new ArrayList<Projectile>();
 
@@ -115,6 +119,8 @@ public class Game extends StateBasedGame {
 		image_control.setImage(items.get(0), ITEM_HAMMER_RSC);
 		image_control.setImage(items.get(1), ITEM_FEATHER_RSC);
 		image_control.setImage(items.get(2), ITEM_SHIELD_RSC);
+		image_control.setImage(items.get(3), ITEM_ARROW_RSC);
+		image_control.setImage(items.get(4), ITEM_ACCELERATOR_RSC);
 		
 	}
 }
