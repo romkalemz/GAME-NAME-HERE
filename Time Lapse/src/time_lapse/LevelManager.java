@@ -16,11 +16,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class LevelManager {
 
-	public static void setLevel(StateBasedGame game) {
+	public static void setLevel(StateBasedGame game, int lvlNum) {
 		Game tl = (Game) game;
 		
 		// Store array of strings from txt file of level
-		String[] mapData = getLevelText(1);
+		String[] mapData = getLevelText(lvlNum);
 		
 		int tileSize = tl.map.getTileSize();
 		int viewStart = tileSize / 2;
