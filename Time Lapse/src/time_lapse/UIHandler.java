@@ -37,7 +37,7 @@ public class UIHandler {
 		
 		// draw all the items collected
 		for (int i = 0; i < items_collected.size(); i++) {
-			items_collected.get(i).setPosition(350 + (i*100) - translateX, 750 - translateY);
+			items_collected.get(i).setPosition(350 + (i*50) - translateX, 750 - translateY);
 			items_collected.get(i).render(g);
 		}
 	}

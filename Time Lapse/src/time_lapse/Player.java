@@ -15,7 +15,7 @@ import jig.Vector;
 	private int rate_of_fire;
 	private float bullet_speed;
 	private int attack_damage;
-	private float hp, max_hp;
+	private float hp, max_hp, shield_hp;
 	
 	// setters and getters for stats
 	public void setMovementSpeed(float n) { movement_speed = n; }
@@ -71,7 +71,7 @@ import jig.Vector;
 		movement_speed = 0.2f;
 		rate_of_fire = 450;
 		attack_damage = 1;
-		max_hp = hp = 3;
+		max_hp = hp = 100;
 		bullet_speed = 0.3f;
 		
 	}
@@ -135,6 +135,12 @@ import jig.Vector;
 	public void adjustStats(Item i) {
 		if(i.getType() == "hammer") {
 			attack_damage += 1;
+		}
+		if(i.getType() == "shield") {
+			shield_hp += 10;
+		}
+		if(i.getType() == "feather") {
+			movement_speed += 0.025f;
 		}
 	}
 	

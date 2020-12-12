@@ -36,12 +36,12 @@ public class Game extends StateBasedGame {
 	public static final String LEFT_TREE_DIRT_RSC = "resources/right_tree_tile.png";	
 	public static final String RIGHT_TREE_DIRT_RSC = "resources/left_tree_tile.png";
 	public static final String BOULDER_RSC = "resources/boulder_tile.png";	
-
-	//public static final String ITEM_TEMP = null;
-	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
 	public static final String UI_BG_RSC = "resources/gameUI.png";
 	public static final String PROJECTILE_DEFAULT_RSC = "resources/temp_projectile.png";
 
+	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
+	public static final String ITEM_FEATHER_RSC = "resources/item_temp.png";
+	public static final String ITEM_SHIELD_RSC = "resources/item_temp.png";
 
 	// items in the game
 	public Player player;
@@ -81,6 +81,8 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(ITEM_HAMMER_RSC);
 		ResourceManager.loadImage(UI_BG_RSC);
 		ResourceManager.loadImage(PROJECTILE_DEFAULT_RSC);
+		ResourceManager.loadImage(ITEM_FEATHER_RSC);
+		ResourceManager.loadImage(ITEM_SHIELD_RSC);
 
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);
 		
@@ -93,6 +95,8 @@ public class Game extends StateBasedGame {
 		
 		items = new ArrayList<Item>();
 		items = ItemHandler.Spawn(items, 200, 400, "hammer");
+		items = ItemHandler.Spawn(items, 300, 500, "feather");
+		items = ItemHandler.Spawn(items, 100, 200, "shield");
 		
 		projectiles = new ArrayList<Projectile>();
 
@@ -102,5 +106,8 @@ public class Game extends StateBasedGame {
 		// load images for all active entities / tiles
 		image_control = new ImageManager();
 		image_control.setImage(items.get(0), ITEM_HAMMER_RSC);
+		image_control.setImage(items.get(1), ITEM_FEATHER_RSC);
+		image_control.setImage(items.get(2), ITEM_SHIELD_RSC);
+		
 	}
 }
