@@ -95,6 +95,8 @@ class PlayingState extends BasicGameState {
 			Item item = g.items.get(i);
 			
 			if(g.player.collides(item) != null && g.player.getActiveDelay() <= 0) {
+				if(g.UIHandler.getActivatable() != null && (item.isActivatable()))
+					break;
 				// add item to the UI
 				g.UIHandler.addItem(item);
 				// adjust stats of the player
