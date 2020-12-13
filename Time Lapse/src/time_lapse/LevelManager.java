@@ -89,7 +89,7 @@ public class LevelManager {
 		tl.items = ItemHandler.Spawn(tl.items, 200, 400, "hammer");
 		
 		// load images for all active entities / tiles
-		tl.image_control.setImage(tl.items.get(0), Game.ITEM_HAMMER_RSC);
+		tl.image_control.setImage(tl.items.get(0), Game.ITEM_HAMMER_RSC, 0, true);
 	}
 	private static void setLevel2(Game tl) {
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);
