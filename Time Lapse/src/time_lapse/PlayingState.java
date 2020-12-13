@@ -73,8 +73,12 @@ class PlayingState extends BasicGameState {
 		tl.player.update(tl, delta);
 		
 		// update each bullet on the map
-		for(int i = 0; i < tl.projectiles.size(); i++)
+		for(int i = 0; i < tl.projectiles.size(); i++) {
 			tl.projectiles.get(i).update(delta);
+			if(tl.projectiles.get(i).hitOrMiss(game)) {
+				tl.projectiles.remove(i);
+			}
+		}
 		
 	}
 
