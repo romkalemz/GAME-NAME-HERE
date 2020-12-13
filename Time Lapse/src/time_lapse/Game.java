@@ -42,8 +42,7 @@ public class Game extends StateBasedGame {
 	//public static final String ITEM_TEMP = null;
 	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
 	public static final String UI_BG_RSC = "resources/gameUI.png";
-	public static final String PROJECTILE_DEFAULT_RSC = "resources/temp_projectile.png";
-
+	public static final String PROJECTILE_DEFAULT_RSC = "resources/bullet.png";
 
 	// items in the game
 	public Player player;
