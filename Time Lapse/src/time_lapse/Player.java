@@ -12,12 +12,16 @@ import jig.Vector;
 	
 	// stats 
 	private float movement_speed;
-	private int rate_of_fire;
-	private float bullet_speed;
+	private int rate_of_fire, rate_of_fire_buffer;
+	private float bullet_speed, bullet_speed_buffer;
 	private int attack_damage;
-	private float hp, max_hp;
+	private float hp, max_hp, shield_hp;
+	private boolean activatable;
 	private int imgRotation;
 	// setters and getters for stats
+	public void canActivate(boolean b) { activatable = b; }
+	public boolean canActivate() { return activatable; }
+	
 	public void setMovementSpeed(float n) { movement_speed = n; }
 	public float getMovementSpeed() { return movement_speed; }
 	
@@ -39,19 +43,20 @@ import jig.Vector;
 	private Vector velocity;	
 	private int rotate_delay;
 	private int shoot_delay;
+	private int active_delay;
+	private int action_duration;
 	
 	public void setVelocity(final Vector v) { velocity = v; }
-	
 	public Vector getVelocity() { return velocity; }
 	
 	public void setRotateDelay(int rd) { rotate_delay = rd; }
-	
 	public int getRotateDelay() { return rotate_delay; }
 	
 	public void setShootDelay() { shoot_delay = rate_of_fire; }
-	
 	public int getShootDelay() { return shoot_delay; }
 	
+	public void setActiveDelay(int delay) { active_delay = delay; }
+	public int getActiveDelay()	{ return active_delay; }
 	
 	public Player(final float x, final float y) {
 		super(x, y);
@@ -66,14 +71,14 @@ import jig.Vector;
 	
 	public void reset() {
 		velocity = new Vector(0, 0);
-		
+		setPosition(400, 300);
 		// reset, or set initial stats
 		movement_speed = 0.2f;
-		rate_of_fire = 450;
+		rate_of_fire_buffer = rate_of_fire = 450;
 		attack_damage = 1;
-		max_hp = hp = 3;
-		bullet_speed = 0.3f;
-		
+		max_hp = hp = 100;
+		bullet_speed_buffer = bullet_speed = 0.3f;
+		activatable = false;
 	}
 	
 	public void setImageRotation(int dir) {
@@ -135,9 +140,52 @@ import jig.Vector;
 		}
 	}
 	
+	// permanemently adjust stats of the player (perma items)
+	public void adjustStats(Item i) {
+		if(i.getType() == "hammer") {
+			attack_damage += 1;
+		}
+		if(i.getType() == "shield") {
+			shield_hp += 10;
+		}
+		if(i.getType() == "feather") {
+			movement_speed += 0.025f;
+		}
+		if(i.getType() == "arrow") {
+			bullet_speed += 0.05f;
+		}
+		if(i.getType() == "accelerator" || i.getType() == "fiery") {
+			activatable = true;
+		}
+	}
+	
+	public void updateStats() {
+		bullet_speed = bullet_speed_buffer;
+		rate_of_fire = rate_of_fire_buffer;
+	}
+	
+	// do the action of the target activatable item
+	public void doAction(Item i) {
+		if(i.getType() == "accelerator") {
+			bullet_speed_buffer = bullet_speed;
+			rate_of_fire_buffer = rate_of_fire;
+			bullet_speed = 0.5f;
+			rate_of_fire = 250;
+			// start the active timer
+			action_duration = 3000;
+			// reset values back to normal once it finishes
+		}
+		if(i.getType() == "fiery") {
+		}
+	}
+	
 	private void updateVariables(final int delta) {
 		rotate_delay -= delta;
 		shoot_delay -= delta;
+		active_delay -= delta;
+		action_duration -= delta;
+		if(action_duration <= 0)
+			updateStats();
 	}
 	
 

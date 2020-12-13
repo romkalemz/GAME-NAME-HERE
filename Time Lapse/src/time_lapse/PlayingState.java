@@ -67,13 +67,25 @@ class PlayingState extends BasicGameState {
 			else
 				debugMode = true;
 		}
+		if (input.isKeyDown(Input.KEY_1)) {
+			tl.currLevel = 1;
+			tl.enterState(Game.SPLASHSCREEN);
+		}
+		if(input.isKeyDown(Input.KEY_2)) {
+			tl.currLevel = 2;
+			tl.enterState(Game.TRANSITIONSTATE);
+		}
+		if(input.isKeyDown(Input.KEY_3)) {
+			tl.currLevel = 3;
+			tl.enterState(Game.TRANSITIONSTATE);
+		}
 		
-		playerMove(tl, input);
-		updateEnemy(game,delta);
+		playerControls(tl, input);
 		itemCollision(tl, delta);
 		
 		tl.map.updateMap(game);
 		tl.player.update(tl, delta);
+		updateEnemy(game,delta);
 		
 		// update each bullet on the map
 		for(int i = 0; i < tl.projectiles.size(); i++) {
@@ -130,10 +142,13 @@ class PlayingState extends BasicGameState {
 		for(int i = 0; i < g.items.size(); i++) {
 			Item item = g.items.get(i);
 			
-			if(g.player.collides(item) != null) {
+			if(g.player.collides(item) != null && g.player.getActiveDelay() <= 0) {
+				if(g.UIHandler.getActivatable() != null && (item.isActivatable()))
+					break;
 				// add item to the UI
 				g.UIHandler.addItem(item);
-				
+				// adjust stats of the player
+				g.player.adjustStats(item);
 				// remove item from the map
 				g.items.remove(i);
 			}
@@ -142,21 +157,39 @@ class PlayingState extends BasicGameState {
 		
 	}
 
-	private void playerMove(Game tl, Input input) {
-		tl.player.setVelocity(new Vector(0, 0));
+	private void playerControls(Game tl, Input input) {
+		// drop activatable
+		if(input.isKeyDown(Input.KEY_Q) && tl.player.getActiveDelay() <= 0) {
+			tl.player.canActivate(false);				// remove the option of using SPACE to activate power
+			addItem(tl, tl.UIHandler.getActivatable());	// add the item back to the game
+			tl.UIHandler.setActivatable(null);			// remove the item from the UI
+		}
+		// activate activatable
+		if(input.isKeyDown(Input.KEY_SPACE) && tl.player.canActivate() && Item.current_cooldown <= 0) {
+			// do action / change stats of player
+			// accelerator action
+			if(tl.UIHandler.getActivatable().getType().equals("accelerator")) {
+				tl.player.doAction(tl.UIHandler.getActivatable());
+				// start a cooldown timer
+				tl.UIHandler.showTimer();
+				Item.startTimer(20);
+			}
+			// fiery action
+			else if(tl.UIHandler.getActivatable().getType().equals("fiery")) {
+				// add 24 bullets
+				for(int i = 0; i < 24; i++) {
+					Vector v = new Vector(1, 1);
+					v = v.setRotation(15 * i);
+					System.out.println(v.getRotation());
+					addProjectile(tl, tl.player, v, false);
+				}
+				tl.UIHandler.showTimer();
+				Item.startTimer(8);
+			}
+			
+		}
 		
-		if (input.isKeyDown(Input.KEY_1)) {
-			tl.currLevel = 1;
-			tl.enterState(Game.SPLASHSCREEN);
-		}
-		if(input.isKeyDown(Input.KEY_2)) {
-			tl.currLevel = 2;
-			tl.enterState(Game.TRANSITIONSTATE);
-		}
-		if(input.isKeyDown(Input.KEY_3)) {
-			tl.currLevel = 3;
-			tl.enterState(Game.TRANSITIONSTATE);
-		}
+		tl.player.setVelocity(new Vector(0, 0));
 		// player movement
 		if (input.isKeyDown(Input.KEY_W)) {
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(0, -1)));
@@ -241,6 +274,17 @@ class PlayingState extends BasicGameState {
 		}
 	}
 	
+	// add the item into the map
+	private void addItem(Game tl, Item activatable) {
+		// drop the item where the player is located
+		System.out.println(activatable);
+		activatable.setPosition(tl.player.getPosition());
+		// set pick up delay so that the player doesn't instantly pick it back up
+		tl.player.setActiveDelay(500);
+		// add the item back to the item list array in the game
+		tl.items.add(activatable);
+	}
+
 	private void addProjectile(StateBasedGame game, Entity e, Vector v, boolean fromEnemy) {
 		Projectile p = new Projectile(e.getX(), e.getY());
 		Game g = (Game)game;
@@ -264,7 +308,6 @@ class PlayingState extends BasicGameState {
 			
 //			g.player_shoot_cooldown = g.player.rof;
 		}
-		
 		p.setDirection(e, v);
 		g.projectiles.add(p);
 	}

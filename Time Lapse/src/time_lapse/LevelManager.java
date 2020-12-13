@@ -87,9 +87,25 @@ public class LevelManager {
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 400, 800, 3);
 		
 		tl.items = ItemHandler.Spawn(tl.items, 200, 400, "hammer");
+		tl.items = ItemHandler.Spawn(tl.items, 270, 450, "hammer");
+		tl.items = ItemHandler.Spawn(tl.items, 300, 500, "feather");
+		tl.items = ItemHandler.Spawn(tl.items, 100, 200, "shield");
+		tl.items = ItemHandler.Spawn(tl.items, 240, 200, "arrow");
+		tl.items = ItemHandler.Spawn(tl.items, 250, 400, "accelerator");
+		tl.items = ItemHandler.Spawn(tl.items, 500, 400, "fiery");
+
 		
 		// load images for all active entities / tiles
 		tl.image_control.setImage(tl.items.get(0), Game.ITEM_HAMMER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(1), Game.ITEM_HAMMER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(2), Game.ITEM_FEATHER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(5), Game.ITEM_ACCELERATOR_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(6), Game.ITEM_FIERY_RSC, 0, true);
+		
+		
+		
 	}
 	private static void setLevel2(Game tl) {
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);

@@ -39,11 +39,14 @@ public class Game extends StateBasedGame {
 	public static final String LEVEL1_TRANSITION_RSC = "resources/level1_transition.png";
 	public static final String LEVEL2_TRANSITION_RSC = "resources/level2_transition.png";
 	public static final String arrow = "resources/arrow.png";
-	
-	//public static final String ITEM_TEMP = null;
-	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
 	public static final String UI_BG_RSC = "resources/gameUI.png";
 	public static final String PROJECTILE_DEFAULT_RSC = "resources/bullet.png";
+	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
+	public static final String ITEM_FEATHER_RSC = "resources/item_temp.png";
+	public static final String ITEM_SHIELD_RSC = "resources/item_temp.png";
+	public static final String ITEM_ARROW_RSC = "resources/item_temp.png";
+	public static final String ITEM_ACCELERATOR_RSC = "resources/item_temp.png";
+	public static final String ITEM_FIERY_RSC = "resources/item_temp.png";
 
 	// items in the game
 	public Player player;
@@ -86,18 +89,16 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(ITEM_HAMMER_RSC);
 		ResourceManager.loadImage(UI_BG_RSC);
 		ResourceManager.loadImage(PROJECTILE_DEFAULT_RSC);
+		ResourceManager.loadImage(ITEM_FEATHER_RSC);
+		ResourceManager.loadImage(ITEM_SHIELD_RSC);
 		ResourceManager.loadImage(LEVEL1_TRANSITION_RSC);
 		ResourceManager.loadImage(LEVEL2_TRANSITION_RSC);
-		ResourceManager.loadImage(arrow);
+		
 		// Initialize stuff
-		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);
-		
+		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);	
 		player = new Player(400, 300);
-		
-		enemy = new ArrayList<Enemy>();
-		
+		enemy = new ArrayList<Enemy>();		
 		items = new ArrayList<Item>();
-		
 		projectiles = new ArrayList<Projectile>();
 
 		debug = new Debug(10,20,"asdfasdf");
@@ -105,5 +106,6 @@ public class Game extends StateBasedGame {
 		
 		// load images for all active entities / tiles
 		image_control = new ImageManager();
+
 	}
 }

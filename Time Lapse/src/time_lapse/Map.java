@@ -47,9 +47,8 @@ public class Map {
 		tl.items.clear();
 		tl.enemy.clear();
 		tl.projectiles.clear();
-		tl.UIHandler.items_collected.clear();
-		
-		tl.player.setPosition(400, 300);
+		tl.UIHandler.reset();
+		tl.player.reset();
 		// Reset scrolling world
 		translateX = 0;
 		translateY = 0;
@@ -258,5 +257,10 @@ public class Map {
 			g.enemy.get(i)
 					.setPath(getTile((int) g.enemy.get(i).getX() / tileSize, (int) g.enemy.get(i).getY() / tileSize));
 		}
+	}
+	
+	// adds an item back into the world in the middle of the game (based on desired entity location
+	public void addItem(Item item, Entity entity) {
+		
 	}
 }
