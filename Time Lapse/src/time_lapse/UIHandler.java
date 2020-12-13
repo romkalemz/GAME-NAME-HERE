@@ -32,6 +32,18 @@ public class UIHandler {
 	}
 	
 	public void addItem(Item item) {
+		// first check if this kind of item already exists in the UI
+		for(int i = 0; i < items_collected.size(); i++) {
+			//System.out.println(item.getType()+" "+items_collected.get(i).getType());
+			if(item.getType().equals(items_collected.get(i).getType())) {
+				System.out.println("FOUND A MATCH");
+				// increment count of this item
+				items_collected.get(i).increment();
+				//System.out.println(item.getIncrement());
+				return;
+			}
+		}
+		
 		if(item.isActivatable())
 			setActivatable(item);
 		else
@@ -48,6 +60,7 @@ public class UIHandler {
 		
 		// draw the elements of the UI (box, stats, activatable)
 		g.drawImage(image_items, 350 - translateX, 675 - translateY);
+
 		if(activatable != null) {
 			g.drawImage(image_activate, 540 - translateX, 10 - translateY);
 			activatable.setPosition(625 - translateX, 40 - translateY);
@@ -63,6 +76,11 @@ public class UIHandler {
 		
 		// draw all the items collected
 		for (int i = 0; i < items_collected.size(); i++) {
+			// draw a number next to the item if multiple of them have been collected
+			//System.out.print(items_collected.get(i).getIncrement());
+			if(items_collected.get(i).getIncrement() > 1)
+				g.drawString(""+items_collected.get(i).getIncrement(), 415 + (i*50) - translateX, 770 - translateY);
+			
 			items_collected.get(i).setPosition(400 + (i*50) - translateX, 750 - translateY);
 			items_collected.get(i).render(g);
 		}
