@@ -120,32 +120,6 @@ public class Enemy extends Entity {
 		velocity = vel;
 	}
 	
-	public void runAwayPath() {
-//		for(int i = 0; i< path.size(); i++) {
-//			
-//		}
-		Vector vel = new Vector(0, 0);
-		if(path.isEmpty())
-			return;
-		if(path.size() == 1)
-			followPoint = 0;
-		Vector des = path.get(followPoint);
-		des = des.reflect(des);
-		Vector dif = new Vector(des.getX()-getX(), des.getY()-getY());
-		
-		if (dif.length() <= 3) {
-			followPoint++;
-			if(followPoint >= path.size())
-				followPoint = 0;
-			setPosition(des.getX(), des.getY());
-		}
-		else
-			vel = new Vector((dif.getX() / dif.length()), (dif.getY() / dif.length()));
-		
-		velocity = vel;
-	}
-	
-	
 	public void setPath(Tile current) {
 		path.clear();
 		while(current != null) {

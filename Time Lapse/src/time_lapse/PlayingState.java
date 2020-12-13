@@ -229,7 +229,7 @@ class PlayingState extends BasicGameState {
 	
 	private void addProjectile(Game g, Entity e, Vector v) {
 		Projectile p = new Projectile(e.getX(), e.getY());
-		g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC);
+		g.image_control.setImage(p, Game.arrow);
 		if (v == null) {
 			// find the direction for the bullets to travel to
 			// check if the entity is an enemy
