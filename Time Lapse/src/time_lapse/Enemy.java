@@ -29,7 +29,7 @@ public class Enemy extends Entity {
 	
 	public Enemy(final float x, final float y, int type){
 		super(x,y);
-		newEnemy = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(40, 40);
+		newEnemy = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(32, 32);
 		addImageWithBoundingBox(newEnemy);
 		enemyType = type;
 		if(type == 1) {
