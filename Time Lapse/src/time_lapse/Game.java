@@ -38,9 +38,9 @@ public class Game extends StateBasedGame {
 	public static final String BOULDER_RSC = "resources/boulder_tile.png";	
 	public static final String LEVEL1_TRANSITION_RSC = "resources/level1_transition.png";
 	public static final String LEVEL2_TRANSITION_RSC = "resources/level2_transition.png";
+	public static final String arrow = "resources/arrow.png";
 	public static final String UI_BG_RSC = "resources/gameUI.png";
-	public static final String PROJECTILE_DEFAULT_RSC = "resources/temp_projectile.png";
-
+	public static final String PROJECTILE_DEFAULT_RSC = "resources/bullet.png";
 	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
 	public static final String ITEM_FEATHER_RSC = "resources/item_temp.png";
 	public static final String ITEM_SHIELD_RSC = "resources/item_temp.png";

@@ -17,7 +17,7 @@ import jig.Vector;
 	private int attack_damage;
 	private float hp, max_hp, shield_hp;
 	private boolean activatable;
-	
+	private int imgRotation;
 	// setters and getters for stats
 	public void canActivate(boolean b) { activatable = b; }
 	public boolean canActivate() { return activatable; }
@@ -63,7 +63,7 @@ import jig.Vector;
 		
 		image = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(40, 40);
 		addImageWithBoundingBox(image);
-		
+		imgRotation = 0;
 		reset();
 	}
 	
@@ -81,11 +81,14 @@ import jig.Vector;
 		activatable = false;
 	}
 	
-	public void setRotation(int dir) {
+	public void setImageRotation(int dir) {
 		image.setRotation(dir);
+		imgRotation = dir;
 		addImageWithBoundingBox(image);
 	}
-	
+	public int getImageRotation() {
+		return imgRotation;
+	}
 	public void checkBounds(Map m) {
 		if(this.getCoarseGrainedMinX() < 0) {
 			this.setPosition(pushback, this.getY());

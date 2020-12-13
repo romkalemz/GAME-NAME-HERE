@@ -96,13 +96,13 @@ public class LevelManager {
 
 		
 		// load images for all active entities / tiles
-		tl.image_control.setImage(tl.items.get(0), Game.ITEM_HAMMER_RSC);
-		tl.image_control.setImage(tl.items.get(1), Game.ITEM_HAMMER_RSC);
-		tl.image_control.setImage(tl.items.get(2), Game.ITEM_FEATHER_RSC);
-		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC);
-		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC);
-		tl.image_control.setImage(tl.items.get(5), Game.ITEM_ACCELERATOR_RSC);
-		tl.image_control.setImage(tl.items.get(6), Game.ITEM_FIERY_RSC);
+		tl.image_control.setImage(tl.items.get(0), Game.ITEM_HAMMER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(1), Game.ITEM_HAMMER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(2), Game.ITEM_FEATHER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(5), Game.ITEM_ACCELERATOR_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(6), Game.ITEM_FIERY_RSC, 0, true);
 		
 		
 		

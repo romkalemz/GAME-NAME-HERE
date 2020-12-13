@@ -13,6 +13,9 @@ import org.newdawn.slick.state.StateBasedGame;
 
 class PlayingState extends BasicGameState {
 	private boolean debugMode;
+	private int chaser = 1;
+	private int runner = 3;
+	private int shooter = 2;
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		Game tl = (Game)game;
@@ -82,13 +85,58 @@ class PlayingState extends BasicGameState {
 		
 		tl.map.updateMap(game);
 		tl.player.update(tl, delta);
+		updateEnemy(game,delta);
 		
 		// update each bullet on the map
-		for(int i = 0; i < tl.projectiles.size(); i++)
+		for(int i = 0; i < tl.projectiles.size(); i++) {
 			tl.projectiles.get(i).update(delta);
+			if(tl.projectiles.get(i).isFromEnemy == false) {
+				if(tl.projectiles.get(i).hitOrMiss(game)) {
+					tl.projectiles.remove(i);
+				}
+			}
+			else{
+				if(tl.projectiles.get(i).hitOrMissForEnemies(game)) {
+					tl.projectiles.remove(i);
+				}
+			}
+		}
 		
 	}
 
+	private void updateEnemy(StateBasedGame game, int delta) {
+		Game tl = (Game)game;
+		for(int i = 0; i < tl.enemy.size(); i++) {
+			if(tl.enemy.get(i).getEnemyType() == chaser) {
+				tl.enemy.get(i).chasePath();
+			}
+			if(tl.enemy.get(i).getEnemyType() == runner) {
+				if(tl.enemy.get(i).getPath().size() <= 8 && tl.enemy.get(i).getPath().size() >= 4) {
+					tl.enemy.get(i).setVelocity(tl.player.getVelocity());
+				}
+				else if(tl.enemy.get(i).getPath().size() <= 3) {
+					tl.enemy.get(i).setVelocity(tl.player.getVelocity().negate());
+				}
+				else {
+					tl.enemy.get(i).chasePath();
+				}
+			}
+			if(tl.enemy.get(i).getEnemyType() == shooter) {
+				if(tl.enemy.get(i).getPath().size() <= 5) {
+					tl.enemy.get(i).setVelocity(new Vector(0,0));
+					if(tl.enemy.get(i).shootCooldown <= 0) {
+						tl.enemy.get(i).shootCooldown = 600;
+						addProjectile(game, tl.enemy.get(i), null, true);
+					}
+				}
+				else {
+					tl.enemy.get(i).chasePath();
+				}
+			}
+			tl.enemy.get(i).shootCooldown -= delta;
+			tl.enemy.get(i).update(game, delta);
+		}
+	}
 	private void itemCollision(Game g, int delta) {
 		// remove items that have collided with the player
 		for(int i = 0; i < g.items.size(); i++) {
@@ -133,7 +181,7 @@ class PlayingState extends BasicGameState {
 					Vector v = new Vector(1, 1);
 					v = v.setRotation(15 * i);
 					System.out.println(v.getRotation());
-					addProjectile(tl, tl.player, v);
+					addProjectile(tl, tl.player, v, false);
 				}
 				tl.UIHandler.showTimer();
 				Item.startTimer(8);
@@ -160,67 +208,67 @@ class PlayingState extends BasicGameState {
 		// wait for a slight cooldown to allow slower response times to angled facing position
 		if (tl.player.getRotateDelay() <= 0) {
 			if (input.isKeyDown(Input.KEY_UP)) {
-				tl.player.setRotation(180);
+				tl.player.setImageRotation(180);
 				if(tl.player.getShootDelay() <= 0) {
-					addProjectile(tl, tl.player, new Vector(0, -1));
+					addProjectile(tl, tl.player, new Vector(0, -1),false);
 					tl.player.setShootDelay();
 				}
 			}	
 			if (input.isKeyDown(Input.KEY_RIGHT)) {
-				tl.player.setRotation(270);
+				tl.player.setImageRotation(270);
 				if(tl.player.getShootDelay() <= 0) {
-					addProjectile(tl, tl.player, new Vector(1, 0));
+					addProjectile(tl, tl.player, new Vector(1, 0),false);
 					tl.player.setShootDelay();
 				}	
 			}
 			if (input.isKeyDown(Input.KEY_DOWN)) {
-				tl.player.setRotation(0);
+				tl.player.setImageRotation(0);
 				if(tl.player.getShootDelay() <= 0) {
-					addProjectile(tl, tl.player, new Vector(0, 1));
+					addProjectile(tl, tl.player, new Vector(0, 1),false);
 					tl.player.setShootDelay();
 				}
 			}
 			if (input.isKeyDown(Input.KEY_LEFT)) {
-				tl.player.setRotation(90);
+				tl.player.setImageRotation(90);
 				if(tl.player.getShootDelay() <= 0) {
-					addProjectile(tl, tl.player, new Vector(-1, 0));
+					addProjectile(tl, tl.player, new Vector(-1, 0),false);
 					tl.player.setShootDelay();
 				}
 			}
 		}
 		
 		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)) {
-			tl.player.setRotation(225);
+			tl.player.setImageRotation(225);
 			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
-				addProjectile(tl, tl.player, new Vector(1, -1));
+				addProjectile(tl, tl.player, new Vector(1, -1),false);
 				tl.player.setShootDelay();
 			}
 			
 		}
 		if (input.isKeyDown(Input.KEY_RIGHT) && input.isKeyDown(Input.KEY_DOWN)) {
-			tl.player.setRotation(315);
+			tl.player.setImageRotation(315);
 			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
-				addProjectile(tl, tl.player, new Vector(1, 1));
+				addProjectile(tl, tl.player, new Vector(1, 1),false);
 				tl.player.setShootDelay();
 			}
 			
 		}
 		if (input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)) {
-			tl.player.setRotation(45);
+			tl.player.setImageRotation(45);
 			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
-				addProjectile(tl, tl.player, new Vector(-1, 1));
+				addProjectile(tl, tl.player, new Vector(-1, 1),false);
 				tl.player.setShootDelay();
 			}
 			
 		}
 		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_LEFT)) {
-			tl.player.setRotation(135);
+			tl.player.setImageRotation(135);
 			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
-				addProjectile(tl, tl.player, new Vector(-1, -1));
+				addProjectile(tl, tl.player, new Vector(-1, -1), false);
 				tl.player.setShootDelay();
 			}
 		}
@@ -237,21 +285,24 @@ class PlayingState extends BasicGameState {
 		tl.items.add(activatable);
 	}
 
-	private void addProjectile(Game g, Entity e, Vector v) {
+	private void addProjectile(StateBasedGame game, Entity e, Vector v, boolean fromEnemy) {
 		Projectile p = new Projectile(e.getX(), e.getY());
-		g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC);
-		if (v == null) {
+		Game g = (Game)game;
+		//g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC, (int)g.player.getImageRotation() + 90, false);
+		if (fromEnemy) {
 			// find the direction for the bullets to travel to
 			// check if the entity is an enemy
-//			p.isFromEnemy = true;
-//			Vector playerPos = g.player.getPosition();
-//			if (playerPos != e.getPosition()) {
-//				double dir = playerPos.subtract(e.getPosition()).getRotation();
-//				v = new Vector(1, 1).setRotation(dir);
-//				p.setSpeed(0.2f);
-//			}
+			g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC, (int)g.player.getImageRotation() + 90, false);
+			p.isFromEnemy = true;
+			Vector playerPos = g.player.getPosition();
+			
+				double dir = playerPos.subtract(e.getPosition()).getRotation();
+				v = new Vector(1, 1).setRotation(dir);
+				p.setSpeed(0.2f);
+			
 		} else {
 			// bullet is from the player, adjust speed and damage
+			g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC, (int)g.player.getImageRotation() + 90, false);
 			p.setDamage(g.player.getAttackDamage());
 			p.setSpeed(g.player.getBulletSpeed());
 			
