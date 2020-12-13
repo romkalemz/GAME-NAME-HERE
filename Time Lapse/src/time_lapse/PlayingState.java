@@ -138,6 +138,7 @@ class PlayingState extends BasicGameState {
 		}
 	}
 	private void itemCollision(Game g, int delta) {
+		
 		// remove items that have collided with the player
 		for(int i = 0; i < g.items.size(); i++) {
 			Item item = g.items.get(i);
