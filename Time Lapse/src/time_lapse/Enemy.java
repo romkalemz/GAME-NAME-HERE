@@ -15,12 +15,14 @@ public class Enemy extends Entity {
 	private float speed;
 	private ArrayList<Vector> path;	// the path the enemy follows in the game
 	public ArrayList<Vector> getPath() { return path; }
-	
+	private int enemyType;
+	public int shootCooldown;
+	private int followPoint;
 	private Image newEnemy;
 	private Vector velocity;
 	public void setVelocity(final Vector v) { velocity = v; }
 	public Vector getVelocity() { return velocity; }
-	
+	public int getEnemyType() {return enemyType; }
 	private int rotate_delay;
 	public void setRotateDelay(int rd) { rotate_delay = rd; }
 	public int getRotateDelay() { return rotate_delay; }
@@ -29,13 +31,16 @@ public class Enemy extends Entity {
 		super(x,y);
 		newEnemy = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(40, 40);
 		addImageWithBoundingBox(newEnemy);
-		if(type == 1)
+		enemyType = type;
+		if(type == 1) {
 			newEnemy.setColor(2, 255, 0, 0);
-		else if(type == 2)
+		}
+		else if(type == 2){
 			newEnemy.setColor(2, 0, 255, 0);
-		else if(type == 3)
+		}
+		else if(type == 3) {
 			newEnemy.setColor(2, 0, 0, 255);
-		
+		}
 		path = new ArrayList<Vector>();
 		reset();
 	}
@@ -58,6 +63,62 @@ public class Enemy extends Entity {
 		}
 		
 	}
+	public void checkCollision(Map m) {
+		
+		// get all 4 adjacent tiles next to player
+		Tile t;
+		int sideX = (int) Math.floor(getX() / m.getTileSize());
+		int sideY = (int) Math.floor(getY() / m.getTileSize());
+		// checking W side
+		if(sideX + 1 < m.getNumOfTilesX()) {
+			t = m.getTile(sideX +1, sideY);
+			if(t.getSolid() && collides(t) != null) {
+				setX(t.getCoarseGrainedMinX() - pushback);
+			}
+		}
+		// checking N side
+		if(sideY + 1 < m.getNumOfTilesY()) {
+			t = m.getTile(sideX, sideY + 1);
+			if(t.getSolid() && collides(t) != null) {
+				setY(t.getCoarseGrainedMinY() - pushback);
+			}
+		}
+		// checking E side
+		if(sideX - 1 > 0) {
+			t = m.getTile(sideX - 1, sideY);
+			if(t.getSolid() && collides(t) != null) {
+				setX(t.getCoarseGrainedMaxX() + pushback);
+			}
+		}
+		// checking S side
+		if(sideY - 1 > 0) {
+			t = m.getTile(sideX, sideY - 1);
+			if(t.getSolid() && collides(t) != null) {
+				setY(t.getCoarseGrainedMaxY() + pushback);
+			}
+		}
+	}
+	
+	public void chasePath() {
+		Vector vel = new Vector(0, 0);
+		if(path.isEmpty())
+			return;
+		if(path.size() == 1)
+			followPoint = 0;
+		Vector des = path.get(followPoint);
+		Vector dif = new Vector(des.getX()-getX(), des.getY()-getY());
+		
+		if (dif.length() <= 3) {
+			followPoint++;
+			if(followPoint >= path.size())
+				followPoint = 0;
+			setPosition(des.getX(), des.getY());
+		}
+		else
+			vel = new Vector(dif.getX() / dif.length(), dif.getY() / dif.length());
+		
+		velocity = vel;
+	}
 	
 	public void setPath(Tile current) {
 		path.clear();
@@ -71,7 +132,8 @@ public class Enemy extends Entity {
 	public void update(StateBasedGame game, final int delta) {
 		Game g = (Game) game;
 		checkBounds(g.map);
-		//checkCollision();
+		checkCollision(g.map);
+		
 		translate(velocity.scale(delta * speed));
 	}
 }
