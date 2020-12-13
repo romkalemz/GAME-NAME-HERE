@@ -12,14 +12,18 @@ public class UIHandler {
 	Image image_items, image_activate;
 	ArrayList<Item> items_collected;
 	Item activatable;
+	boolean show_cooldown;
 	
 	public void setActivatable(Item i) { activatable = i; }
 	public Item getActivatable() { return activatable; }
+	
+	public void showTimer() { show_cooldown = true; }
 	
 	public UIHandler(Image i1) {
 		items_collected =new ArrayList<Item>();
 		//this.image_activate = i2;
 		this.image_items = i1;
+		show_cooldown = false;
 	}
 	
 	public void reset() {
@@ -42,12 +46,14 @@ public class UIHandler {
 		image_items.setFilter(Image.FILTER_LINEAR);
 		image_activate = image_items.getScaledCopy(120, 60);
 		
-		// draw the elements of the UI (box, stats)
+		// draw the elements of the UI (box, stats, activatable)
 		g.drawImage(image_items, 350 - translateX, 675 - translateY);
 		if(activatable != null) {
 			g.drawImage(image_activate, 540 - translateX, 10 - translateY);
 			activatable.setPosition(625 - translateX, 40 - translateY);
 			activatable.render(g);
+			if(show_cooldown && Item.getCooldown() >= 0)
+				g.drawString(""+Item.getCooldown(), 560 - translateX, 30 - translateY);
 		}
 		
 		g.drawString("Movement Speed: " + (int)(tl.player.getMovementSpeed() *100), 25 - translateX, 710 - translateY);

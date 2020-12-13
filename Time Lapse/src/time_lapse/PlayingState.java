@@ -113,11 +113,15 @@ class PlayingState extends BasicGameState {
 			tl.player.canActivate(false);				// remove the option of using SPACE to activate power
 			addItem(tl, tl.UIHandler.getActivatable());	// add the item back to the game
 			tl.UIHandler.setActivatable(null);			// remove the item from the UI
-			
-			
 		}
 		// activate activatable
-		
+		if(input.isKeyDown(Input.KEY_SPACE) && tl.player.canActivate() && Item.current_cooldown <= 0) {
+			// do action / change stats of player
+			
+			// start a cooldown timer
+			tl.UIHandler.showTimer();
+			Item.startTimer(20);
+		}
 		
 		tl.player.setVelocity(new Vector(0, 0));
 		// player movement

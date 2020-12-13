@@ -17,10 +17,10 @@ import jig.Vector;
 	private int attack_damage;
 	private float hp, max_hp, shield_hp;
 	private boolean activatable;
-	private int item_cooldown;
 	
 	// setters and getters for stats
 	public void canActivate(boolean b) { activatable = b; }
+	public boolean canActivate() { return activatable; }
 	
 	public void setMovementSpeed(float n) { movement_speed = n; }
 	public float getMovementSpeed() { return movement_speed; }
