@@ -16,7 +16,7 @@ public class Enemy extends Entity {
 	private ArrayList<Vector> path;	// the path the enemy follows in the game
 	public ArrayList<Vector> getPath() { return path; }
 	private int enemyType;
-	
+	public int shootCooldown;
 	private int followPoint;
 	private Image newEnemy;
 	private Vector velocity;
@@ -133,6 +133,7 @@ public class Enemy extends Entity {
 		Game g = (Game) game;
 		checkBounds(g.map);
 		checkCollision(g.map);
+		
 		translate(velocity.scale(delta * speed));
 	}
 }

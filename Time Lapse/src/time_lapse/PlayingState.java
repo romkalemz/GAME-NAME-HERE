@@ -69,15 +69,26 @@ class PlayingState extends BasicGameState {
 		}
 		
 		playerMove(tl, input);
-		
+		updateEnemy(game,delta);
 		itemCollision(tl, delta);
 		
 		tl.map.updateMap(game);
 		tl.player.update(tl, delta);
 		
 		// update each bullet on the map
-		for(int i = 0; i < tl.projectiles.size(); i++)
+		for(int i = 0; i < tl.projectiles.size(); i++) {
 			tl.projectiles.get(i).update(delta);
+			if(tl.projectiles.get(i).isFromEnemy == false) {
+				if(tl.projectiles.get(i).hitOrMiss(game)) {
+					tl.projectiles.remove(i);
+				}
+			}
+			else{
+				if(tl.projectiles.get(i).hitOrMissForEnemies(game)) {
+					tl.projectiles.remove(i);
+				}
+			}
+		}
 		
 	}
 
@@ -101,12 +112,16 @@ class PlayingState extends BasicGameState {
 			if(tl.enemy.get(i).getEnemyType() == shooter) {
 				if(tl.enemy.get(i).getPath().size() <= 5) {
 					tl.enemy.get(i).setVelocity(new Vector(0,0));
-					//shoot
+					if(tl.enemy.get(i).shootCooldown <= 0) {
+						tl.enemy.get(i).shootCooldown = 600;
+						addProjectile(game, tl.enemy.get(i), null, true);
+					}
 				}
 				else {
 					tl.enemy.get(i).chasePath();
 				}
 			}
+			tl.enemy.get(i).shootCooldown -= delta;
 			tl.enemy.get(i).update(game, delta);
 		}
 	}
@@ -160,84 +175,87 @@ class PlayingState extends BasicGameState {
 		// wait for a slight cooldown to allow slower response times to angled facing position
 		if (tl.player.getRotateDelay() <= 0) {
 			if (input.isKeyDown(Input.KEY_UP)) {
-				tl.player.setRotation(180);
+				tl.player.setImageRotation(180);
 				if(tl.player.getShootDelay() <= 0) {
-					addProjectile(tl, tl.player, new Vector(0, -1));
+					addProjectile(tl, tl.player, new Vector(0, -1),false);
 					tl.player.setShootDelay();
 				}
 			}	
 			if (input.isKeyDown(Input.KEY_RIGHT)) {
-				tl.player.setRotation(270);
+				tl.player.setImageRotation(270);
 				if(tl.player.getShootDelay() <= 0) {
-					addProjectile(tl, tl.player, new Vector(1, 0));
+					addProjectile(tl, tl.player, new Vector(1, 0),false);
 					tl.player.setShootDelay();
 				}	
 			}
 			if (input.isKeyDown(Input.KEY_DOWN)) {
-				tl.player.setRotation(0);
+				tl.player.setImageRotation(0);
 				if(tl.player.getShootDelay() <= 0) {
-					addProjectile(tl, tl.player, new Vector(0, 1));
+					addProjectile(tl, tl.player, new Vector(0, 1),false);
 					tl.player.setShootDelay();
 				}
 			}
 			if (input.isKeyDown(Input.KEY_LEFT)) {
-				tl.player.setRotation(90);
+				tl.player.setImageRotation(90);
 				if(tl.player.getShootDelay() <= 0) {
-					addProjectile(tl, tl.player, new Vector(-1, 0));
+					addProjectile(tl, tl.player, new Vector(-1, 0),false);
 					tl.player.setShootDelay();
 				}
 			}
 		}
 		
 		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)) {
-			tl.player.setRotation(225);
+			tl.player.setImageRotation(225);
 			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
-				addProjectile(tl, tl.player, new Vector(1, -1));
+				addProjectile(tl, tl.player, new Vector(1, -1),false);
 				tl.player.setShootDelay();
 			}
 			
 		}
 		if (input.isKeyDown(Input.KEY_RIGHT) && input.isKeyDown(Input.KEY_DOWN)) {
-			tl.player.setRotation(315);
+			tl.player.setImageRotation(315);
 			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
-				addProjectile(tl, tl.player, new Vector(1, 1));
+				addProjectile(tl, tl.player, new Vector(1, 1),false);
 				tl.player.setShootDelay();
 			}
 			
 		}
 		if (input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)) {
-			tl.player.setRotation(45);
+			tl.player.setImageRotation(45);
 			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
-				addProjectile(tl, tl.player, new Vector(-1, 1));
+				addProjectile(tl, tl.player, new Vector(-1, 1),false);
 				tl.player.setShootDelay();
 			}
 			
 		}
 		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_LEFT)) {
-			tl.player.setRotation(135);
+			tl.player.setImageRotation(135);
 			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
-				addProjectile(tl, tl.player, new Vector(-1, -1));
+				addProjectile(tl, tl.player, new Vector(-1, -1), false);
 				tl.player.setShootDelay();
 			}
 		}
 	}
 	
-	private void addProjectile(Game g, Entity e, Vector v) {
+	private void addProjectile(StateBasedGame game, Entity e, Vector v, boolean fromEnemy) {
 		Projectile p = new Projectile(e.getX(), e.getY());
-		if (v == null) {
+		Game g = (Game)game;
+		//g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC, (int)g.player.getImageRotation() + 90, false);
+		if (fromEnemy) {
 			// find the direction for the bullets to travel to
 			// check if the entity is an enemy
-//			p.isFromEnemy = true;
-//			Vector playerPos = g.player.getPosition();
-//			if (playerPos != e.getPosition()) {
-//				double dir = playerPos.subtract(e.getPosition()).getRotation();
-//				v = new Vector(1, 1).setRotation(dir);
-//				p.setSpeed(0.2f);
-//			}
+			g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC, (int)g.player.getImageRotation() + 90, false);
+			p.isFromEnemy = true;
+			Vector playerPos = g.player.getPosition();
+			
+				double dir = playerPos.subtract(e.getPosition()).getRotation();
+				v = new Vector(1, 1).setRotation(dir);
+				p.setSpeed(0.2f);
+			
 		} else {
 			// bullet is from the player, adjust speed and damage
 			g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC, (int)g.player.getImageRotation() + 90, false);
@@ -246,6 +264,7 @@ class PlayingState extends BasicGameState {
 			
 //			g.player_shoot_cooldown = g.player.rof;
 		}
+		
 		p.setDirection(e, v);
 		g.projectiles.add(p);
 	}
