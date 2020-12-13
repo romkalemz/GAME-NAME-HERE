@@ -63,6 +63,41 @@ public class Enemy extends Entity {
 		}
 		
 	}
+	public void checkCollision(Map m) {
+		
+		// get all 4 adjacent tiles next to player
+		Tile t;
+		int sideX = (int) Math.floor(getX() / m.getTileSize());
+		int sideY = (int) Math.floor(getY() / m.getTileSize());
+		// checking W side
+		if(sideX + 1 < m.getNumOfTilesX()) {
+			t = m.getTile(sideX +1, sideY);
+			if(t.getSolid() && collides(t) != null) {
+				setX(t.getCoarseGrainedMinX() - pushback);
+			}
+		}
+		// checking N side
+		if(sideY + 1 < m.getNumOfTilesY()) {
+			t = m.getTile(sideX, sideY + 1);
+			if(t.getSolid() && collides(t) != null) {
+				setY(t.getCoarseGrainedMinY() - pushback);
+			}
+		}
+		// checking E side
+		if(sideX - 1 > 0) {
+			t = m.getTile(sideX - 1, sideY);
+			if(t.getSolid() && collides(t) != null) {
+				setX(t.getCoarseGrainedMaxX() + pushback);
+			}
+		}
+		// checking S side
+		if(sideY - 1 > 0) {
+			t = m.getTile(sideX, sideY - 1);
+			if(t.getSolid() && collides(t) != null) {
+				setY(t.getCoarseGrainedMaxY() + pushback);
+			}
+		}
+	}
 	
 	public void chasePath() {
 		Vector vel = new Vector(0, 0);
@@ -86,12 +121,16 @@ public class Enemy extends Entity {
 	}
 	
 	public void runAwayPath() {
+//		for(int i = 0; i< path.size(); i++) {
+//			
+//		}
 		Vector vel = new Vector(0, 0);
 		if(path.isEmpty())
 			return;
 		if(path.size() == 1)
 			followPoint = 0;
 		Vector des = path.get(followPoint);
+		des = des.reflect(des);
 		Vector dif = new Vector(des.getX()-getX(), des.getY()-getY());
 		
 		if (dif.length() <= 3) {
@@ -101,7 +140,7 @@ public class Enemy extends Entity {
 			setPosition(des.getX(), des.getY());
 		}
 		else
-			vel = new Vector((dif.getX() / dif.length()) * -1, (dif.getY() / dif.length()) * -1);
+			vel = new Vector((dif.getX() / dif.length()), (dif.getY() / dif.length()));
 		
 		velocity = vel;
 	}
@@ -119,7 +158,7 @@ public class Enemy extends Entity {
 	public void update(StateBasedGame game, final int delta) {
 		Game g = (Game) game;
 		checkBounds(g.map);
-		//checkCollision();
+		checkCollision(g.map);
 		translate(velocity.scale(delta * speed));
 	}
 }

@@ -87,7 +87,24 @@ class PlayingState extends BasicGameState {
 				tl.enemy.get(i).chasePath();
 			}
 			if(tl.enemy.get(i).getEnemyType() == runner) {
-				tl.enemy.get(i).runAwayPath();
+				if(tl.enemy.get(i).getPath().size() <= 8 && tl.enemy.get(i).getPath().size() >= 4) {
+					tl.enemy.get(i).setVelocity(tl.player.getVelocity());
+				}
+				else if(tl.enemy.get(i).getPath().size() <= 3) {
+					tl.enemy.get(i).setVelocity(tl.player.getVelocity().negate());
+				}
+				else {
+					tl.enemy.get(i).chasePath();
+				}
+			}
+			if(tl.enemy.get(i).getEnemyType() == shooter) {
+				if(tl.enemy.get(i).getPath().size() <= 5) {
+					tl.enemy.get(i).setVelocity(new Vector(0,0));
+					//shoot
+				}
+				else {
+					tl.enemy.get(i).chasePath();
+				}
 			}
 			tl.enemy.get(i).update(game, delta);
 		}
