@@ -117,10 +117,26 @@ class PlayingState extends BasicGameState {
 		// activate activatable
 		if(input.isKeyDown(Input.KEY_SPACE) && tl.player.canActivate() && Item.current_cooldown <= 0) {
 			// do action / change stats of player
+			// accelerator action
+			if(tl.UIHandler.getActivatable().getType().equals("accelerator")) {
+				tl.player.doAction(tl.UIHandler.getActivatable());
+				// start a cooldown timer
+				tl.UIHandler.showTimer();
+				Item.startTimer(20);
+			}
+			// fiery action
+			else if(tl.UIHandler.getActivatable().getType().equals("fiery")) {
+				// add 24 bullets
+				for(int i = 0; i < 24; i++) {
+					Vector v = new Vector(1, 1);
+					v = v.setRotation(15 * i);
+					System.out.println(v.getRotation());
+					addProjectile(tl, tl.player, v);
+				}
+				tl.UIHandler.showTimer();
+				Item.startTimer(8);
+			}
 			
-			// start a cooldown timer
-			tl.UIHandler.showTimer();
-			Item.startTimer(20);
 		}
 		
 		tl.player.setVelocity(new Vector(0, 0));
@@ -208,6 +224,7 @@ class PlayingState extends BasicGameState {
 		}
 	}
 	
+	// add the item into the map
 	private void addItem(Game tl, Item activatable) {
 		// drop the item where the player is located
 		System.out.println(activatable);

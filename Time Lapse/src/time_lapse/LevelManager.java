@@ -92,6 +92,7 @@ public class LevelManager {
 		tl.items = ItemHandler.Spawn(tl.items, 100, 200, "shield");
 		tl.items = ItemHandler.Spawn(tl.items, 240, 200, "arrow");
 		tl.items = ItemHandler.Spawn(tl.items, 250, 400, "accelerator");
+		tl.items = ItemHandler.Spawn(tl.items, 500, 400, "fiery");
 
 		
 		// load images for all active entities / tiles
@@ -101,6 +102,8 @@ public class LevelManager {
 		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC);
 		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC);
 		tl.image_control.setImage(tl.items.get(5), Game.ITEM_ACCELERATOR_RSC);
+		tl.image_control.setImage(tl.items.get(6), Game.ITEM_FIERY_RSC);
+		
 		
 		
 	}

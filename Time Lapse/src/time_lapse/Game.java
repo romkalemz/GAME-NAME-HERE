@@ -46,6 +46,7 @@ public class Game extends StateBasedGame {
 	public static final String ITEM_SHIELD_RSC = "resources/item_temp.png";
 	public static final String ITEM_ARROW_RSC = "resources/item_temp.png";
 	public static final String ITEM_ACCELERATOR_RSC = "resources/item_temp.png";
+	public static final String ITEM_FIERY_RSC = "resources/item_temp.png";
 
 	// items in the game
 	public Player player;

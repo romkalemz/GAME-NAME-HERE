@@ -12,8 +12,8 @@ import jig.Vector;
 	
 	// stats 
 	private float movement_speed;
-	private int rate_of_fire;
-	private float bullet_speed;
+	private int rate_of_fire, rate_of_fire_buffer;
+	private float bullet_speed, bullet_speed_buffer;
 	private int attack_damage;
 	private float hp, max_hp, shield_hp;
 	private boolean activatable;
@@ -44,6 +44,7 @@ import jig.Vector;
 	private int rotate_delay;
 	private int shoot_delay;
 	private int active_delay;
+	private int action_duration;
 	
 	public void setVelocity(final Vector v) { velocity = v; }
 	public Vector getVelocity() { return velocity; }
@@ -73,10 +74,10 @@ import jig.Vector;
 		setPosition(400, 300);
 		// reset, or set initial stats
 		movement_speed = 0.2f;
-		rate_of_fire = 450;
+		rate_of_fire_buffer = rate_of_fire = 450;
 		attack_damage = 1;
 		max_hp = hp = 100;
-		bullet_speed = 0.3f;
+		bullet_speed_buffer = bullet_speed = 0.3f;
 		activatable = false;
 	}
 	
@@ -136,6 +137,7 @@ import jig.Vector;
 		}
 	}
 	
+	// permanemently adjust stats of the player (perma items)
 	public void adjustStats(Item i) {
 		if(i.getType() == "hammer") {
 			attack_damage += 1;
@@ -149,8 +151,28 @@ import jig.Vector;
 		if(i.getType() == "arrow") {
 			bullet_speed += 0.05f;
 		}
-		if(i.getType() == "accelerator") {
+		if(i.getType() == "accelerator" || i.getType() == "fiery") {
 			activatable = true;
+		}
+	}
+	
+	public void updateStats() {
+		bullet_speed = bullet_speed_buffer;
+		rate_of_fire = rate_of_fire_buffer;
+	}
+	
+	// do the action of the target activatable item
+	public void doAction(Item i) {
+		if(i.getType() == "accelerator") {
+			bullet_speed_buffer = bullet_speed;
+			rate_of_fire_buffer = rate_of_fire;
+			bullet_speed = 0.5f;
+			rate_of_fire = 250;
+			// start the active timer
+			action_duration = 3000;
+			// reset values back to normal once it finishes
+		}
+		if(i.getType() == "fiery") {
 		}
 	}
 	
@@ -158,6 +180,9 @@ import jig.Vector;
 		rotate_delay -= delta;
 		shoot_delay -= delta;
 		active_delay -= delta;
+		action_duration -= delta;
+		if(action_duration <= 0)
+			updateStats();
 	}
 	
 

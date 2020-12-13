@@ -21,7 +21,7 @@ public class Item extends Entity {
 		super(x, y);
 		this.type = type;
 		this.ui_count = 1;
-		if(type == "accelerator")
+		if(type == "accelerator" || type == "fiery")
 			activatable = true;
 	}
 	
