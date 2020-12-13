@@ -13,6 +13,9 @@ import org.newdawn.slick.state.StateBasedGame;
 
 class PlayingState extends BasicGameState {
 	private boolean debugMode;
+	private int chaser = 1;
+	private int shooter = 2;
+	private int runner = 3;
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		Game tl = (Game)game;
@@ -68,7 +71,7 @@ class PlayingState extends BasicGameState {
 		playerMove(tl, input);
 		
 		itemCollision(tl, delta);
-		
+		updateEnemy(game, delta);
 		tl.map.updateMap(game);
 		tl.player.update(tl, delta);
 		
@@ -77,7 +80,20 @@ class PlayingState extends BasicGameState {
 			tl.projectiles.get(i).update(delta);
 		
 	}
+	private void updateEnemy(StateBasedGame game, int delta) {
+		Game tl = (Game)game;
+		for(int i = 0; i < tl.enemy.size(); i++) {
+			if(tl.enemy.get(i).getEnemyType() == chaser) {
+				tl.enemy.get(i).chasePath();
+			}
+			if(tl.enemy.get(i).getEnemyType() == runner) {
+				tl.enemy.get(i).runAwayPath();
+			}
+			tl.enemy.get(i).update(game, delta);
+		}
+	}
 
+	
 	private void itemCollision(Game g, int delta) {
 		// remove items that have collided with the player
 		for(int i = 0; i < g.items.size(); i++) {

@@ -22,7 +22,7 @@ public class Enemy extends Entity {
 	private Vector velocity;
 	public void setVelocity(final Vector v) { velocity = v; }
 	public Vector getVelocity() { return velocity; }
-	
+	public int getEnemyType() {return enemyType; }
 	private int rotate_delay;
 	public void setRotateDelay(int rd) { rotate_delay = rd; }
 	public int getRotateDelay() { return rotate_delay; }
@@ -64,7 +64,7 @@ public class Enemy extends Entity {
 		
 	}
 	
-	public void traversePath() {
+	public void chasePath() {
 		Vector vel = new Vector(0, 0);
 		if(path.isEmpty())
 			return;
@@ -84,7 +84,28 @@ public class Enemy extends Entity {
 		
 		velocity = vel;
 	}
-
+	
+	public void runAwayPath() {
+		Vector vel = new Vector(0, 0);
+		if(path.isEmpty())
+			return;
+		if(path.size() == 1)
+			followPoint = 0;
+		Vector des = path.get(followPoint);
+		Vector dif = new Vector(des.getX()-getX(), des.getY()-getY());
+		
+		if (dif.length() <= 3) {
+			followPoint++;
+			if(followPoint >= path.size())
+				followPoint = 0;
+			setPosition(des.getX(), des.getY());
+		}
+		else
+			vel = new Vector((dif.getX() / dif.length()) * -1, (dif.getY() / dif.length()) * -1);
+		
+		velocity = vel;
+	}
+	
 	
 	public void setPath(Tile current) {
 		path.clear();
