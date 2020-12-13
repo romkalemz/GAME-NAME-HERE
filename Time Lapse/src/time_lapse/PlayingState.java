@@ -14,8 +14,8 @@ import org.newdawn.slick.state.StateBasedGame;
 class PlayingState extends BasicGameState {
 	private boolean debugMode;
 	private int chaser = 1;
-	private int shooter = 2;
 	private int runner = 3;
+	private int shooter = 2;
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		Game tl = (Game)game;
@@ -71,7 +71,7 @@ class PlayingState extends BasicGameState {
 		playerMove(tl, input);
 		
 		itemCollision(tl, delta);
-		updateEnemy(game, delta);
+		
 		tl.map.updateMap(game);
 		tl.player.update(tl, delta);
 		
@@ -80,6 +80,7 @@ class PlayingState extends BasicGameState {
 			tl.projectiles.get(i).update(delta);
 		
 	}
+
 	private void updateEnemy(StateBasedGame game, int delta) {
 		Game tl = (Game)game;
 		for(int i = 0; i < tl.enemy.size(); i++) {
@@ -109,8 +110,6 @@ class PlayingState extends BasicGameState {
 			tl.enemy.get(i).update(game, delta);
 		}
 	}
-
-	
 	private void itemCollision(Game g, int delta) {
 		// remove items that have collided with the player
 		for(int i = 0; i < g.items.size(); i++) {
@@ -229,7 +228,6 @@ class PlayingState extends BasicGameState {
 	
 	private void addProjectile(Game g, Entity e, Vector v) {
 		Projectile p = new Projectile(e.getX(), e.getY());
-		g.image_control.setImage(p, Game.arrow);
 		if (v == null) {
 			// find the direction for the bullets to travel to
 			// check if the entity is an enemy
@@ -242,6 +240,7 @@ class PlayingState extends BasicGameState {
 //			}
 		} else {
 			// bullet is from the player, adjust speed and damage
+			g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC, (int)g.player.getImageRotation() + 90, false);
 			p.setDamage(g.player.getAttackDamage());
 			p.setSpeed(g.player.getBulletSpeed());
 			
@@ -250,7 +249,6 @@ class PlayingState extends BasicGameState {
 		p.setDirection(e, v);
 		g.projectiles.add(p);
 	}
-	
 	
 	
 	@Override

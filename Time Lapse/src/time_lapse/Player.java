@@ -16,7 +16,7 @@ import jig.Vector;
 	private float bullet_speed;
 	private int attack_damage;
 	private float hp, max_hp;
-	
+	private int imgRotation;
 	// setters and getters for stats
 	public void setMovementSpeed(float n) { movement_speed = n; }
 	public float getMovementSpeed() { return movement_speed; }
@@ -58,7 +58,7 @@ import jig.Vector;
 		
 		image = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(40, 40);
 		addImageWithBoundingBox(image);
-		
+		imgRotation = 0;
 		reset();
 	}
 	
@@ -76,11 +76,14 @@ import jig.Vector;
 		
 	}
 	
-	public void setRotation(int dir) {
+	public void setImageRotation(int dir) {
 		image.setRotation(dir);
+		imgRotation = dir;
 		addImageWithBoundingBox(image);
 	}
-	
+	public int getImageRotation() {
+		return imgRotation;
+	}
 	public void checkBounds(Map m) {
 		if(this.getCoarseGrainedMinX() < 0) {
 			this.setPosition(pushback, this.getY());
