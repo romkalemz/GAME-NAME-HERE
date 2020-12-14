@@ -15,7 +15,7 @@ import jig.Vector;
 	private int rate_of_fire, rate_of_fire_buffer;
 	private float bullet_speed, bullet_speed_buffer;
 	private int attack_damage;
-	private float hp, max_hp, shield_hp;
+	private int hp, max_hp, shield_hp;
 	private boolean activatable;
 	private int imgRotation;
 	// setters and getters for stats
@@ -34,8 +34,10 @@ import jig.Vector;
 	public void setAttackDamage(int d) { attack_damage = d; }
 	public int getAttackDamage() { return attack_damage; }
 	
-	public void setHP(float a) { hp = a; }
-	public float getHP() { return hp; }
+	public void setHP(int a) { hp = a; }
+	public int getHP() { return hp; }
+	
+	public int getShieldHP() { return shield_hp; }
 	
 	// other attributes to player
 	private Image image;

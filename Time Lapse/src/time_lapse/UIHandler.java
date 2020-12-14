@@ -10,6 +10,7 @@ import jig.ResourceManager;
 public class UIHandler {
 	
 	Image image_items, image_activate;
+	Image image_health, image_healthbox, image_shield;
 	ArrayList<Item> items_collected;
 	Item activatable;
 	boolean show_cooldown;
@@ -19,10 +20,10 @@ public class UIHandler {
 	
 	public void showTimer() { show_cooldown = true; }
 	
-	public UIHandler(Image i1) {
+	public UIHandler(Image bottom_ui) {
 		items_collected =new ArrayList<Item>();
 		//this.image_activate = i2;
-		this.image_items = i1;
+		this.image_items = bottom_ui;
 		show_cooldown = false;
 	}
 	
@@ -57,10 +58,23 @@ public class UIHandler {
 		
 		image_items.setFilter(Image.FILTER_LINEAR);
 		image_activate = image_items.getScaledCopy(120, 60);
+
+		// check players health and use appropiate image to display HP
+		image_healthbox = ResourceManager.getImage(Game.UI_HEALTHBAR_RSC);
+		image_healthbox = image_healthbox.getScaledCopy(250, 60);
+		image_health = getHealthImage(tl.player.getHP());
+		image_shield = getShieldImage(tl.player.getShieldHP());
+		g.drawImage(image_healthbox, 900 - translateX, 720 - translateY);
+		g.drawImage(image_health, 907 - translateX, 727 - translateY);
+		g.drawImage(image_shield, 907 - translateX, 727 - translateY);
+		
+		g.drawString(""+tl.player.getHP(), 907 - translateX, 727 - translateY);
+		if(tl.player.getShieldHP() > 0)
+			g.drawString(" + "+tl.player.getShieldHP(), 935 - translateX, 727 - translateY);
 		
 		// draw the elements of the UI (box, stats, activatable)
 		g.drawImage(image_items, 350 - translateX, 675 - translateY);
-
+		
 		if(activatable != null) {
 			g.drawImage(image_activate, 540 - translateX, 10 - translateY);
 			activatable.setPosition(625 - translateX, 40 - translateY);
@@ -84,6 +98,17 @@ public class UIHandler {
 			items_collected.get(i).setPosition(400 + (i*50) - translateX, 750 - translateY);
 			items_collected.get(i).render(g);
 		}
+	}
+	private Image getHealthImage(int hp) {
+		image_health = ResourceManager.getImage(Game.UI_HEALTHPIECE_RSC);
+		image_health = image_health.getScaledCopy(236 * hp/100, 46);
+		return image_health;
+	}
+	
+	private Image getShieldImage(int shield) {
+		image_shield = ResourceManager.getImage(Game.UI_HEALTHSHIELD_RSC);
+		image_shield = image_shield.getScaledCopy(236 * shield/100, 46);
+		return image_shield;
 	}
 	
 }
