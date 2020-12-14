@@ -40,6 +40,9 @@ public class Game extends StateBasedGame {
 	public static final String LEVEL2_TRANSITION_RSC = "resources/level2_transition.png";
 	public static final String arrow = "resources/arrow.png";
 	public static final String UI_BG_RSC = "resources/gameUI.png";
+	public static final String UI_HEALTHBAR_RSC = "resources/health_box.png";
+	public static final String UI_HEALTHPIECE_RSC = "resources/health_piece.png";
+	public static final String UI_HEALTHSHIELD_RSC = "resources/shield_piece.png";
 	public static final String PROJECTILE_DEFAULT_RSC = "resources/bullet.png";
 	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
 	public static final String ITEM_FEATHER_RSC = "resources/item_temp.png";
@@ -77,7 +80,7 @@ public class Game extends StateBasedGame {
 		addState(new TransitionState());
 		
 		// LOAD RESOURCES
-		ResourceManager.loadImage(PLAYER_DEFAULT_RSC);
+		ResourceManager.loadImage(PLAYER_DEFAULT_RSC); 
 		ResourceManager.loadImage(SPLASH_SCREEN_ON_RSC);
 		ResourceManager.loadImage(SPLASH_SCREEN_DIM_RSC);
 		ResourceManager.loadImage(SPLASH_SCREEN_OFF_RSC);
@@ -93,6 +96,9 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(ITEM_SHIELD_RSC);
 		ResourceManager.loadImage(LEVEL1_TRANSITION_RSC);
 		ResourceManager.loadImage(LEVEL2_TRANSITION_RSC);
+		ResourceManager.loadImage(UI_HEALTHBAR_RSC);
+		ResourceManager.loadImage(UI_HEALTHPIECE_RSC);
+		ResourceManager.loadImage(UI_HEALTHSHIELD_RSC);
 		
 		// Initialize stuff
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);	
