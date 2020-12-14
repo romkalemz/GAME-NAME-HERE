@@ -207,14 +207,15 @@ class PlayingState extends BasicGameState {
 		
 		// player direction / aim
 		// wait for a slight cooldown to allow slower response times to angled facing position
+		
 		if (tl.player.getRotateDelay() <= 0) {
 			if (input.isKeyDown(Input.KEY_UP)) {
 				tl.player.setImageRotation(180);
 				if(tl.player.getShootDelay() <= 0) {
-					addProjectile(tl, tl.player, new Vector(0, -1),false);
+					addProjectile(tl, tl.player, new Vector(0, -1), false);
 					tl.player.setShootDelay();
 				}
-			}	
+			}
 			if (input.isKeyDown(Input.KEY_RIGHT)) {
 				tl.player.setImageRotation(270);
 				if(tl.player.getShootDelay() <= 0) {
