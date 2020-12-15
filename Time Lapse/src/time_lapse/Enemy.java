@@ -20,15 +20,23 @@ public class Enemy extends Entity {
 	private int followPoint;
 	private Image newEnemy;
 	private Vector velocity;
+	private int hp, KO;
+	
+	public int getKO() { return KO; }
+	public int getHP() { return hp; }
+	
 	public void setVelocity(final Vector v) { velocity = v; }
 	public Vector getVelocity() { return velocity; }
 	public int getEnemyType() {return enemyType; }
+	
 	private int rotate_delay;
+	
 	public void setRotateDelay(int rd) { rotate_delay = rd; }
 	public int getRotateDelay() { return rotate_delay; }
 	
 	public Enemy(final float x, final float y, int type){
 		super(x,y);
+		
 		newEnemy = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(32, 32);
 		addImageWithBoundingBox(newEnemy);
 		enemyType = type;
@@ -48,6 +56,8 @@ public class Enemy extends Entity {
 		velocity = new Vector(0, 0);
 		speed = 0.2f;
 		pushback = 20;
+		hp = 15;
+		KO = 0;
 	}
 	public void checkBounds(Map m) {
 		if(this.getCoarseGrainedMinX() < 0) {
@@ -63,6 +73,14 @@ public class Enemy extends Entity {
 		}
 		
 	}
+	
+	public void takeDamage(Projectile projectile, int damage) {
+		// have a knockback for enemies (realistic)
+		KO = 75;
+		velocity = velocity.add(projectile.getVelocity().scale(1.5f));
+		hp -= damage;
+	}
+	
 	public void checkCollision(Map m) {
 		
 		// get all 4 adjacent tiles next to player
@@ -129,10 +147,16 @@ public class Enemy extends Entity {
 		}
 	}
 	
+	private void updateVariables(final int delta) {
+		KO -= delta;
+	}
+	
 	public void update(StateBasedGame game, final int delta) {
 		Game g = (Game) game;
+		
 		checkBounds(g.map);
 		checkCollision(g.map);
+		updateVariables(delta);
 		
 		translate(velocity.scale(delta * speed));
 	}

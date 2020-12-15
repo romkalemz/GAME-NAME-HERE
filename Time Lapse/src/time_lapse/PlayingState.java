@@ -92,6 +92,10 @@ class PlayingState extends BasicGameState {
 			tl.projectiles.get(i).update(delta);
 			if(tl.projectiles.get(i).isFromEnemy == false) {
 				if(tl.projectiles.get(i).hitOrMiss(game)) {
+					for(int j = 0; j < tl.enemy.size(); j++) {
+						if(tl.enemy.get(j).collides(tl.projectiles.get(i)) != null)
+							tl.enemy.get(j).takeDamage(tl.projectiles.get(i), tl.player.getAttackDamage());
+					}
 					tl.projectiles.remove(i);
 				}
 			}
@@ -112,10 +116,10 @@ class PlayingState extends BasicGameState {
 	private void updateEnemy(StateBasedGame game, int delta) {
 		Game tl = (Game)game;
 		for(int i = 0; i < tl.enemy.size(); i++) {
-			if(tl.enemy.get(i).getEnemyType() == chaser) {
+			if(tl.enemy.get(i).getEnemyType() == chaser && tl.enemy.get(i).getKO() <= 0) {
 				tl.enemy.get(i).chasePath();
 			}
-			if(tl.enemy.get(i).getEnemyType() == runner) {
+			if(tl.enemy.get(i).getEnemyType() == runner && tl.enemy.get(i).getKO() <= 0) {
 				if(tl.enemy.get(i).getPath().size() <= 8 && tl.enemy.get(i).getPath().size() >= 4) {
 					tl.enemy.get(i).setVelocity(tl.player.getVelocity());
 				}
@@ -126,7 +130,7 @@ class PlayingState extends BasicGameState {
 					tl.enemy.get(i).chasePath();
 				}
 			}
-			if(tl.enemy.get(i).getEnemyType() == shooter) {
+			if(tl.enemy.get(i).getEnemyType() == shooter && tl.enemy.get(i).getKO() <= 0) {
 				if(tl.enemy.get(i).getPath().size() <= 5) {
 					tl.enemy.get(i).setVelocity(new Vector(0,0));
 					if(tl.enemy.get(i).shootCooldown <= 0) {
@@ -134,7 +138,7 @@ class PlayingState extends BasicGameState {
 						addProjectile(game, tl.enemy.get(i), null, true);
 					}
 				}
-				else {
+				else if(tl.enemy.get(i).getKO() <= 0){
 					tl.enemy.get(i).chasePath();
 				}
 			}
