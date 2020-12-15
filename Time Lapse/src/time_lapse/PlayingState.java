@@ -97,6 +97,11 @@ class PlayingState extends BasicGameState {
 			}
 			else{
 				if(tl.projectiles.get(i).hitOrMissForEnemies(game)) {
+					if(tl.projectiles.get(i).collides(tl.player)!= null) {
+						// reduce health of the player
+						// 5 damage from enemy bullets
+						tl.player.takeDamage(5);
+					}
 					tl.projectiles.remove(i);
 				}
 			}
@@ -159,7 +164,7 @@ class PlayingState extends BasicGameState {
 
 	private void playerControls(Game tl, Input input) {
 		// drop activatable
-		if(input.isKeyDown(Input.KEY_Q) && tl.player.getActiveDelay() <= 0) {
+		if(input.isKeyDown(Input.KEY_Q) && tl.player.getActiveDelay() <= 0 && tl.UIHandler.getActivatable() != null) {
 			tl.player.canActivate(false);				// remove the option of using SPACE to activate power
 			addItem(tl, tl.UIHandler.getActivatable());	// add the item back to the game
 			tl.UIHandler.setActivatable(null);			// remove the item from the UI
