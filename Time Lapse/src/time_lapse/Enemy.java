@@ -2,6 +2,7 @@ package time_lapse;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -18,9 +19,10 @@ public class Enemy extends Entity {
 	private int enemyType;
 	public int shootCooldown;
 	private int followPoint;
-	private Image newEnemy;
+	private Image newEnemy, healthBar;
 	private Vector velocity;
-	private int hp, KO;
+	private int hp, total_hp, KO;
+	private float translateX, translateY;
 	
 	public int getKO() { return KO; }
 	public int getHP() { return hp; }
@@ -39,6 +41,8 @@ public class Enemy extends Entity {
 		
 		newEnemy = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(32, 32);
 		addImageWithBoundingBox(newEnemy);
+		// set the healthBar image
+		healthBar = ResourceManager.getImage(Game.UI_HEALTHPIECE_RSC).getScaledCopy(50, 5);
 		enemyType = type;
 		if(type == 1) {
 			newEnemy.setColor(2, 255, 0, 0);
@@ -52,13 +56,15 @@ public class Enemy extends Entity {
 		path = new ArrayList<Vector>();
 		reset();
 	}
+	
 	public void reset() {
 		velocity = new Vector(0, 0);
 		speed = 0.2f;
 		pushback = 20;
-		hp = 15;
+		total_hp = hp = 15;
 		KO = 0;
 	}
+	
 	public void checkBounds(Map m) {
 		if(this.getCoarseGrainedMinX() < 0) {
 			this.setPosition(pushback, this.getY());
@@ -149,6 +155,13 @@ public class Enemy extends Entity {
 	
 	private void updateVariables(final int delta) {
 		KO -= delta;
+		// update the healthBar image
+		healthBar = healthBar.getScaledCopy(30 * hp/total_hp, 5);
+	}
+	
+	public void render(Graphics g) {
+		g.drawImage(healthBar, this.getX() - 15, this.getY() - 25);
+		super.render(g);
 	}
 	
 	public void update(StateBasedGame game, final int delta) {
@@ -156,6 +169,7 @@ public class Enemy extends Entity {
 		
 		checkBounds(g.map);
 		checkCollision(g.map);
+		
 		updateVariables(delta);
 		
 		translate(velocity.scale(delta * speed));

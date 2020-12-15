@@ -130,34 +130,39 @@ class PlayingState extends BasicGameState {
 	private void updateEnemy(StateBasedGame game, int delta) {
 		Game tl = (Game)game;
 		for(int i = 0; i < tl.enemy.size(); i++) {
-			if(tl.enemy.get(i).getEnemyType() == chaser && tl.enemy.get(i).getKO() <= 0) {
-				tl.enemy.get(i).chasePath();
-			}
-			if(tl.enemy.get(i).getEnemyType() == runner && tl.enemy.get(i).getKO() <= 0) {
-				if(tl.enemy.get(i).getPath().size() <= 8 && tl.enemy.get(i).getPath().size() >= 4) {
-					tl.enemy.get(i).setVelocity(tl.player.getVelocity());
-				}
-				else if(tl.enemy.get(i).getPath().size() <= 3) {
-					tl.enemy.get(i).setVelocity(tl.player.getVelocity().negate());
-				}
-				else {
+			// check if they are still alive
+			if(tl.enemy.get(i).getHP() <= 0)
+				tl.enemy.remove(i);
+			else {
+				if(tl.enemy.get(i).getEnemyType() == chaser && tl.enemy.get(i).getKO() <= 0) {
 					tl.enemy.get(i).chasePath();
 				}
-			}
-			if(tl.enemy.get(i).getEnemyType() == shooter && tl.enemy.get(i).getKO() <= 0) {
-				if(tl.enemy.get(i).getPath().size() <= 5) {
-					tl.enemy.get(i).setVelocity(new Vector(0,0));
-					if(tl.enemy.get(i).shootCooldown <= 0) {
-						tl.enemy.get(i).shootCooldown = 600;
-						addProjectile(game, tl.enemy.get(i), null, true);
+				if(tl.enemy.get(i).getEnemyType() == runner && tl.enemy.get(i).getKO() <= 0) {
+					if(tl.enemy.get(i).getPath().size() <= 8 && tl.enemy.get(i).getPath().size() >= 4) {
+						tl.enemy.get(i).setVelocity(tl.player.getVelocity());
+					}
+					else if(tl.enemy.get(i).getPath().size() <= 3) {
+						tl.enemy.get(i).setVelocity(tl.player.getVelocity().negate());
+					}
+					else {
+						tl.enemy.get(i).chasePath();
 					}
 				}
-				else if(tl.enemy.get(i).getKO() <= 0){
-					tl.enemy.get(i).chasePath();
+				if(tl.enemy.get(i).getEnemyType() == shooter && tl.enemy.get(i).getKO() <= 0) {
+					if(tl.enemy.get(i).getPath().size() <= 5) {
+						tl.enemy.get(i).setVelocity(new Vector(0,0));
+						if(tl.enemy.get(i).shootCooldown <= 0) {
+							tl.enemy.get(i).shootCooldown = 600;
+							addProjectile(game, tl.enemy.get(i), null, true);
+						}
+					}
+					else if(tl.enemy.get(i).getKO() <= 0){
+						tl.enemy.get(i).chasePath();
+					}
 				}
+				tl.enemy.get(i).shootCooldown -= delta;
+				tl.enemy.get(i).update(game, delta);
 			}
-			tl.enemy.get(i).shootCooldown -= delta;
-			tl.enemy.get(i).update(game, delta);
 		}
 	}
 	private void itemCollision(Game g, int delta) {

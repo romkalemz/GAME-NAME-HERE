@@ -77,7 +77,7 @@ import jig.Vector;
 		// reset, or set initial stats
 		movement_speed = 0.2f;
 		rate_of_fire_buffer = rate_of_fire = 450;
-		attack_damage = 1;
+		attack_damage = 5;
 		max_hp = hp = 100;
 		bullet_speed_buffer = bullet_speed = 0.3f;
 		activatable = false;
