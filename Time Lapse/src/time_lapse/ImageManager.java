@@ -20,5 +20,8 @@ public class ImageManager {
 			e.addImageWithBoundingBox(img);
 		}
 	}
-
+	public void RemoveIMG(Entity e, String rsc) {
+			Image img = ResourceManager.getImage(rsc);
+			e.removeImage(img);
+	}
 }

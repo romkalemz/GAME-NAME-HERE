@@ -63,12 +63,12 @@ public class Game extends StateBasedGame {
 	
 	public ArrayList<Enemy> enemy;
 	public ArrayList<Item> items;
+	public ArrayList<Door> doors;
 	public ArrayList<Projectile> projectiles;
-	
+	public ArrayList<DoorSwitch> doorSwitch;
 	public Debug debug;
 	public UIHandler UIHandler;
 	public ImageManager image_control;
-	
 	
 	public Game(String title) {
 		super(title);
@@ -113,6 +113,8 @@ public class Game extends StateBasedGame {
 		player = new Player(400, 300);
 		enemy = new ArrayList<Enemy>();		
 		items = new ArrayList<Item>();
+		doors = new ArrayList<Door>();
+		doorSwitch = new ArrayList<DoorSwitch>();
 		projectiles = new ArrayList<Projectile>();
 
 		debug = new Debug(10,20,"asdfasdf");
@@ -120,6 +122,7 @@ public class Game extends StateBasedGame {
 		
 		// load images for all active entities / tiles
 		image_control = new ImageManager();
+		
 
 	}
 }

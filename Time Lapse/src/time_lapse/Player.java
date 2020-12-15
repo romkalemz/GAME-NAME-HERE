@@ -112,7 +112,40 @@ import jig.Vector;
 		}
 		
 	}
-	
+	public void checkDoorCollision(Game g, Map m) {
+		Tile t;
+		int sideX = (int) Math.floor(getX() / m.getTileSize());
+		int sideY = (int) Math.floor(getY() / m.getTileSize());
+		
+		for(int i = 0; i<g.doors.size();i++) {
+			//W
+			if(sideX + 1 < m.getNumOfTilesX()) {
+				t = m.getTile(sideX + 1, sideY);
+				if((!g.doors.get(i).getIsPass()) && collides(g.doors.get(i)) != null) {
+					setX(t.getCoarseGrainedMinX()-pushback);
+				}
+			}
+			//N
+			if(sideY + 1 < m.getNumOfTilesY()) {
+				t = m.getTile(sideX, sideY+1);
+				if((!g.doors.get(i).getIsPass()) && collides(g.doors.get(i)) != null) {
+					setY(t.getCoarseGrainedMinY()-pushback);
+				}
+			}
+			if(sideX - 1 < 0) {
+				t = m.getTile(sideX - 1, sideY);
+				if((!g.doors.get(i).getIsPass()) && collides(g.doors.get(i)) != null) {
+					setX(t.getCoarseGrainedMaxX()+pushback);
+				}
+			}
+			if(sideX - 1 < 0) {
+				t = m.getTile(sideX, sideY - 1);
+				if((!g.doors.get(i).getIsPass()) && collides(g.doors.get(i)) != null) {
+					setY(t.getCoarseGrainedMaxY() + pushback);
+				}
+			}
+		}
+	}
 	public void checkCollision(Map m) {
 		
 		// get all 4 adjacent tiles next to player
@@ -148,6 +181,8 @@ import jig.Vector;
 			}
 		}
 	}
+	
+
 	
 	// permanemently adjust stats of the player (perma items)
 	public void adjustStats(Item i) {
@@ -203,6 +238,7 @@ import jig.Vector;
 		Game g = (Game) game;
 		
 		checkBounds(g.map);
+		checkDoorCollision(g,g.map);
 		checkCollision(g.map);
 		// check if the player collides with any enemy
 		for(int i = 0; i < g.enemy.size(); i++) {
