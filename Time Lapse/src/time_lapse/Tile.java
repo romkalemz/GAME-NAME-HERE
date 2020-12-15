@@ -63,6 +63,12 @@ public class Tile extends Entity implements Comparable<Tile> {
 			addImageWithBoundingBox(img);
 			this.isSolid = true;
 		}
+		if(type == 7) { //gate
+			Image img = ResourceManager.getImage(Game.TILE_DIRT_RSC);
+			img.setFilter(Image.FILTER_LINEAR);
+			addImageWithBoundingBox(img);
+			this.isSolid = true;
+		}
 		this.type = type;
 		reset();
 	}
@@ -76,6 +82,9 @@ public class Tile extends Entity implements Comparable<Tile> {
 	
 	public boolean getSolid() {
 		return isSolid;
+	}
+	public void setSolid(boolean bool) {
+		isSolid = bool;
 	}
 	
 	public int getType() {

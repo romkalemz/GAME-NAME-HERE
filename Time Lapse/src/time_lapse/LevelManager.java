@@ -6,6 +6,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.newdawn.slick.state.StateBasedGame;
@@ -40,6 +41,9 @@ public class LevelManager {
 				if(Character.getNumericValue(mapData[y].charAt(i)) ==  0) {	// Normal dirt tile
 					type[i] = 0;
 				}
+				if(Character.getNumericValue(mapData[y].charAt(i)) ==  7) {
+					type[i] = 7;
+				}
 				if(Character.getNumericValue(mapData[y].charAt(i)) ==  6) {	// Boulder tiles
 					type[i] = 6;
 				}
@@ -68,6 +72,9 @@ public class LevelManager {
 				if(type[x] == 6) {
 					tl.map.setTile(x, y, new Tile(viewStart + (x*tileSize), viewStart + (y*tileSize), 6, 6));
 				}
+				if(type[x] == 7) {
+					tl.map.setTile(x, y, new Tile(viewStart + (x*tileSize), viewStart + (y*tileSize), type[x], 0));
+				}
 			}
 		}
 		
@@ -94,7 +101,21 @@ public class LevelManager {
 		tl.items = ItemHandler.Spawn(tl.items, 250, 400, "accelerator");
 		tl.items = ItemHandler.Spawn(tl.items, 500, 400, "fiery");
 
+
+		//doors for level1
+		ArrayList<Door> door1 = new ArrayList<Door>();
+		door1.add(new Door(24*tl.map.getTileSize() + tl.map.getTileSize()/2, 8.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90));
+		door1.add(new Door(17.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 16f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90));
+		//adding switches for corresponding doors
+		tl.doorSwitch.add(new DoorSwitch(10*tl.map.getTileSize() + tl.map.getTileSize()/2, 8f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, door1));
+		//adding images for switch
+		tl.doors = door1;
+		tl.image_control.setImage(tl.doorSwitch.get(0), Game.DOOR_SWITCH_OFF, 0, true);
 		
+		//setting images for doors
+		tl.image_control.setImage(tl.doors.get(0), Game.CLOSED_DOOR, 90, false);
+		tl.image_control.setImage(tl.doors.get(1), Game.CLOSED_DOOR, 180, false);
+		//tl.doorImageControl.setImage(tl.doors.get(1), Game.CLOSED_DOOR, 90, true);
 		// load images for all active entities / tiles
 		tl.image_control.setImage(tl.items.get(0), Game.ITEM_HAMMER_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(1), Game.ITEM_HAMMER_RSC, 0, true);

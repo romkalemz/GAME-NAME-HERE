@@ -2,7 +2,9 @@ package time_lapse;
 
 
 import jig.Entity;
+import jig.ResourceManager;
 import jig.Vector;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -51,7 +53,18 @@ class PlayingState extends BasicGameState {
 				tl.projectiles.get(i).render(g);
 			}
 		}
-		
+		//render doors and door switches
+		if(!tl.doors.isEmpty()) {
+			for (int i = 0; i <tl.doors.size(); i++) {
+				tl.doors.get(i).render(g);
+			}
+		}
+		//render switches
+		if(!tl.doorSwitch.isEmpty()) {
+			for (int i = 0; i <tl.doorSwitch.size(); i++) {
+				tl.doorSwitch.get(i).render(g);
+			}
+		}
 		// render UI
 		tl.UIHandler.render(tl, g);
 	}
@@ -82,7 +95,8 @@ class PlayingState extends BasicGameState {
 		
 		playerControls(tl, input);
 		itemCollision(tl, delta);
-		
+		doorFunctions(tl,delta);
+		updateDoorStatus(tl,delta);
 		tl.map.updateMap(game);
 		tl.player.update(tl, delta);
 		updateEnemy(game,delta);
@@ -92,6 +106,10 @@ class PlayingState extends BasicGameState {
 			tl.projectiles.get(i).update(delta);
 			if(tl.projectiles.get(i).isFromEnemy == false) {
 				if(tl.projectiles.get(i).hitOrMiss(game)) {
+					for(int j = 0; j < tl.enemy.size(); j++) {
+						if(tl.enemy.get(j).collides(tl.projectiles.get(i)) != null)
+							tl.enemy.get(j).takeDamage(tl.projectiles.get(i), tl.player.getAttackDamage());
+					}
 					tl.projectiles.remove(i);
 				}
 			}
@@ -112,10 +130,10 @@ class PlayingState extends BasicGameState {
 	private void updateEnemy(StateBasedGame game, int delta) {
 		Game tl = (Game)game;
 		for(int i = 0; i < tl.enemy.size(); i++) {
-			if(tl.enemy.get(i).getEnemyType() == chaser) {
+			if(tl.enemy.get(i).getEnemyType() == chaser && tl.enemy.get(i).getKO() <= 0) {
 				tl.enemy.get(i).chasePath();
 			}
-			if(tl.enemy.get(i).getEnemyType() == runner) {
+			if(tl.enemy.get(i).getEnemyType() == runner && tl.enemy.get(i).getKO() <= 0) {
 				if(tl.enemy.get(i).getPath().size() <= 8 && tl.enemy.get(i).getPath().size() >= 4) {
 					tl.enemy.get(i).setVelocity(tl.player.getVelocity());
 				}
@@ -126,7 +144,7 @@ class PlayingState extends BasicGameState {
 					tl.enemy.get(i).chasePath();
 				}
 			}
-			if(tl.enemy.get(i).getEnemyType() == shooter) {
+			if(tl.enemy.get(i).getEnemyType() == shooter && tl.enemy.get(i).getKO() <= 0) {
 				if(tl.enemy.get(i).getPath().size() <= 5) {
 					tl.enemy.get(i).setVelocity(new Vector(0,0));
 					if(tl.enemy.get(i).shootCooldown <= 0) {
@@ -134,7 +152,7 @@ class PlayingState extends BasicGameState {
 						addProjectile(game, tl.enemy.get(i), null, true);
 					}
 				}
-				else {
+				else if(tl.enemy.get(i).getKO() <= 0){
 					tl.enemy.get(i).chasePath();
 				}
 			}
@@ -143,6 +161,7 @@ class PlayingState extends BasicGameState {
 		}
 	}
 	private void itemCollision(Game g, int delta) {
+		
 		// remove items that have collided with the player
 		for(int i = 0; i < g.items.size(); i++) {
 			Item item = g.items.get(i);
@@ -162,6 +181,41 @@ class PlayingState extends BasicGameState {
 		
 	}
 
+	private void updateDoorStatus(Game g, int delta) {
+		for(int i = 0; i<g.doors.size(); i++) {
+			if(g.doors.get(i).getIsPass()) {
+				System.out.println("door is passable");
+			}
+			else {
+				System.out.println("Denied");
+			}
+//			Tile[][] s = g.map.getTileMap();
+//			for(int x = 0; x<g.map.getMapSizeX(); x++) {
+//				for(int y = 0; y<g.map.getMapSizeY();y++) {
+//					System.out.println(s[x][y].getSolid());
+//				}
+//			}
+		}
+	}
+	
+	private void doorFunctions(Game g, int delta) {
+		//check for door collision
+		for(int i = 0; i < g.doorSwitch.size(); i++) {
+			DoorSwitch doorswitch = g.doorSwitch.get(i);
+			if(g.player.collides(doorswitch) != null) {
+				if(!doorswitch.isSwitched()) {
+					doorswitch.setIsSwitched(true);
+					for(int d = 0; d<doorswitch.getDoor().size(); d++) {
+						doorswitch.getDoor().get(d).setIsPass(true);
+					}
+					g.image_control.RemoveIMG(doorswitch, Game.DOOR_SWITCH_OFF);
+					g.image_control.setImage(doorswitch, Game.DOOR_SWITCH_ON, 0, true);
+					
+				}
+			}
+		}
+	}
+	
 	private void playerControls(Game tl, Input input) {
 		// drop activatable
 		if(input.isKeyDown(Input.KEY_Q) && tl.player.getActiveDelay() <= 0 && tl.UIHandler.getActivatable() != null) {
@@ -211,14 +265,15 @@ class PlayingState extends BasicGameState {
 		
 		// player direction / aim
 		// wait for a slight cooldown to allow slower response times to angled facing position
+		
 		if (tl.player.getRotateDelay() <= 0) {
 			if (input.isKeyDown(Input.KEY_UP)) {
 				tl.player.setImageRotation(180);
 				if(tl.player.getShootDelay() <= 0) {
-					addProjectile(tl, tl.player, new Vector(0, -1),false);
+					addProjectile(tl, tl.player, new Vector(0, -1), false);
 					tl.player.setShootDelay();
 				}
-			}	
+			}
 			if (input.isKeyDown(Input.KEY_RIGHT)) {
 				tl.player.setImageRotation(270);
 				if(tl.player.getShootDelay() <= 0) {
