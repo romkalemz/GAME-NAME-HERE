@@ -19,6 +19,7 @@ class PlayingState extends BasicGameState {
 	private int chaser = 1;
 	private int runner = 3;
 	private int shooter = 2;
+	private int arrow_check = 0;
 	
 	// Animations and spritesheets
 	
@@ -147,7 +148,6 @@ class PlayingState extends BasicGameState {
 				playerLeftIdleAnimation1.draw(tl.player.getCoarseGrainedMinX(),tl.player.getCoarseGrainedMinY());
 			}
 			if(tl.player.getDirection() == 2 ) {
-				System.out.println("SIGHSIUGHSIUGHUISG");
 				curr_ani = playerDownIdleAnimation1;
 				playerDownIdleAnimation1.setSpeed(0.8f);
 				playerDownIdleAnimation1.draw(tl.player.getCoarseGrainedMinX(),tl.player.getCoarseGrainedMinY());
@@ -310,24 +310,32 @@ class PlayingState extends BasicGameState {
 		tl.player.setVelocity(new Vector(0, 0));
 		// player movement
 		if (input.isKeyDown(Input.KEY_W)) {
-			tl.player.setPrevDirection(tl.player.getDirection());
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(0, -1)));
-			tl.player.setDirection(4);
+			if(arrow_check == 0) {
+				tl.player.setPrevDirection(tl.player.getDirection());
+				tl.player.setDirection(4);
+			}
 		}
 		if (input.isKeyDown(Input.KEY_S)) {
-			tl.player.setPrevDirection(tl.player.getDirection());
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(0, 1)));
-			tl.player.setDirection(2);
+			if(arrow_check == 0) {
+				tl.player.setPrevDirection(tl.player.getDirection());
+				tl.player.setDirection(2);
+			}
 		}
 		if (input.isKeyDown(Input.KEY_A)) {
-			tl.player.setPrevDirection(tl.player.getDirection());
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(-1, 0)));
-			tl.player.setDirection(3);
+			if(arrow_check == 0) {
+				tl.player.setPrevDirection(tl.player.getDirection());
+				tl.player.setDirection(3);
+			}
 		}
 		if (input.isKeyDown(Input.KEY_D)) {
-			tl.player.setPrevDirection(tl.player.getDirection());
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(1, 0)));
-			tl.player.setDirection(1);
+			if(arrow_check == 0) {
+				tl.player.setDirection(1);
+				tl.player.setPrevDirection(tl.player.getDirection());
+			}
 		}	
 		
 		// player direction / aim
@@ -335,6 +343,8 @@ class PlayingState extends BasicGameState {
 		if (tl.player.getRotateDelay() <= 0) {
 			if (input.isKeyDown(Input.KEY_UP)) {
 				tl.player.setImageRotation(180);
+				tl.player.setPrevDirection(tl.player.getDirection());
+				tl.player.setDirection(4);
 				if(tl.player.getShootDelay() <= 0) {
 					addProjectile(tl, tl.player, new Vector(0, -1),false);
 					tl.player.setShootDelay();
@@ -342,6 +352,8 @@ class PlayingState extends BasicGameState {
 			}	
 			if (input.isKeyDown(Input.KEY_RIGHT)) {
 				tl.player.setImageRotation(270);
+				tl.player.setPrevDirection(tl.player.getDirection());
+				tl.player.setDirection(1);
 				if(tl.player.getShootDelay() <= 0) {
 					addProjectile(tl, tl.player, new Vector(1, 0),false);
 					tl.player.setShootDelay();
@@ -349,6 +361,8 @@ class PlayingState extends BasicGameState {
 			}
 			if (input.isKeyDown(Input.KEY_DOWN)) {
 				tl.player.setImageRotation(0);
+				tl.player.setPrevDirection(tl.player.getDirection());
+				tl.player.setDirection(2);
 				if(tl.player.getShootDelay() <= 0) {
 					addProjectile(tl, tl.player, new Vector(0, 1),false);
 					tl.player.setShootDelay();
@@ -356,6 +370,8 @@ class PlayingState extends BasicGameState {
 			}
 			if (input.isKeyDown(Input.KEY_LEFT)) {
 				tl.player.setImageRotation(90);
+				tl.player.setPrevDirection(tl.player.getDirection());
+				tl.player.setDirection(3);
 				if(tl.player.getShootDelay() <= 0) {
 					addProjectile(tl, tl.player, new Vector(-1, 0),false);
 					tl.player.setShootDelay();
@@ -363,39 +379,44 @@ class PlayingState extends BasicGameState {
 			}
 		}
 		
+		arrow_check = 0;
 		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)) {
-			tl.player.setImageRotation(225);
-			tl.player.setRotateDelay(50);
+			//tl.player.setImageRotation(225);
+			//tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(1, -1),false);
 				tl.player.setShootDelay();
+				arrow_check = 1;
 			}
 			
 		}
 		if (input.isKeyDown(Input.KEY_RIGHT) && input.isKeyDown(Input.KEY_DOWN)) {
-			tl.player.setImageRotation(315);
-			tl.player.setRotateDelay(50);
+			//tl.player.setImageRotation(315);
+			//tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(1, 1),false);
 				tl.player.setShootDelay();
+				arrow_check = 1;
 			}
 			
 		}
 		if (input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)) {
-			tl.player.setImageRotation(45);
-			tl.player.setRotateDelay(50);
+			//tl.player.setImageRotation(45);
+			//tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(-1, 1),false);
 				tl.player.setShootDelay();
+				arrow_check = 1;
 			}
 			
 		}
 		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_LEFT)) {
-			tl.player.setImageRotation(135);
-			tl.player.setRotateDelay(50);
+			//tl.player.setImageRotation(135);
+			//tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(-1, -1), false);
 				tl.player.setShootDelay();
+				arrow_check = 1;
 			}
 		}
 	}
