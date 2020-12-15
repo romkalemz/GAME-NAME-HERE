@@ -50,6 +50,10 @@ public class Game extends StateBasedGame {
 	public static final String ITEM_ARROW_RSC = "resources/item_temp.png";
 	public static final String ITEM_ACCELERATOR_RSC = "resources/item_temp.png";
 	public static final String ITEM_FIERY_RSC = "resources/item_temp.png";
+	public static final String OPEN_DOOR = "resources/dooropen.png";
+	public static final String CLOSED_DOOR = "resources/doorclosed.png";
+	public static final String DOOR_SWITCH_ON = "resources/switchon.png";
+	public static final String DOOR_SWITCH_OFF = "resources/switchoff.png";
 
 	// items in the game
 	public Player player;
@@ -99,6 +103,10 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(UI_HEALTHBAR_RSC);
 		ResourceManager.loadImage(UI_HEALTHPIECE_RSC);
 		ResourceManager.loadImage(UI_HEALTHSHIELD_RSC);
+		ResourceManager.loadImage(OPEN_DOOR);
+		ResourceManager.loadImage(CLOSED_DOOR);
+		ResourceManager.loadImage(DOOR_SWITCH_ON);
+		ResourceManager.loadImage(DOOR_SWITCH_OFF);
 		
 		// Initialize stuff
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);	

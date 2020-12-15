@@ -34,7 +34,7 @@ public class StartGame {
 		AppGameContainer app;
 		try {
 			app = new AppGameContainer(new Game("Time Lapse v0.1"));
-			app.setDisplayMode(1200, 800, false); // 2400, 1400 is great for level design. Normal is 1200, 800
+			app.setDisplayMode(1200, 1400, false); // 2400, 1400 is great for level design. Normal is 1200, 800
 			app.setVSync(true);
 			app.setShowFPS(true);
 			app.start();
