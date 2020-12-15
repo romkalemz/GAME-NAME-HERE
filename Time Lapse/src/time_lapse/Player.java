@@ -127,7 +127,7 @@ import jig.Vector;
 			}
 			//N
 			if(sideY + 1 < m.getNumOfTilesY()) {
-				t = m.getTile(sideX, sideY+1);
+				t = m.getTile(sideX, sideY + 1);
 				if((!g.doors.get(i).getIsPass()) && collides(g.doors.get(i)) != null) {
 					setY(t.getCoarseGrainedMinY()-pushback);
 				}
@@ -154,7 +154,7 @@ import jig.Vector;
 		int sideY = (int) Math.floor(getY() / m.getTileSize());
 		// checking W side
 		if(sideX + 1 < m.getNumOfTilesX()) {
-			t = m.getTile(sideX +1, sideY);
+			t = m.getTile(sideX + 1, sideY);
 			if(t.getSolid() && collides(t) != null) {
 				setX(t.getCoarseGrainedMinX() - pushback);
 			}
