@@ -15,7 +15,7 @@ import jig.Vector;
 	private int rate_of_fire, rate_of_fire_buffer;
 	private float bullet_speed, bullet_speed_buffer;
 	private int attack_damage;
-	private float hp, max_hp, shield_hp;
+	private int hp, max_hp, shield_hp;
 	private boolean activatable;
 	private int imgRotation;
 	// setters and getters for stats
@@ -34,8 +34,10 @@ import jig.Vector;
 	public void setAttackDamage(int d) { attack_damage = d; }
 	public int getAttackDamage() { return attack_damage; }
 	
-	public void setHP(float a) { hp = a; }
-	public float getHP() { return hp; }
+	public void setHP(int a) { hp = a; }
+	public int getHP() { return hp; }
+	
+	public int getShieldHP() { return shield_hp; }
 	
 	// other attributes to player
 	private Image image;
@@ -45,6 +47,7 @@ import jig.Vector;
 	private int shoot_delay;
 	private int active_delay;
 	private int action_duration;
+	private int take_damage_delay;
 	
 	public void setVelocity(final Vector v) { velocity = v; }
 	public Vector getVelocity() { return velocity; }
@@ -67,7 +70,6 @@ import jig.Vector;
 		reset();
 	}
 	
-
 	
 	public void reset() {
 		velocity = new Vector(0, 0);
@@ -79,6 +81,13 @@ import jig.Vector;
 		max_hp = hp = 100;
 		bullet_speed_buffer = bullet_speed = 0.3f;
 		activatable = false;
+	}
+	
+	public void takeDamage(int dmg) {
+		if(shield_hp > 0)
+			shield_hp -= dmg;
+		else
+			hp -= dmg;
 	}
 	
 	public void setImageRotation(int dir) {
@@ -184,6 +193,7 @@ import jig.Vector;
 		shoot_delay -= delta;
 		active_delay -= delta;
 		action_duration -= delta;
+		take_damage_delay -= delta;
 		if(action_duration <= 0)
 			updateStats();
 	}
@@ -194,6 +204,13 @@ import jig.Vector;
 		
 		checkBounds(g.map);
 		checkCollision(g.map);
+		// check if the player collides with any enemy
+		for(int i = 0; i < g.enemy.size(); i++) {
+			if(this.collides(g.enemy.get(i)) != null && take_damage_delay <= 0) {
+				takeDamage(5);
+				take_damage_delay = 800;
+			}
+		}
 		
 		updateVariables(delta);
 		
