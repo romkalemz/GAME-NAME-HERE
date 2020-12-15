@@ -97,6 +97,11 @@ class PlayingState extends BasicGameState {
 			}
 			else{
 				if(tl.projectiles.get(i).hitOrMissForEnemies(game)) {
+					if(tl.projectiles.get(i).collides(tl.player)!= null) {
+						// reduce health of the player
+						// 5 damage from enemy bullets
+						tl.player.takeDamage(5);
+					}
 					tl.projectiles.remove(i);
 				}
 			}
