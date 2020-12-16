@@ -76,9 +76,20 @@ public class Enemy extends Entity {
 	
 	public void reset() {
 		velocity = new Vector(0, 0);
-		speed = 0.2f;
+		if(enemyType == 1) {
+			speed = 0.2f;
+			total_hp = hp = 12;
+		}
+		if(enemyType == 2) {
+			speed = 0.15f;
+			total_hp = hp = 15;
+		}
+		if(enemyType == 3) {
+			speed = 0.10f;
+			total_hp = hp = 20;
+		}
+
 		pushback = 20;
-		total_hp = hp = 15;
 		KO = 0;
 	}
 	
@@ -178,6 +189,7 @@ public class Enemy extends Entity {
 	
 	private void updateVariables(final int delta) {
 		KO -= delta;
+		shootCooldown -= delta;
 		// update the healthBar image
 		healthBar = healthBar.getScaledCopy(30 * hp/total_hp, 5);
 	}
