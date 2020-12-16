@@ -34,8 +34,8 @@ public class Map {
 		this.numOfTilesY = numOfTilesY;
 		tiles = new Tile[numOfTilesX][numOfTilesY];
 		this.tileSize = tileSize;
-		translateX = 0;
-		translateY = 0;
+		translateX = 0f;
+		translateY = 0f;
 		minScrollX = 900;
 		minScrollY = 533;
 		prevMaxX = 900;
@@ -52,6 +52,7 @@ public class Map {
 		tl.doors.clear();
 		tl.doorSwitch.clear();
 		tl.LIVES = 2;
+		tl.rooms.clear();
 		// Reset scrolling world
 		translateX = 0;
 		translateY = 0;
@@ -101,6 +102,7 @@ public class Map {
 	// updateMap calculates render for map scrolling
 	public void updateMap(StateBasedGame game) {
 		Game tl = (Game) game;
+//		System.out.println(translateX + "," + translateY);
 		float playerPosX = tl.player.getX();
 		float playerPosY = tl.player.getY();
 		float playerSpeedX = tl.player.getVelocity().getX();
@@ -137,11 +139,15 @@ public class Map {
 		// g.translate translates all rendered graphics
 		// based on calculations from updateMap()
 		g.translate(translateX, translateY);
-		for (int x = 0; x < this.numOfTilesX; x++) {
-			for (int y = 0; y < this.numOfTilesY; y++) {
-				if (tiles[x][y] != null) {
-					tiles[x][y].render(g);
-				}
+		double offsetX = Math.abs(Math.ceil((translateX / tileSize)));
+		double offsetY = Math.abs(Math.ceil((translateY / tileSize)));
+		for (int x = (int)offsetX; x < 31 + offsetX; x++) {
+			for (int y = (int)offsetY; y < 21 + offsetY; y++) {
+					if(x < 74 && y < 40) {
+						if (tiles[x][y] != null) {
+							tiles[x][y].render(g);
+						}
+					}
 			}
 		}
 	}

@@ -80,6 +80,10 @@ class PlayingState extends BasicGameState {
 	private SpriteSheet enemyWizardLeftAni;
 	private Animation enemyWizardLeftAnimation1;
 	
+	/* ----- Mimic ----- */
+	private SpriteSheet enemyMimicAni;
+	private Animation enemyMimicAnimation1;
+	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		Game tl = (Game)game;
@@ -124,6 +128,10 @@ class PlayingState extends BasicGameState {
 		
 		enemyWizardLeftAni = new SpriteSheet("resources/Wizard_enemy_front_left_ani.png",40,40);
 		enemyWizardLeftAnimation1 = new Animation(enemyWizardLeftAni, 100);
+		
+		enemyMimicAni = new SpriteSheet("resources/mimic_front_ani.png",40,40);
+		enemyMimicAnimation1 = new Animation(enemyMimicAni, 100);
+		
 	}
 
 	@Override
@@ -173,6 +181,19 @@ class PlayingState extends BasicGameState {
 							}
 						}
 					}
+				if(tl.enemy.get(i).getEnemyType() == 3) {
+					enemyMimicAnimation1.setSpeed(0.8f);
+					if(tl.enemy.get(i).getVelocity().getY() < 0) {
+						enemyMimicAnimation1.draw(tl.enemy.get(i).getCoarseGrainedMinX(),tl.enemy.get(i).getCoarseGrainedMinY());
+					}else if(tl.enemy.get(i).getVelocity().getY() >= 0) {
+						if(tl.enemy.get(i).getVelocity().getX() < 0) {
+							enemyMimicAnimation1.draw(tl.enemy.get(i).getCoarseGrainedMinX(),tl.enemy.get(i).getCoarseGrainedMinY());
+						} else {
+							enemyMimicAnimation1.draw(tl.enemy.get(i).getCoarseGrainedMinX(),tl.enemy.get(i).getCoarseGrainedMinY());
+	
+						}
+					}
+				}
 				}
 			}
 		
@@ -249,7 +270,6 @@ class PlayingState extends BasicGameState {
 			}
 			
 		}
-		
 		// render UI
 		tl.UIHandler.render(tl, g);
 	}
@@ -446,7 +466,6 @@ class PlayingState extends BasicGameState {
 				for(int i = 0; i < 24; i++) {
 					Vector v = new Vector(1, 1);
 					v = v.setRotation(15 * i);
-					System.out.println(v.getRotation());
 					addProjectile(tl, tl.player, v, false);
 				}
 				tl.UIHandler.showTimer();
@@ -613,7 +632,6 @@ class PlayingState extends BasicGameState {
 			
 				double dir = playerPos.subtract(e.getPosition()).getRotation();
 				v = new Vector(1, 1).setRotation(dir);
-				System.out.println("V = " + v.getX());
 				if(v.getX() >= 0) {
 					wizard_prev = 1;
 				}else {
