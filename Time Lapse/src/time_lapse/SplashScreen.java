@@ -25,6 +25,8 @@ import org.newdawn.slick.state.transition.HorizontalSplitTransition;
 class SplashScreen extends BasicGameState {
 	
 	private int timer;
+	private int spacetimer;
+	private int storycount;
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
@@ -35,6 +37,8 @@ class SplashScreen extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game) {
 		Game tl = (Game)game;
 		LevelManager.setLevel(game, tl.currLevel);
+		spacetimer = 300;
+		storycount = 0;
 	}
 	
 	@Override
@@ -67,9 +71,10 @@ class SplashScreen extends BasicGameState {
 		Input input = container.getInput();
 
 		timer -= delta;
-
-		if(input.isKeyDown(Input.KEY_SPACE)) {			
-			game.enterState(Game.PLAYINGSTATE, new EmptyTransition(), new HorizontalSplitTransition() );
+		if(spacetimer <= 0) {
+			if(input.isKeyDown(Input.KEY_SPACE)) {
+				game.enterState(Game.TRANSITIONSTATE, new EmptyTransition(), new HorizontalSplitTransition());
+			}
 		}
 		if(input.isKeyDown(Input.KEY_1)) {			
 			game.enterState(Game.SPLASHSCREEN);
@@ -77,7 +82,7 @@ class SplashScreen extends BasicGameState {
 		if(input.isKeyDown(Input.KEY_2)) {			
 			game.enterState(Game.PLAYINGSTATE);
 		}
-
+		spacetimer -= delta;
 	}
 
 	@Override
