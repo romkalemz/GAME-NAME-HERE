@@ -315,7 +315,7 @@ import jig.Vector;
 			}
 		}
 		updateVariables(delta, g.cheatMode);
-		System.out.println(this.getX() +" "+this.getY());
+		//System.out.println(this.getX() +" "+this.getY());
 		
 		translate(velocity.scale(delta * movement_speed));
 	}

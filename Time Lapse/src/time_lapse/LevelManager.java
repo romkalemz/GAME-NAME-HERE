@@ -116,7 +116,7 @@ public class LevelManager {
 		tl.items = ItemHandler.Spawn(tl.items, 250, 400, "accelerator");
 		tl.items = ItemHandler.Spawn(tl.items, 500, 400, "fiery");
 		
-		tl.items = ItemHandler.Spawn(tl.items, 900, 100, "machine_piece1");
+		tl.items = ItemHandler.Spawn(tl.items, 600, 400, "machine_piece1");
 		tl.items = ItemHandler.Spawn(tl.items, 900, 1180, "machine_piece2");
 		tl.items = ItemHandler.Spawn(tl.items, 2780, 540, "machine_piece3");
 		tl.items = ItemHandler.Spawn(tl.items, 2583, 1020, "machine_piece4");
@@ -155,9 +155,16 @@ public class LevelManager {
 		tl.image_control.setImage(tl.items.get(2), Game.ITEM_FEATHER_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC, 0, true);
-		//tl.image_control.setImage(tl.items.get(5), Game.ITEM_ACCELERATOR_RSC, 0, true);
-		//tl.image_control.setImage(tl.items.get(6), Game.ITEM_FIERY_RSC, 0, true);
-		tl.image_control.setImage(tl.machine, Game.ITEM_HAMMER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(5), Game.ITEM_ACCELERATOR_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(6), Game.ITEM_FIERY_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(7), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(8), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(9), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(10), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(11), Game.MACHINE_PIECE_1_RSC, 0, true);
+		
+
+		tl.image_control.setImage(tl.machine, Game.TIME_MACHINE_RSC, 0, true);
 		// add all rooms in lvl one 
 		// NOTE: the roomNum in Door.java must match the index of the room it opens!
 		tl.rooms.add(new Room(0, 1, tl));
@@ -172,7 +179,42 @@ public class LevelManager {
 		
 		tl.machine = new TimeMachine(20, 1460);
 		
+		//adding doors
+		ArrayList<Door> door1 = new ArrayList<Door>();
+		door1.add(new Door(19*tl.map.getTileSize() + tl.map.getTileSize()/2, 15.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 0));
+		ArrayList<Door> door2 = new ArrayList<Door>();
+		door2.add(new Door(26.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 13*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 2));
+		ArrayList<Door> door3 = new ArrayList<Door>();
+		door3.add(new Door(28.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 19f*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 3));
+		ArrayList<Door> door4 = new ArrayList<Door>();
+		door4.add(new Door(21.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 19*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 4));
+		ArrayList<Door> door5 = new ArrayList<Door>();
+		door5.add(new Door(46.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 10*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 5));
+		ArrayList<Door> door6 = new ArrayList<Door>();
+		door6.add(new Door(42.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 18f*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 5));
+		ArrayList<Door> door7 = new ArrayList<Door>();
+		door7.add(new Door(66.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 27f*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 5));
+		ArrayList<Door> door8 = new ArrayList<Door>();
+		door8.add(new Door(49.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 17f*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 5));
+		//adding all doors to main door list
+		tl.doors.add(door1.get(0));
+		tl.doors.add(door2.get(0));
+		tl.doors.add(door3.get(0));
+		tl.doors.add(door4.get(0));
+		tl.doors.add(door5.get(0));
+		tl.doors.add(door6.get(0));
+		tl.doors.add(door7.get(0));
+		tl.doors.add(door8.get(0));
 		
+		// adding switches with proper doors
+		tl.doorSwitch.add(new DoorSwitch(2*tl.map.getTileSize() + tl.map.getTileSize()/2, 2f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door1));
+		tl.doorSwitch.add(new DoorSwitch(50*tl.map.getTileSize() + tl.map.getTileSize()/2, 2*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door2));
+		tl.doorSwitch.add(new DoorSwitch(17*tl.map.getTileSize() + tl.map.getTileSize()/2, 2f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door3));
+		tl.doorSwitch.add(new DoorSwitch(60*tl.map.getTileSize() + tl.map.getTileSize()/2, 11f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door4));
+		tl.doorSwitch.add(new DoorSwitch(31*tl.map.getTileSize() + tl.map.getTileSize()/2, 19f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door5));
+		tl.doorSwitch.add(new DoorSwitch(40*tl.map.getTileSize() + tl.map.getTileSize()/2, 35f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door6));
+		tl.doorSwitch.add(new DoorSwitch(49*tl.map.getTileSize() + tl.map.getTileSize()/2, 36f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door7));
+		tl.doorSwitch.add(new DoorSwitch(71*tl.map.getTileSize() + tl.map.getTileSize()/2, 18f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door8));
 		
 		tl.items = ItemHandler.Spawn(tl.items, 1700, 180, "machine_piece1");
 		tl.items = ItemHandler.Spawn(tl.items, 2700, 180, "machine_piece2");
@@ -183,14 +225,14 @@ public class LevelManager {
 		tl.items = ItemHandler.Spawn(tl.items, 300, 1380, "machine_piece7");
 		tl.items = ItemHandler.Spawn(tl.items, 840, 540, "machine_piece8");
 		
-		tl.image_control.setImage(tl.items.get(0), Game.ITEM_FEATHER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(1), Game.ITEM_FEATHER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(2), Game.ITEM_HAMMER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(5), Game.ITEM_HAMMER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(6), Game.ITEM_HAMMER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(7), Game.ITEM_FEATHER_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(0), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(1), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(2), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(3), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(4), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(5), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(6), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(7), Game.MACHINE_PIECE_1_RSC, 0, true);
 
 	}
 	private static void setLevel3(Game tl) {
@@ -227,10 +269,10 @@ public class LevelManager {
 		tl.items = ItemHandler.Spawn(tl.items, 900, 1220, "machine_piece3");
 		tl.items = ItemHandler.Spawn(tl.items, 260, 940, "machine_piece4");
 		
-		tl.image_control.setImage(tl.items.get(0), Game.ITEM_HAMMER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(1), Game.ITEM_HAMMER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(2), Game.TRANSPARENT_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(0), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(1), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(2), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(3), Game.MACHINE_PIECE_1_RSC, 0, true);
 		
 		tl.rooms.add(new Room(0, 3, tl));
 		tl.rooms.add(new Room(1, 3, tl));

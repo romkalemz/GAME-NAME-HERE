@@ -49,8 +49,8 @@ public class Game extends StateBasedGame {
 	public static final String ITEM_FEATHER_RSC = "resources/feather.png";
 	public static final String ITEM_SHIELD_RSC = "resources/shield.png";
 	public static final String ITEM_ARROW_RSC = "resources/arrow.png";
-	public static final String ITEM_ACCELERATOR_RSC = "resources/item_temp.png";
-	public static final String ITEM_FIERY_RSC = "resources/item_temp.png";
+	public static final String ITEM_ACCELERATOR_RSC = "resources/accelerator.png";
+	public static final String ITEM_FIERY_RSC = "resources/fiery.png";
 	public static final String OPEN_DOOR = "resources/dooropen.png";
 	public static final String CLOSED_DOOR = "resources/doorclosed.png";
 	public static final String DOOR_SWITCH_ON = "resources/switchon.png";
@@ -60,6 +60,9 @@ public class Game extends StateBasedGame {
 	public static final String TRANSPARENT_RSC = "resources/transparent.png";
 	public static final String GAME_OVER = "resources/gameover.png";
 	public static final String TILE_FOG_RSC = "resources/fog.png";
+	public static final String MACHINE_PIECE_1_RSC = "resources/machine_piece_1.png";
+	public static final String TIME_MACHINE_RSC = "resources/timemachine.png";
+
 	
 	// Animation resources
 	public static final String PLAYER_DEFAULT_RIGHT_RSC = "resources/player_default_right_ani.png";
@@ -153,6 +156,15 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(TRANSPARENT_RSC);
 		ResourceManager.loadImage(GAME_OVER);
 		ResourceManager.loadImage(TILE_FOG_RSC);
+		ResourceManager.loadImage(ITEM_ACCELERATOR_RSC);
+		ResourceManager.loadImage(ITEM_SHIELD_RSC);
+		ResourceManager.loadImage(ITEM_ARROW_RSC);
+		ResourceManager.loadImage(ITEM_FIERY_RSC);
+		ResourceManager.loadImage(MACHINE_PIECE_1_RSC);
+		ResourceManager.loadImage(TIME_MACHINE_RSC);
+
+
+
 		
 		// LOAD ANIMATIONS FOR PLAYER && DOOR
 		ResourceManager.loadImage(PLAYER_DEFAULT_RIGHT_RSC);
