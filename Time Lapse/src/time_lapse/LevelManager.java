@@ -159,6 +159,8 @@ public class LevelManager {
 		
 		tl.machine = new TimeMachine(20, 1460);
 		
+		
+		
 		tl.items = ItemHandler.Spawn(tl.items, 1700, 180, "machine_piece1");
 		tl.items = ItemHandler.Spawn(tl.items, 2700, 180, "machine_piece2");
 		tl.items = ItemHandler.Spawn(tl.items, 2340, 500, "machine_piece3");
@@ -182,7 +184,31 @@ public class LevelManager {
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);
 		
 		tl.machine = new TimeMachine(20, 740);
+		//adding doors
+		ArrayList<Door> door1 = new ArrayList<Door>();
+		door1.add(new Door(19*tl.map.getTileSize() + tl.map.getTileSize()/2, 2.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 0));
+		ArrayList<Door> door2 = new ArrayList<Door>();
+		door2.add(new Door(48*tl.map.getTileSize() + tl.map.getTileSize()/2, 5.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 2));
+		ArrayList<Door> door3 = new ArrayList<Door>();
+		door3.add(new Door(67f*tl.map.getTileSize() + tl.map.getTileSize()/2, 17.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 3));
+		ArrayList<Door> door4 = new ArrayList<Door>();
+		door4.add(new Door(55f*tl.map.getTileSize() + tl.map.getTileSize()/2, 36.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 4));
+		ArrayList<Door> door5 = new ArrayList<Door>();
+		door5.add(new Door(21f*tl.map.getTileSize() + tl.map.getTileSize()/2, 35.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 5));
+		// adding all doors to main door list
+		tl.doors.add(door1.get(0));
+		tl.doors.add(door2.get(0));
+		tl.doors.add(door3.get(0));
+		tl.doors.add(door4.get(0));
+		tl.doors.add(door5.get(0));
+		// adding switches with proper doors
+		tl.doorSwitch.add(new DoorSwitch(2*tl.map.getTileSize() + tl.map.getTileSize()/2, 2f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door1));
+		tl.doorSwitch.add(new DoorSwitch(50*tl.map.getTileSize() + tl.map.getTileSize()/2, 2*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door2));
+		tl.doorSwitch.add(new DoorSwitch(2*tl.map.getTileSize() + tl.map.getTileSize()/2, 34f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door3));
+		tl.doorSwitch.add(new DoorSwitch(73*tl.map.getTileSize() + tl.map.getTileSize()/2, 18f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door4));
+		tl.doorSwitch.add(new DoorSwitch(28*tl.map.getTileSize() + tl.map.getTileSize()/2, 35f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door5));
 		
+		//images for peices
 		tl.items = ItemHandler.Spawn(tl.items, 2780, 180, "machine_piece1");
 		tl.items = ItemHandler.Spawn(tl.items, 2740, 1340, "machine_piece2");
 		tl.items = ItemHandler.Spawn(tl.items, 900, 1220, "machine_piece3");
