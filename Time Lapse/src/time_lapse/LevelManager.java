@@ -201,13 +201,13 @@ public class LevelManager {
 		ArrayList<Door> door1 = new ArrayList<Door>();
 		door1.add(new Door(19*tl.map.getTileSize() + tl.map.getTileSize()/2, 2.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 0));
 		ArrayList<Door> door2 = new ArrayList<Door>();
-		door2.add(new Door(48*tl.map.getTileSize() + tl.map.getTileSize()/2, 5.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 2));
+		door2.add(new Door(48*tl.map.getTileSize() + tl.map.getTileSize()/2, 5.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 1));
 		ArrayList<Door> door3 = new ArrayList<Door>();
-		door3.add(new Door(67f*tl.map.getTileSize() + tl.map.getTileSize()/2, 17.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 3));
+		door3.add(new Door(67f*tl.map.getTileSize() + tl.map.getTileSize()/2, 17.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 2));
 		ArrayList<Door> door4 = new ArrayList<Door>();
-		door4.add(new Door(55f*tl.map.getTileSize() + tl.map.getTileSize()/2, 36.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 4));
+		door4.add(new Door(55f*tl.map.getTileSize() + tl.map.getTileSize()/2, 36.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 3));
 		ArrayList<Door> door5 = new ArrayList<Door>();
-		door5.add(new Door(21f*tl.map.getTileSize() + tl.map.getTileSize()/2, 35.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 5));
+		door5.add(new Door(21f*tl.map.getTileSize() + tl.map.getTileSize()/2, 35.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 4));
 		// adding all doors to main door list
 		tl.doors.add(door1.get(0));
 		tl.doors.add(door2.get(0));
@@ -231,6 +231,13 @@ public class LevelManager {
 		tl.image_control.setImage(tl.items.get(1), Game.ITEM_HAMMER_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(2), Game.TRANSPARENT_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC, 0, true);
+		
+		tl.rooms.add(new Room(0, 3, tl));
+		tl.rooms.add(new Room(1, 3, tl));
+		tl.rooms.add(new Room(2, 3, tl));
+		tl.rooms.add(new Room(3, 3, tl));
+		tl.rooms.add(new Room(4, 3, tl));
+		
 	}
 	// Reads level text file and converts into string array
 	private static String[] getLevelText(int level) {
