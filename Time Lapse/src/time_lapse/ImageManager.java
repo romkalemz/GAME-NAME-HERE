@@ -11,7 +11,7 @@ public class ImageManager {
 		if(scale) {
 			// Create copy of image so that entities already spawned
 			// don't change direction
-			Image img = ResourceManager.getImage(rsc).getScaledCopy(32, 32).copy();
+			Image img = ResourceManager.getImage(rsc).getScaledCopy(40, 40).copy();
 			img.setRotation(rotation);
 			e.addImageWithBoundingBox(img);
 		} else {

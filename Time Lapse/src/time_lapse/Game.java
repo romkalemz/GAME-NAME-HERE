@@ -22,7 +22,7 @@ public class Game extends StateBasedGame {
 	 * Map will be larger with scrolling
 	 * May need to adjust tilesize as needed
 	 */
-	public static final int TILESIZE = 32;
+	public static final int TILESIZE = 40;
 	public static final int NUM_OF_TILESX = 74;
 	public static final int NUM_OF_TILESY = 40;
 	
@@ -54,7 +54,8 @@ public class Game extends StateBasedGame {
 	public static final String CLOSED_DOOR = "resources/doorclosed.png";
 	public static final String DOOR_SWITCH_ON = "resources/switchon.png";
 	public static final String DOOR_SWITCH_OFF = "resources/switchoff.png";
-
+	public static final String OPEN_DOOR_VERT = "resources/dooropenvert.png";
+	public static final String CLOSED_DOOR_VERT = "resources/doorclosedvert.png";
 	
 	// Animation resources
 	public static final String PLAYER_DEFAULT_RIGHT_RSC = "resources/player_default_right_ani.png";
@@ -128,7 +129,8 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(PLAYER_DEFAULT_UP_RSC);
 		ResourceManager.loadImage(PLAYER_DEFAULT_UP_IDLE_RSC);
 		ResourceManager.loadImage(PLAYER_DEFAULT_DOWN_IDLE_RSC);
-		
+		ResourceManager.loadImage(OPEN_DOOR_VERT);
+		ResourceManager.loadImage(CLOSED_DOOR_VERT);
 		// Initialize stuff
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);	
 		player = new Player(400, 300);

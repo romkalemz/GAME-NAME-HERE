@@ -300,20 +300,6 @@ class PlayingState extends BasicGameState {
 	}
 
 	private void updateDoorStatus(Game g, int delta) {
-		for(int i = 0; i<g.doors.size(); i++) {
-			if(g.doors.get(i).getIsPass()) {
-				System.out.println("door is passable");
-			}
-			else {
-				System.out.println("Denied");
-			}
-//			Tile[][] s = g.map.getTileMap();
-//			for(int x = 0; x<g.map.getMapSizeX(); x++) {
-//				for(int y = 0; y<g.map.getMapSizeY();y++) {
-//					System.out.println(s[x][y].getSolid());
-//				}
-//			}
-		}
 	}
 	
 	private void doorFunctions(Game g, int delta) {
@@ -325,9 +311,13 @@ class PlayingState extends BasicGameState {
 					doorswitch.setIsSwitched(true);
 					for(int d = 0; d<doorswitch.getDoor().size(); d++) {
 						doorswitch.getDoor().get(d).setIsPass(true);
+						doorswitch.getDoor().get(d).rmImage();
+						doorswitch.getDoor().get(d).setimage();
 					}
-					g.image_control.RemoveIMG(doorswitch, Game.DOOR_SWITCH_OFF);
-					g.image_control.setImage(doorswitch, Game.DOOR_SWITCH_ON, 0, true);
+					
+					doorswitch.removeImage(doorswitch.img);
+					doorswitch.addImage(ResourceManager.getImage(Game.DOOR_SWITCH_ON).getScaledCopy(40, 40));
+					
 					
 				}
 			}
