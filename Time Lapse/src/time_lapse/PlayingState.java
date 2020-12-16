@@ -284,7 +284,7 @@ class PlayingState extends BasicGameState {
 						tl.enemy.get(i).chasePath();
 					}
 				}
-				tl.enemy.get(i).shootCooldown -= delta;
+
 				tl.enemy.get(i).update(game, delta);
 			}
 		}
