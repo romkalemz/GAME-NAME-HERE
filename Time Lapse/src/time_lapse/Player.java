@@ -226,7 +226,6 @@ import jig.Vector;
 		bullet_speed = 0.7f;
 		rate_of_fire = 10;
 		movement_speed = 0.5f;
-		System.out.println("cheat stats");
 	}
 	
 	public void saveStats() {
@@ -237,7 +236,6 @@ import jig.Vector;
 	}
 	
 	public void returnStats() {
-		System.out.println("returning stats");
 		bullet_speed = bullet_speed_buffer;
 		rate_of_fire = rate_of_fire_buffer;
 		attack_damage = attack_damage_buffer;
