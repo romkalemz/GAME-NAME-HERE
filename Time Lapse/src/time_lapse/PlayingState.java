@@ -656,7 +656,6 @@ class PlayingState extends BasicGameState {
 		// 50% of dropping
 		boolean dropItem = Item.randomGenerator(0.50);
 		if(dropItem) {
-			System.out.println("DROPPING ITEM");
 			// pick a random item from the list of possible items
 			String type = Item.pickRandItem();
 			String rsc = null;
