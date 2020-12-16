@@ -60,6 +60,9 @@ public class Game extends StateBasedGame {
 	public static final String TRANSPARENT_RSC = "resources/transparent.png";
 	public static final String GAME_OVER = "resources/gameover.png";
 	public static final String TILE_FOG_RSC = "resources/fog.png";
+	public static final String ITEM_TEMP_RSC = "resources/item_temp.png";
+	//temp 
+	
 	
 	// Animation resources
 	public static final String PLAYER_DEFAULT_RIGHT_RSC = "resources/player_default_right_ani.png";
@@ -157,8 +160,7 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(ITEM_SHIELD_RSC);
 		ResourceManager.loadImage(ITEM_ARROW_RSC);
 		ResourceManager.loadImage(ITEM_FIERY_RSC);
-
-
+		ResourceManager.loadImage(ITEM_TEMP_RSC);
 
 		
 		// LOAD ANIMATIONS FOR PLAYER && DOOR

@@ -159,7 +159,6 @@ public class LevelManager {
 		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(5), Game.ITEM_ACCELERATOR_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(6), Game.ITEM_FIERY_RSC, 0, true);
-		tl.image_control.setImage(tl.machine, Game.ITEM_HAMMER_RSC, 0, true);
 		// add all rooms in lvl one 
 		// NOTE: the roomNum in Door.java must match the index of the room it opens!
 		tl.rooms.add(new Room(0, 1, tl));
