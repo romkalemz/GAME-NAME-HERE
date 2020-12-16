@@ -39,18 +39,27 @@ public class Enemy extends Entity {
 	public Enemy(final float x, final float y, int type){
 		super(x,y);
 		
-		newEnemy = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(32, 32);
-		addImageWithBoundingBox(newEnemy);
+		//newEnemy = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(32, 32);
+		//addImageWithBoundingBox(newEnemy);
 		// set the healthBar image
 		healthBar = ResourceManager.getImage(Game.UI_HEALTHPIECE_RSC).getScaledCopy(50, 5);
 		enemyType = type;
+		// Chaser
 		if(type == 1) {
+			newEnemy = ResourceManager.getImage(Game.ENEMY_DEFAULT_TREE_RSC).getScaledCopy(40, 40);
+			addImageWithBoundingBox(newEnemy);
 			newEnemy.setColor(2, 255, 0, 0);
 		}
+		// Shooter
 		else if(type == 2){
+			newEnemy = ResourceManager.getImage(Game.ENEMY_DEFAULT_TREE_RSC).getScaledCopy(40, 40);
+			addImageWithBoundingBox(newEnemy);
 			newEnemy.setColor(2, 0, 255, 0);
 		}
+		// Mimic
 		else if(type == 3) {
+			newEnemy = ResourceManager.getImage(Game.ENEMY_DEFAULT_TREE_RSC).getScaledCopy(40, 40);
+			addImageWithBoundingBox(newEnemy);
 			newEnemy.setColor(2, 0, 0, 255);
 		}
 		path = new ArrayList<Vector>();
