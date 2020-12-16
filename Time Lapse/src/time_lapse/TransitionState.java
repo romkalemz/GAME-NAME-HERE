@@ -58,7 +58,7 @@ public class TransitionState extends BasicGameState {
 		} else if(tl.currLevel == 3) {
 			g.drawImage(ResourceManager.getImage(Game.story7), 300, 265);
 		}else if(tl.currLevel == 4) {
-			g.drawImage(ResourceManager.getImage(Game.story8), 300, 265);
+			g.drawImage(ResourceManager.getImage(Game.story8), 350, 265);
 		}
 		if(timer <= 0 && !next) {
 			story++;
@@ -80,6 +80,7 @@ public class TransitionState extends BasicGameState {
 				}
 				else {
 					tl.currLevel = 1;
+					game.enterState(Game.SPLASHSCREEN);
 				}	
 		}
 	}
