@@ -16,7 +16,7 @@ import jig.Vector;
 	private int rate_of_fire, rate_of_fire_buffer;
 	private float bullet_speed, bullet_speed_buffer;
 	private int attack_damage, attack_damage_buffer;
-	private int hp, max_hp, shield_hp;
+	private int hp, max_hp, curr_shield_hp, total_shield_hp;
 	private boolean activatable;
 	private int imgRotation;
 	private int prev_dir;  // This is for idle animations
@@ -51,7 +51,7 @@ import jig.Vector;
 	public void setHP(int a) { hp = a; }
 	public int getHP() { return hp; }
 	
-	public int getShieldHP() { return shield_hp; }
+	public int getShieldHP() { return curr_shield_hp; }
 	
 	// other attributes to player
 	private Image image;
@@ -101,10 +101,11 @@ import jig.Vector;
 	}
 	
 	public void takeDamage(int dmg) {
-		if(shield_hp > 0)
-			shield_hp -= dmg;
+		if(curr_shield_hp > 0)
+			curr_shield_hp -= dmg;
 		else
 			hp -= dmg;
+		take_damage_delay = 800;
 	}
 	
 	public void setImageRotation(int dir) {
@@ -207,7 +208,7 @@ import jig.Vector;
 			attack_damage += 1;
 		}
 		if(i.getType() == "shield") {
-			shield_hp += 10;
+			total_shield_hp = curr_shield_hp += 10;
 		}
 		if(i.getType() == "feather") {
 			movement_speed += 0.025f;
@@ -264,12 +265,14 @@ import jig.Vector;
 		take_damage_delay -= delta;
 		if(action_duration <= 0 && !isCheatMode)
 			returnStats();
+		if(take_damage_delay <= -5000)
+			curr_shield_hp = total_shield_hp;
 	}
 	
 
 	public void update(StateBasedGame game, final int delta) {
 		Game g = (Game) game;
-		
+	
 		checkBounds(g.map);
 		
 		if(!g.cheatMode) {
@@ -277,10 +280,8 @@ import jig.Vector;
 			checkCollision(g.map);
 			// check if the player collides with any enemy
 			for(int i = 0; i < g.enemy.size(); i++) {
-				if(this.collides(g.enemy.get(i)) != null && take_damage_delay <= 0) {
+				if(this.collides(g.enemy.get(i)) != null && take_damage_delay <= 0)
 					takeDamage(5);
-					take_damage_delay = 800;
-				}
 			}
 			if(getHP()<=0) {
 				g.LIVES = g.LIVES - 1;
