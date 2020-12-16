@@ -80,6 +80,10 @@ class PlayingState extends BasicGameState {
 	private SpriteSheet enemyWizardLeftAni;
 	private Animation enemyWizardLeftAnimation1;
 	
+	/* ----- Mimic ----- */
+	private SpriteSheet enemyMimicAni;
+	private Animation enemyMimicAnimation1;
+	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		Game tl = (Game)game;
@@ -124,6 +128,10 @@ class PlayingState extends BasicGameState {
 		
 		enemyWizardLeftAni = new SpriteSheet("resources/Wizard_enemy_front_left_ani.png",40,40);
 		enemyWizardLeftAnimation1 = new Animation(enemyWizardLeftAni, 100);
+		
+		enemyMimicAni = new SpriteSheet("resources/mimic_front_ani.png",40,40);
+		enemyMimicAnimation1 = new Animation(enemyMimicAni, 100);
+		
 	}
 
 	@Override
@@ -172,6 +180,19 @@ class PlayingState extends BasicGameState {
 							}
 						}
 					}
+				if(tl.enemy.get(i).getEnemyType() == 3) {
+					enemyMimicAnimation1.setSpeed(0.8f);
+					if(tl.enemy.get(i).getVelocity().getY() < 0) {
+						enemyMimicAnimation1.draw(tl.enemy.get(i).getCoarseGrainedMinX(),tl.enemy.get(i).getCoarseGrainedMinY());
+					}else if(tl.enemy.get(i).getVelocity().getY() >= 0) {
+						if(tl.enemy.get(i).getVelocity().getX() < 0) {
+							enemyMimicAnimation1.draw(tl.enemy.get(i).getCoarseGrainedMinX(),tl.enemy.get(i).getCoarseGrainedMinY());
+						} else {
+							enemyMimicAnimation1.draw(tl.enemy.get(i).getCoarseGrainedMinX(),tl.enemy.get(i).getCoarseGrainedMinY());
+	
+						}
+					}
+				}
 				}
 			}
 		
@@ -248,7 +269,6 @@ class PlayingState extends BasicGameState {
 			}
 			
 		}
-		
 		// render UI
 		tl.UIHandler.render(tl, g);
 	}
@@ -406,8 +426,10 @@ class PlayingState extends BasicGameState {
 					doorswitch.setIsSwitched(true);
 					for(int d = 0; d<doorswitch.getDoor().size(); d++) {
 						doorswitch.getDoor().get(d).setIsPass(true);
+						//g.rooms.get(doorswitch.getDoor().get(d).getRoomNum()).removeRoomFog();
 						doorswitch.getDoor().get(d).rmImage();
 						doorswitch.getDoor().get(d).setimage();
+						
 					}
 					doorswitch.removeImage(doorswitch.img);
 					doorswitch.addImage(ResourceManager.getImage(Game.DOOR_SWITCH_ON).getScaledCopy(40, 40));
@@ -443,7 +465,6 @@ class PlayingState extends BasicGameState {
 				for(int i = 0; i < 24; i++) {
 					Vector v = new Vector(1, 1);
 					v = v.setRotation(15 * i);
-					System.out.println(v.getRotation());
 					addProjectile(tl, tl.player, v, false);
 				}
 				tl.UIHandler.showTimer();
@@ -571,7 +592,6 @@ class PlayingState extends BasicGameState {
 	// add the item into the map
 	private void addItem(Game tl, Item activatable) {
 		// drop the item where the player is located
-		System.out.println(activatable);
 		activatable.setPosition(tl.player.getPosition());
 		// set pick up delay so that the player doesn't instantly pick it back up
 		tl.player.setActiveDelay(500);
@@ -592,7 +612,6 @@ class PlayingState extends BasicGameState {
 			
 				double dir = playerPos.subtract(e.getPosition()).getRotation();
 				v = new Vector(1, 1).setRotation(dir);
-				System.out.println("V = " + v.getX());
 				if(v.getX() >= 0) {
 					wizard_prev = 1;
 				}else {

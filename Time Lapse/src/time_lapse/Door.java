@@ -2,6 +2,7 @@ package time_lapse;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.state.StateBasedGame;
 
 import jig.Entity;
 import jig.ResourceManager;
@@ -13,14 +14,17 @@ public class Door extends Entity{
 
 	private int mapSizeY = 1280;
 	private int Rotation;
+	// roomNum must match the index of tl.rooms that it opens
+	private int roomNum;
 	private boolean hasRotated;
 	public boolean hasRotated() {return hasRotated;}
 	public void setHasRotated(boolean pass) {hasRotated = pass;}
 	public int getRotationofImage() {return Rotation;}
 	public void setIsPass(boolean pass) {isPassable = pass;}
 	public boolean getIsPass() {return isPassable;}
+	public int getRoomNum() {return roomNum;}
 	private Image mainimg;
-	public Door(final float x, final float y, int rotation) {
+	public Door(final float x, final float y, int rotation, int roomNum) {
 		super(x, y);
 		Rotation = rotation;
 		Image img;
@@ -33,8 +37,10 @@ public class Door extends Entity{
 			addImageWithBoundingBox(img);
 		}
 		hasRotated = false;
+		this.roomNum = roomNum;
 		//setDebug(true);
 	}
+	
 	public void setimage() {
 		mainimg = ResourceManager.getImage(Game.OPEN_DOOR).copy();
 		mainimg.setRotation(Rotation);
