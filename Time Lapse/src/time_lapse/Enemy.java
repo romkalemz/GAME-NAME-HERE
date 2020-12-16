@@ -65,7 +65,7 @@ public class Enemy extends Entity {
 		}
 		// Mimic
 		else if(type == 3) {
-			newEnemy = ResourceManager.getImage(Game.ENEMY_DEFAULT_MIMIC_ANI_RSC).getScaledCopy(40, 40);
+			newEnemy = ResourceManager.getImage(Game.TRANSPARENT_RSC).getScaledCopy(40, 40);
 			addImageWithBoundingBox(newEnemy);
 			//newEnemy.setColor(2, 0, 0, 255);
 		}

@@ -90,6 +90,7 @@ public class Game extends StateBasedGame {
 	
 	// Mimic resources
 	public static final String ENEMY_DEFAULT_MIMIC_ANI_RSC = "resources/mimic.png";
+	public static final String ENEMY_DEFAULT_MIMIC_FRONT_ANI_RSC = "mimic_front_ani.png";
 	
 	// items in the game
 	public Player player;
@@ -181,6 +182,8 @@ public class Game extends StateBasedGame {
 
 		// Mimic animations
 		ResourceManager.loadImage(ENEMY_DEFAULT_MIMIC_ANI_RSC);
+		ResourceManager.loadImage(ENEMY_DEFAULT_MIMIC_FRONT_ANI_RSC);
+
 		
 		// Initialize stuff
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);	
