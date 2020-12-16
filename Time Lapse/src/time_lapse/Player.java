@@ -105,6 +105,7 @@ import jig.Vector;
 			curr_shield_hp -= dmg;
 		else
 			hp -= dmg;
+		take_damage_delay = 800;
 	}
 	
 	public void setImageRotation(int dir) {
@@ -279,10 +280,8 @@ import jig.Vector;
 			checkCollision(g.map);
 			// check if the player collides with any enemy
 			for(int i = 0; i < g.enemy.size(); i++) {
-				if(this.collides(g.enemy.get(i)) != null && take_damage_delay <= 0) {
+				if(this.collides(g.enemy.get(i)) != null && take_damage_delay <= 0)
 					takeDamage(5);
-					take_damage_delay = 800;
-				}
 			}
 		}
 		
