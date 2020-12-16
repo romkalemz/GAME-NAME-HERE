@@ -318,7 +318,6 @@ class PlayingState extends BasicGameState {
 						tl.enemy.get(i).chasePath();
 					}
 				}
-
 				tl.enemy.get(i).update(game, delta);
 			}
 		}
@@ -370,7 +369,11 @@ class PlayingState extends BasicGameState {
 					doorswitch.setIsSwitched(true);
 					for(int d = 0; d<doorswitch.getDoor().size(); d++) {
 						doorswitch.getDoor().get(d).setIsPass(true);
+						doorswitch.getDoor().get(d).rmImage();
+						doorswitch.getDoor().get(d).setimage();
 					}
+					doorswitch.removeImage(doorswitch.img);
+					doorswitch.addImage(ResourceManager.getImage(Game.DOOR_SWITCH_ON).getScaledCopy(40, 40));
 					g.image_control.RemoveIMG(doorswitch, Game.DOOR_SWITCH_OFF);
 					g.image_control.setImage(doorswitch, Game.DOOR_SWITCH_ON, 0, true);
 					

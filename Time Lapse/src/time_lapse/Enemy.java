@@ -82,7 +82,7 @@ public class Enemy extends Entity {
 			total_hp = hp = 20;
 		}
 
-		pushback = 16;
+		pushback = 20;
 		KO = 0;
 	}
 	
