@@ -193,6 +193,16 @@ class PlayingState extends BasicGameState {
 			else
 				debugMode = true;
 		}
+		if(input.isKeyPressed(Input.KEY_F2)) {
+			if(tl.cheatMode) {
+				tl.player.returnStats();
+				tl.cheatMode = false;
+			}
+			else {
+				tl.player.cheatStats();
+				tl.cheatMode = true;
+			}
+		}
 		if (input.isKeyDown(Input.KEY_1)) {
 			tl.currLevel = 1;
 			tl.enterState(Game.SPLASHSCREEN);
@@ -231,7 +241,8 @@ class PlayingState extends BasicGameState {
 					if(tl.projectiles.get(i).collides(tl.player)!= null) {
 						// reduce health of the player
 						// 5 damage from enemy bullets
-						tl.player.takeDamage(5);
+						if(!tl.cheatMode)
+							tl.player.takeDamage(5);
 					}
 					tl.projectiles.remove(i);
 				}
@@ -335,11 +346,12 @@ class PlayingState extends BasicGameState {
 		if(input.isKeyDown(Input.KEY_SPACE) && tl.player.canActivate() && Item.current_cooldown <= 0) {
 			// do action / change stats of player
 			// accelerator action
-			if(tl.UIHandler.getActivatable().getType().equals("accelerator")) {
+			if(tl.UIHandler.getActivatable().getType().equals("accelerator") && !tl.cheatMode) {
 				tl.player.doAction(tl.UIHandler.getActivatable());
 				// start a cooldown timer
 				tl.UIHandler.showTimer();
-				Item.startTimer(20);
+				if(!tl.cheatMode)
+					Item.startTimer(20);
 			}
 			// fiery action
 			else if(tl.UIHandler.getActivatable().getType().equals("fiery")) {
@@ -351,7 +363,8 @@ class PlayingState extends BasicGameState {
 					addProjectile(tl, tl.player, v, false);
 				}
 				tl.UIHandler.showTimer();
-				Item.startTimer(8);
+				if(!tl.cheatMode)
+					Item.startTimer(8);
 			}
 			
 		}
