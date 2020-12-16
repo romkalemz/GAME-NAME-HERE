@@ -37,6 +37,8 @@ class SplashScreen extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game) {
 		Game tl = (Game)game;
 		LevelManager.setLevel(game, tl.currLevel);
+		tl.player.reset(false);
+		tl.UIHandler.activatable = null;
 		spacetimer = 300;
 		storycount = 0;
 	}
