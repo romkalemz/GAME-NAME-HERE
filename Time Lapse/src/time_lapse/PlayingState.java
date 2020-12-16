@@ -99,6 +99,14 @@ class PlayingState extends BasicGameState {
 	private SpriteSheet itemShieldAni;
 	private Animation itemShieldAnimation1;
 	
+	// Arrow animations
+	private SpriteSheet itemArrowAni;
+	private Animation itemArrowAnimation1;
+	
+	// Accelerator animations
+	private SpriteSheet itemAcceleratorAni;
+	private Animation itemAcceleratorAnimation1;
+	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		Game tl = (Game)game;
@@ -156,6 +164,12 @@ class PlayingState extends BasicGameState {
 		itemShieldAni = new SpriteSheet("resources/shield_item.png",40,40);
 		itemShieldAnimation1 = new Animation(itemShieldAni, 100);
 		
+		itemArrowAni = new SpriteSheet("resources/arrow_item.png",40,40);
+		itemArrowAnimation1 = new Animation(itemArrowAni, 100);
+		
+		itemAcceleratorAni = new SpriteSheet("resources/accelerator_item.png",40,40);
+		itemAcceleratorAnimation1 = new Animation(itemAcceleratorAni, 100);
+
 		
 	}
 
@@ -235,6 +249,12 @@ class PlayingState extends BasicGameState {
 				}
 				if(tl.items.get(i).getType() == "shield") {
 					itemShieldAnimation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
+				}
+				if(tl.items.get(i).getType() == "arrow") {
+					itemArrowAnimation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
+				}
+				if(tl.items.get(i).getType() == "accelerator") {
+					itemAcceleratorAnimation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
 				}
 			}
 		}
