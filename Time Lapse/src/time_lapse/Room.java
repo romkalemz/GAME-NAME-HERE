@@ -93,9 +93,7 @@ public class Room {
 	private void setFogLvl3(Game tl) {
 
 	}
-
 	public void removeRoomFog() {
-		System.out.println("yo");
 		for (int i = 0; i < roomTiles.size(); i++) {
 			roomTiles.get(i).removeImage(roomTiles.get(i).fogImg);
 		}

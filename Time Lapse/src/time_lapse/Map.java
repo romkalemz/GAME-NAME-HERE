@@ -48,7 +48,7 @@ public class Map {
 		tl.enemy.clear();
 		tl.projectiles.clear();
 		tl.UIHandler.reset();
-		tl.player.reset();
+		tl.player.reset(tl.cheatMode);
 		tl.doors.clear();
 		tl.doorSwitch.clear();
 		tl.LIVES = 2;
