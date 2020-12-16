@@ -82,22 +82,24 @@ import jig.Vector;
 		addImageWithBoundingBox(image);
 
 		imgRotation = 0;
-		reset();
+		reset(false);
 		direction = 1;
 		prev_dir = 1;
 	}
 	
 	
-	public void reset() {
+	public void reset( Boolean isGod) {
 		velocity = new Vector(0, 0);
 		setPosition(400, 300);
 		// reset, or set initial stats
-		movement_speed_buffer = movement_speed = 0.2f;
-		rate_of_fire_buffer = rate_of_fire = 450;
-		attack_damage_buffer = attack_damage = 5;
-		max_hp = hp = 100;
-		bullet_speed_buffer = bullet_speed = 0.3f;
-		activatable = false;
+		if(!isGod) {
+			movement_speed_buffer = movement_speed = 0.2f;
+			rate_of_fire_buffer = rate_of_fire = 450;
+			attack_damage_buffer = attack_damage = 5;
+			max_hp = hp = 100;
+			bullet_speed_buffer = bullet_speed = 0.3f;
+			activatable = false;
+		}
 	}
 	
 	public void takeDamage(int dmg) {
