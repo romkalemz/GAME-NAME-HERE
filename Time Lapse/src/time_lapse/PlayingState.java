@@ -107,6 +107,10 @@ class PlayingState extends BasicGameState {
 	private SpriteSheet itemAcceleratorAni;
 	private Animation itemAcceleratorAnimation1;
 	
+	// Fiery animations
+	private SpriteSheet itemFieryAni;
+	private Animation itemFieryAnimation1;
+	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		Game tl = (Game)game;
@@ -170,6 +174,8 @@ class PlayingState extends BasicGameState {
 		itemAcceleratorAni = new SpriteSheet("resources/accelerator_item.png",40,40);
 		itemAcceleratorAnimation1 = new Animation(itemAcceleratorAni, 100);
 
+		itemFieryAni = new SpriteSheet("resources/fiery_item.png",40,40);
+		itemFieryAnimation1 = new Animation(itemFieryAni, 100);
 		
 	}
 
@@ -255,6 +261,9 @@ class PlayingState extends BasicGameState {
 				}
 				if(tl.items.get(i).getType() == "accelerator") {
 					itemAcceleratorAnimation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
+				}
+				if(tl.items.get(i).getType() == "fiery") {
+					itemFieryAnimation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
 				}
 			}
 		}
