@@ -17,14 +17,20 @@ public class Enemy extends Entity {
 	private ArrayList<Vector> path;	// the path the enemy follows in the game
 	public ArrayList<Vector> getPath() { return path; }
 	private int enemyType;
+	public int shootCooldown;
 	private int followPoint;
 	private Image newEnemy, healthBar;
 	private Vector velocity;
 	private int hp, total_hp, KO;
 	private float translateX, translateY;
+	private int prev_dir; // This is for animations
 	
-	public int shootCooldown;
+	private int getDirection() { return prev_dir;}
+	private void setDirection(int dir) {prev_dir = dir;}
 
+	public int getPrevDirection() { return prev_dir; }
+	public void setPrevDirection(int dir) { prev_dir = dir;}
+	
 	public int getKO() { return KO; }
 	public int getHP() { return hp; }
 	
@@ -40,29 +46,30 @@ public class Enemy extends Entity {
 	public Enemy(final float x, final float y, int type){
 		super(x,y);
 		
-		//newEnemy = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(32, 32);
+		//newEnemy = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(0, 0);
 		//addImageWithBoundingBox(newEnemy);
 		// set the healthBar image
+		healthBar = ResourceManager.getImage(Game.UI_HEALTHPIECE_RSC).getScaledCopy(50, 5);
 		enemyType = type;
 		// Chaser
 		if(type == 1) {
-			newEnemy = ResourceManager.getImage(Game.ENEMY_DEFAULT_TREE_RSC).getScaledCopy(40, 40);
+			newEnemy = ResourceManager.getImage(Game.TRANSPARENT_RSC).getScaledCopy(40, 40);
 			addImageWithBoundingBox(newEnemy);
 			newEnemy.setColor(2, 255, 0, 0);
 		}
 		// Shooter
 		else if(type == 2){
-			newEnemy = ResourceManager.getImage(Game.ENEMY_DEFAULT_TREE_RSC).getScaledCopy(40, 40);
+			newEnemy = ResourceManager.getImage(Game.TRANSPARENT_RSC).getScaledCopy(40, 40);
 			addImageWithBoundingBox(newEnemy);
 			newEnemy.setColor(2, 0, 255, 0);
 		}
 		// Mimic
 		else if(type == 3) {
-			newEnemy = ResourceManager.getImage(Game.ENEMY_DEFAULT_TREE_RSC).getScaledCopy(40, 40);
+			newEnemy = ResourceManager.getImage(Game.TRANSPARENT_RSC).getScaledCopy(40, 40);
 			addImageWithBoundingBox(newEnemy);
 			newEnemy.setColor(2, 0, 0, 255);
 		}
-		healthBar = ResourceManager.getImage(Game.UI_HEALTHPIECE_RSC).getScaledCopy(50, 5);
+		prev_dir = 1;
 		path = new ArrayList<Vector>();
 		reset();
 	}
@@ -153,6 +160,12 @@ public class Enemy extends Entity {
 		Vector des = path.get(followPoint);
 		Vector dif = new Vector(des.getX()-getX(), des.getY()-getY());
 		
+		// 1 = right, 0 = left
+		if(dif.getX() > 0) {
+			prev_dir = 1;
+		}else if(dif.getX() < 0){
+			prev_dir = 0;
+		}
 		if (dif.length() <= 3) {
 			followPoint++;
 			if(followPoint >= path.size())
