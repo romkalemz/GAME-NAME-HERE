@@ -27,6 +27,15 @@ public class ImageManager {
 		img.setRotation(rotation);
 		e.addImageWithBoundingBox(img);
 	}
+	
+	// this function allows for custom scaling if needed
+		public void setImageMachineParts(Entity e, String rsc, float rotation, Boolean scale) {
+			Image img = ResourceManager.getImage(rsc).getScaledCopy(40, 40).copy();
+			img.setRotation(rotation);
+			e.addImageWithBoundingBox(img);
+			img.setColor(2, 255, 0, 0);
+		}
+	
 	public void RemoveIMG(Entity e, String rsc) {
 			Image img = ResourceManager.getImage(rsc);
 			e.removeImage(img);
