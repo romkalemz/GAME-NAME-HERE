@@ -254,8 +254,8 @@ class PlayingState extends BasicGameState {
 		// render items
 		if(!tl.items.isEmpty()) {
 			for(int i = 0; i < tl.items.size(); i++) {
-				//tl.items.get(i).render(g);
-				if(tl.items.get(i).getType() == "feather") {
+				//
+			if(tl.items.get(i).getType() == "feather") {
 					itemFeatherAnimation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
 				}
 				if(tl.items.get(i).getType() == "hammer") {

@@ -22,7 +22,9 @@ public class TransitionState extends BasicGameState {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) {
 		Game tl = (Game)game;
+		if(tl.currLevel != 4) {
 		LevelManager.setLevel(game, tl.currLevel);
+		}
 		timer = 5000;
 		//story = 0;
 		next = false;
@@ -55,6 +57,8 @@ public class TransitionState extends BasicGameState {
 			g.drawImage(ResourceManager.getImage(Game.story6), 300, 265);
 		} else if(tl.currLevel == 3) {
 			g.drawImage(ResourceManager.getImage(Game.story7), 300, 265);
+		}else if(tl.currLevel == 4) {
+			g.drawImage(ResourceManager.getImage(Game.story8), 350, 265);
 		}
 		if(timer <= 0 && !next) {
 			story++;
@@ -69,12 +73,16 @@ public class TransitionState extends BasicGameState {
 		Game tl = (Game)game;
 		timer -= delta;
 		if(input.isKeyDown(Input.KEY_SPACE)) {
-				story = 6;
-				next = false;
-				game.enterState(Game.PLAYINGSTATE);
+				if(tl.currLevel != 4) {
+					story = 6;
+					next = false;
+					game.enterState(Game.PLAYINGSTATE);
+				}
+				else {
+					tl.currLevel = 1;
+					game.enterState(Game.SPLASHSCREEN);
+				}	
 		}
-		
-	
 	}
 
 	@Override

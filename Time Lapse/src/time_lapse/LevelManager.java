@@ -233,7 +233,7 @@ public class LevelManager {
 		tl.image_control.setImageMachineParts(tl.items.get(5), Game.MACHINE_PIECE_1_RSC, 0, true);
 		tl.image_control.setImageMachineParts(tl.items.get(6), Game.MACHINE_PIECE_1_RSC, 0, true);
 		tl.image_control.setImageMachineParts(tl.items.get(7), Game.MACHINE_PIECE_1_RSC, 0, true);
-
+		tl.image_control.setImage(tl.machine, Game.TIME_MACHINE_RSC, 0, true);
 	}
 	private static void setLevel3(Game tl) {
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);
@@ -268,11 +268,14 @@ public class LevelManager {
 		tl.items = ItemHandler.Spawn(tl.items, 2740, 1340, "machine_piece2");
 		tl.items = ItemHandler.Spawn(tl.items, 900, 1220, "machine_piece3");
 		tl.items = ItemHandler.Spawn(tl.items, 260, 940, "machine_piece4");
+		tl.items = ItemHandler.Spawn(tl.items, 428, 734, "machine_piece5");
 		
 		tl.image_control.setImageMachineParts(tl.items.get(0), Game.MACHINE_PIECE_1_RSC, 0, true);
 		tl.image_control.setImageMachineParts(tl.items.get(1), Game.MACHINE_PIECE_1_RSC, 0, true);
 		tl.image_control.setImageMachineParts(tl.items.get(2), Game.MACHINE_PIECE_1_RSC, 0, true);
 		tl.image_control.setImageMachineParts(tl.items.get(3), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImageMachineParts(tl.items.get(4), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.machine, Game.TIME_MACHINE_RSC, 0, true);
 		
 		tl.rooms.add(new Room(0, 3, tl));
 		tl.rooms.add(new Room(1, 3, tl));

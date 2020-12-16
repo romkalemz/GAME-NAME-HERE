@@ -60,6 +60,9 @@ public class Game extends StateBasedGame {
 	public static final String TRANSPARENT_RSC = "resources/transparent.png";
 	public static final String GAME_OVER = "resources/gameover.png";
 	public static final String TILE_FOG_RSC = "resources/fog.png";
+	public static final String ITEM_TEMP_RSC = "resources/item_temp.png";
+	//temp 
+	
 	public static final String MACHINE_PIECE_1_RSC = "resources/machine_piece_1.png";
 	public static final String TIME_MACHINE_RSC = "resources/timemachine.png";
 
@@ -82,6 +85,7 @@ public class Game extends StateBasedGame {
 	public static final String story5 = "resources/t5.png";
 	public static final String story6 = "resources/t6.png";
 	public static final String story7 = "resources/t7.png";
+	public static final String story8 = "resources/t8.png";
 	// Enemy resources
 	
 	// Tree resources
@@ -160,11 +164,9 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(ITEM_SHIELD_RSC);
 		ResourceManager.loadImage(ITEM_ARROW_RSC);
 		ResourceManager.loadImage(ITEM_FIERY_RSC);
+		ResourceManager.loadImage(ITEM_TEMP_RSC);
 		ResourceManager.loadImage(MACHINE_PIECE_1_RSC);
 		ResourceManager.loadImage(TIME_MACHINE_RSC);
-
-
-
 		
 		// LOAD ANIMATIONS FOR PLAYER && DOOR
 		ResourceManager.loadImage(PLAYER_DEFAULT_RIGHT_RSC);
@@ -185,6 +187,7 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(story5);
 		ResourceManager.loadImage(story6);
 		ResourceManager.loadImage(story7);
+		ResourceManager.loadImage(story8);
 		// LOAD ANIMATIONS FOR ENEMIES
 		
 		

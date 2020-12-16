@@ -132,6 +132,30 @@ import jig.Vector;
 		}
 		
 	}
+	public void checkTimeMachineWin(Game g) {
+		int totalCount = 0;
+		if(g.currLevel == 1) {
+			totalCount = g.UIHandler.quest_items.size();
+			if(totalCount == 5 && collides(g.machine)!=null) {
+				g.currLevel = 2;
+				g.enterState(Game.TRANSITIONSTATE);
+			}
+		}
+		else if(g.currLevel == 2) {
+			totalCount = g.UIHandler.quest_items.size();
+			if(totalCount == 8 && collides(g.machine)!=null) {
+				g.currLevel = 3;
+				g.enterState(Game.TRANSITIONSTATE);
+			}
+		}
+		else if(g.currLevel == 3) {
+			totalCount = g.UIHandler.quest_items.size();
+			if(totalCount == 5 && collides(g.machine)!=null) {
+				g.currLevel = 4;
+				g.enterState(Game.TRANSITIONSTATE);
+			}
+		}
+	}
 	public void checkDoorCollision(Game g, Map m) {
 		Tile t;
 		int sideX = (int) Math.floor(getX() / m.getTileSize());
@@ -290,9 +314,8 @@ import jig.Vector;
 
 	public void update(StateBasedGame game, final int delta) {
 		Game g = (Game) game;
-	
 		checkBounds(g.map);
-		
+		checkTimeMachineWin(g);
 		if(!g.cheatMode) {
 			checkDoorCollision(g,g.map);
 			checkCollision(g.map);
