@@ -180,15 +180,15 @@ public class LevelManager {
 		ArrayList<Door> door3 = new ArrayList<Door>();
 		door3.add(new Door(28.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 19f*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 3));
 		ArrayList<Door> door4 = new ArrayList<Door>();
-		door4.add(new Door(55f*tl.map.getTileSize() + tl.map.getTileSize()/2, 36.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 4));
+		door4.add(new Door(21.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 19*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 4));
 		ArrayList<Door> door5 = new ArrayList<Door>();
-		door5.add(new Door(21f*tl.map.getTileSize() + tl.map.getTileSize()/2, 35.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 5));
+		door5.add(new Door(46.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 10*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 5));
 		ArrayList<Door> door6 = new ArrayList<Door>();
-		door6.add(new Door(21f*tl.map.getTileSize() + tl.map.getTileSize()/2, 35.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 5));
+		door6.add(new Door(42.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 18f*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 5));
 		ArrayList<Door> door7 = new ArrayList<Door>();
-		door7.add(new Door(21f*tl.map.getTileSize() + tl.map.getTileSize()/2, 35.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 5));
+		door7.add(new Door(66.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 27f*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 5));
 		ArrayList<Door> door8 = new ArrayList<Door>();
-		door8.add(new Door(21f*tl.map.getTileSize() + tl.map.getTileSize()/2, 35.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 5));
+		door8.add(new Door(49.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 17f*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 5));
 		//adding all doors to main door list
 		tl.doors.add(door1.get(0));
 		tl.doors.add(door2.get(0));
@@ -199,16 +199,15 @@ public class LevelManager {
 		tl.doors.add(door7.get(0));
 		tl.doors.add(door8.get(0));
 		
-		
 		// adding switches with proper doors
 		tl.doorSwitch.add(new DoorSwitch(2*tl.map.getTileSize() + tl.map.getTileSize()/2, 2f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door1));
 		tl.doorSwitch.add(new DoorSwitch(50*tl.map.getTileSize() + tl.map.getTileSize()/2, 2*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door2));
-		tl.doorSwitch.add(new DoorSwitch(2*tl.map.getTileSize() + tl.map.getTileSize()/2, 34f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door3));
-		tl.doorSwitch.add(new DoorSwitch(73*tl.map.getTileSize() + tl.map.getTileSize()/2, 18f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door4));
-		tl.doorSwitch.add(new DoorSwitch(28*tl.map.getTileSize() + tl.map.getTileSize()/2, 35f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door5));
-		tl.doorSwitch.add(new DoorSwitch(2*tl.map.getTileSize() + tl.map.getTileSize()/2, 34f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door3));
-		tl.doorSwitch.add(new DoorSwitch(73*tl.map.getTileSize() + tl.map.getTileSize()/2, 18f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door4));
-		tl.doorSwitch.add(new DoorSwitch(28*tl.map.getTileSize() + tl.map.getTileSize()/2, 35f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door5));
+		tl.doorSwitch.add(new DoorSwitch(17*tl.map.getTileSize() + tl.map.getTileSize()/2, 2f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door3));
+		tl.doorSwitch.add(new DoorSwitch(60*tl.map.getTileSize() + tl.map.getTileSize()/2, 11f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door4));
+		tl.doorSwitch.add(new DoorSwitch(31*tl.map.getTileSize() + tl.map.getTileSize()/2, 19f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door5));
+		tl.doorSwitch.add(new DoorSwitch(40*tl.map.getTileSize() + tl.map.getTileSize()/2, 35f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door6));
+		tl.doorSwitch.add(new DoorSwitch(49*tl.map.getTileSize() + tl.map.getTileSize()/2, 36f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door7));
+		tl.doorSwitch.add(new DoorSwitch(71*tl.map.getTileSize() + tl.map.getTileSize()/2, 18f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door8));
 		
 		tl.items = ItemHandler.Spawn(tl.items, 1700, 180, "machine_piece1");
 		tl.items = ItemHandler.Spawn(tl.items, 2700, 180, "machine_piece2");
