@@ -46,7 +46,7 @@ public class Item extends Entity {
 		return current_cooldown;
 	}
 	
-	public static Item pickRandItem() {
+	public static String pickRandItem() {
 		// get a random num generator from 1 to 6
 		int rand = (int)(Math.random() * (6 - 1)) + 1;
 		String type = null;
@@ -63,14 +63,14 @@ public class Item extends Entity {
 		} else if(rand == 6) {
 			type = "fiery";
 		}
-		Item item = new Item(0, 0, type);
-		return item;
+
+		return type;
 	}
 	/*
 	 * this function returns true IF the percent chance happens,
 	 * otherwise it returns false. used for percent drop of the item
 	 */
-	public static boolean randomGenerator(int percent) {
+	public static boolean randomGenerator(double percent) {
 		double result = Math.random();
 		if(result > percent)
 			return true;

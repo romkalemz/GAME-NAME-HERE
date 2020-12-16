@@ -683,10 +683,25 @@ class PlayingState extends BasicGameState {
 		Item item = null;
 		// a random item is being dropped from the enemy
 		// 50% of dropping
-		boolean dropItem = Item.randomGenerator(50);
+		boolean dropItem = Item.randomGenerator(0.50);
 		if(dropItem) {
 			// pick a random item from the list of possible items
-			item = Item.pickRandItem();
+			String type = Item.pickRandItem();
+			String rsc = null;
+			if(type == "hammer")
+				rsc = Game.ITEM_HAMMER_RSC;
+			else if(type == "feather")
+				rsc = Game.ITEM_FEATHER_RSC;
+			else if(type == "shield")
+				rsc = Game.ITEM_SHIELD_RSC;
+			else if(type == "arrow")
+				rsc = Game.ITEM_ARROW_RSC;
+			else if(type == "accelerator")
+				rsc = Game.ITEM_ACCELERATOR_RSC;
+			else if(type == "fiery")
+				rsc = Game.ITEM_FIERY_RSC;
+			item = new Item(e.getX(), e.getY(), type);
+			tl.image_control.setImage(item, rsc, 0, true);
 			// set position of item where enemy died
 			item.setPosition(e.getPosition());
 			// add the item back to the item list array in the game
