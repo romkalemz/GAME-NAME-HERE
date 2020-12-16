@@ -49,7 +49,7 @@ public class Game extends StateBasedGame {
 	public static final String ITEM_FEATHER_RSC = "resources/feather.png";
 	public static final String ITEM_SHIELD_RSC = "resources/shield.png";
 	public static final String ITEM_ARROW_RSC = "resources/arrow.png";
-	public static final String ITEM_ACCELERATOR_RSC = "resources/item_temp.png";
+	public static final String ITEM_ACCELERATOR_RSC = "resources/accelerator.png";
 	public static final String ITEM_FIERY_RSC = "resources/item_temp.png";
 	public static final String OPEN_DOOR = "resources/dooropen.png";
 	public static final String CLOSED_DOOR = "resources/doorclosed.png";
@@ -153,6 +153,12 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(TRANSPARENT_RSC);
 		ResourceManager.loadImage(GAME_OVER);
 		ResourceManager.loadImage(TILE_FOG_RSC);
+		ResourceManager.loadImage(ITEM_ACCELERATOR_RSC);
+		ResourceManager.loadImage(ITEM_SHIELD_RSC);
+		ResourceManager.loadImage(ITEM_ARROW_RSC);
+
+
+
 		
 		// LOAD ANIMATIONS FOR PLAYER && DOOR
 		ResourceManager.loadImage(PLAYER_DEFAULT_RIGHT_RSC);
