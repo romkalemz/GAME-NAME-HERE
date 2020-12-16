@@ -33,7 +33,7 @@ public class Door extends Entity{
 			addImageWithBoundingBox(img);
 		}
 		hasRotated = false;
-		setDebug(true);
+		//setDebug(true);
 	}
 	public void setimage() {
 		mainimg = ResourceManager.getImage(Game.OPEN_DOOR).copy();
