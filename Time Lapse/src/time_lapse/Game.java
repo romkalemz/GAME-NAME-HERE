@@ -71,6 +71,12 @@ public class Game extends StateBasedGame {
 	public static final String PLAYER_DEFAULT_UP_IDLE_RSC = "resources/player_default_up_idle_ani.png";
 	public static final String PLAYER_DEFAULT_DOWN_IDLE_RSC = "resources/player_default_down_idle_ani.png";
 
+	//story resources
+	public static final String story1 = "resources/t1.png";
+	public static final String story2 = "resources/t2.png";
+	public static final String story3 = "resources/t3.png";
+	public static final String story4 = "resources/t4.png";
+	public static final String story5 = "resources/t5.png";
 	// Enemy resources
 	
 	// Tree resources
@@ -85,7 +91,7 @@ public class Game extends StateBasedGame {
 	// items in the game
 	public Player player;
 	public Map map;
-	
+	public int storyTime;
 	public boolean cheatMode = false;
 	public int currLevel = 1;
 	public int LIVES;
@@ -101,7 +107,6 @@ public class Game extends StateBasedGame {
 	
 	public Game(String title) {
 		super(title);
-		
 		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
 	}
 
@@ -152,7 +157,15 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(OPEN_DOOR_VERT);
 		ResourceManager.loadImage(CLOSED_DOOR_VERT);
 		
+		// Load storys
+		ResourceManager.loadImage(story1);
+		ResourceManager.loadImage(story2);
+		ResourceManager.loadImage(story3);
+		ResourceManager.loadImage(story4);
+		ResourceManager.loadImage(story5);
 		// LOAD ANIMATIONS FOR ENEMIES
+		
+		
 		
 		// Tree animations
 		ResourceManager.loadImage(ENEMY_DEFAULT_TREE_RSC);
@@ -174,12 +187,11 @@ public class Game extends StateBasedGame {
 		doorSwitch = new ArrayList<DoorSwitch>();
 		projectiles = new ArrayList<Projectile>();
 		LIVES = 2;
+		storyTime = 1;
 		debug = new Debug(10,20,"asdfasdf");
 		UIHandler = new UIHandler(ResourceManager.getImage(UI_BG_RSC));
 		rooms = new ArrayList<Room>();		
 		// load images for all active entities / tiles
 		image_control = new ImageManager();
-		
-
 	}
 }
