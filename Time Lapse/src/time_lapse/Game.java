@@ -59,6 +59,7 @@ public class Game extends StateBasedGame {
 	public static final String CLOSED_DOOR_VERT = "resources/doorclosedvert.png";
 	public static final String TRANSPARENT_RSC = "resources/transparent.png";
 	public static final String GAME_OVER = "resources/gameover.png";
+	public static final String TILE_FOG_RSC = "resources/fog.png";
 	
 	// Animation resources
 	public static final String PLAYER_DEFAULT_RIGHT_RSC = "resources/player_default_right_ani.png";
@@ -104,6 +105,7 @@ public class Game extends StateBasedGame {
 	public ArrayList<Door> doors;
 	public ArrayList<Projectile> projectiles;
 	public ArrayList<DoorSwitch> doorSwitch;
+	public ArrayList<Room> rooms;
 	public Debug debug;
 	public UIHandler UIHandler;
 	public ImageManager image_control;
@@ -147,7 +149,7 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(DOOR_SWITCH_OFF);
 		ResourceManager.loadImage(TRANSPARENT_RSC);
 		ResourceManager.loadImage(GAME_OVER);
-		
+		ResourceManager.loadImage(TILE_FOG_RSC);
 		
 		// LOAD ANIMATIONS FOR PLAYER && DOOR
 		ResourceManager.loadImage(PLAYER_DEFAULT_RIGHT_RSC);
@@ -197,7 +199,7 @@ public class Game extends StateBasedGame {
 		storyTime = 1;
 		debug = new Debug(10,20,"asdfasdf");
 		UIHandler = new UIHandler(ResourceManager.getImage(UI_BG_RSC));
-		
+		rooms = new ArrayList<Room>();		
 		// load images for all active entities / tiles
 		image_control = new ImageManager();
 	}
