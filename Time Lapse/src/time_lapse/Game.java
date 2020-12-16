@@ -67,6 +67,12 @@ public class Game extends StateBasedGame {
 	public static final String PLAYER_DEFAULT_UP_IDLE_RSC = "resources/player_default_up_idle_ani.png";
 	public static final String PLAYER_DEFAULT_DOWN_IDLE_RSC = "resources/player_default_down_idle_ani.png";
 
+	// Enemy resources
+	public static final String ENEMY_DEFAULT_TREE_RSC = "resources/Tree_enemy.png";
+	public static final String ENEMY_DEFAULT_TREE_FRONT_ANI_RSC = "resources/Tree_enemy_front_ani.png";
+	public static final String ENEMY_DEFAULT_TREE_FRONT_RIGHT_ANI_RSC = "resources/Tree_enemy_front_right_ani.png";
+	public static final String ENEMY_DEFAULT_TREE_BACK_ANI_RSC = "resources/Tree_enemy_back_ani.png";
+	
 	// items in the game
 	public Player player;
 	public Map map;
@@ -122,7 +128,7 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(DOOR_SWITCH_OFF);
 
 		
-		// LOAD ANIMATIONS
+		// LOAD ANIMATIONS FOR PLAYER && DOOR
 		ResourceManager.loadImage(PLAYER_DEFAULT_RIGHT_RSC);
 		ResourceManager.loadImage(PLAYER_DEFAULT_LEFT_RSC);
 		ResourceManager.loadImage(PLAYER_DEFAULT_RIGHT_IDLE_RSC);
@@ -132,6 +138,14 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(PLAYER_DEFAULT_DOWN_IDLE_RSC);
 		ResourceManager.loadImage(OPEN_DOOR_VERT);
 		ResourceManager.loadImage(CLOSED_DOOR_VERT);
+		
+		// LOAD ANIMATIONS FOR ENEMIES
+		ResourceManager.loadImage(ENEMY_DEFAULT_TREE_RSC);
+		ResourceManager.loadImage(ENEMY_DEFAULT_TREE_FRONT_ANI_RSC);
+		ResourceManager.loadImage(ENEMY_DEFAULT_TREE_FRONT_RIGHT_ANI_RSC);
+		ResourceManager.loadImage(ENEMY_DEFAULT_TREE_BACK_ANI_RSC);
+
+		
 		// Initialize stuff
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);	
 		player = new Player(400, 300);
