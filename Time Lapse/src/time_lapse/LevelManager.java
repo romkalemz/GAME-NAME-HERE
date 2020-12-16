@@ -101,11 +101,11 @@ public class LevelManager {
 		//tl.items = ItemHandler.Spawn(tl.items, 250, 400, "accelerator");
 		//tl.items = ItemHandler.Spawn(tl.items, 500, 400, "fiery");
 		
-		tl.items = ItemHandler.Spawn(tl.items, 200, 400, "machine_piece1");
-		tl.items = ItemHandler.Spawn(tl.items, 270, 450, "machine_piece2");
-		tl.items = ItemHandler.Spawn(tl.items, 300, 500, "machine_piece3");
-		tl.items = ItemHandler.Spawn(tl.items, 100, 200, "machine_piece4");
-		tl.items = ItemHandler.Spawn(tl.items, 500, 400, "machine_piece5");
+		tl.items = ItemHandler.Spawn(tl.items, 900, 100, "machine_piece1");
+		tl.items = ItemHandler.Spawn(tl.items, 900, 1180, "machine_piece2");
+		tl.items = ItemHandler.Spawn(tl.items, 2780, 540, "machine_piece3");
+		tl.items = ItemHandler.Spawn(tl.items, 2583, 1020, "machine_piece4");
+		tl.items = ItemHandler.Spawn(tl.items, 360, 1483, "machine_piece5");
 
 
 		//doors for sublevels of level1
