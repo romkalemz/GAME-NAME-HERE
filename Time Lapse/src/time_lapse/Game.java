@@ -77,6 +77,8 @@ public class Game extends StateBasedGame {
 	public static final String story3 = "resources/t3.png";
 	public static final String story4 = "resources/t4.png";
 	public static final String story5 = "resources/t5.png";
+	public static final String story6 = "resources/t6.png";
+	public static final String story7 = "resources/t7.png";
 	// Enemy resources
 	
 	// Tree resources
@@ -168,6 +170,8 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(story3);
 		ResourceManager.loadImage(story4);
 		ResourceManager.loadImage(story5);
+		ResourceManager.loadImage(story6);
+		ResourceManager.loadImage(story7);
 		// LOAD ANIMATIONS FOR ENEMIES
 		
 		
