@@ -25,6 +25,8 @@ import org.newdawn.slick.state.transition.HorizontalSplitTransition;
 class SplashScreen extends BasicGameState {
 	
 	private int timer;
+	private int spacetimer;
+	private int storycount;
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
@@ -33,18 +35,33 @@ class SplashScreen extends BasicGameState {
 	
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) {
-		timer = 3000;
-		LevelManager.setLevel(game);
+		Game tl = (Game)game;
+		LevelManager.setLevel(game, tl.currLevel);
+		tl.player.reset(false);
+		tl.UIHandler.activatable = null;
+		spacetimer = 300;
+		storycount = 0;
 	}
 	
 	@Override
 	public void render(GameContainer container, StateBasedGame game,
 			Graphics g) throws SlickException {
 
-		g.drawImage(ResourceManager.getImage(MainGame.SPLASH_SCREEN_RSC), 0,
-				0);
-		container.setShowFPS(false);
-
+			if(timer < 501 ) {
+				g.drawImage(ResourceManager.getImage(Game.SPLASH_SCREEN_ON_RSC), 0,
+						0);
+				if(timer <= 0) {
+					timer = 1500;
+				}
+			}else if (timer > 500 && timer <= 1500) {
+				g.drawImage(ResourceManager.getImage(Game.SPLASH_SCREEN_OFF_RSC), 0,
+						0);
+				if(timer <= 0) {
+					timer = 1500;
+				}
+				
+			}
+		container.setShowFPS(true);
 	}
 
 	@Override
@@ -54,24 +71,23 @@ class SplashScreen extends BasicGameState {
 		Input input = container.getInput();
 
 		timer -= delta;
-		if (timer <= 0)
-			game.enterState(MainGame.PLAYINGSTATE, new EmptyTransition(), new HorizontalSplitTransition() );
-
-		if(input.isKeyDown(Input.KEY_SPACE)) {			
-			game.enterState(MainGame.PLAYINGSTATE);
+		if(spacetimer <= 0) {
+			if(input.isKeyDown(Input.KEY_SPACE)) {
+				game.enterState(Game.TRANSITIONSTATE, new EmptyTransition(), new HorizontalSplitTransition());
+			}
 		}
 		if(input.isKeyDown(Input.KEY_1)) {			
-			game.enterState(MainGame.SPLASHSCREEN);
+			game.enterState(Game.SPLASHSCREEN);
 		}
 		if(input.isKeyDown(Input.KEY_2)) {			
-			game.enterState(MainGame.PLAYINGSTATE);
+			game.enterState(Game.PLAYINGSTATE);
 		}
-
+		spacetimer -= delta;
 	}
 
 	@Override
 	public int getID() {
-		return MainGame.SPLASHSCREEN;
+		return Game.SPLASHSCREEN;
 	}
 	
 }

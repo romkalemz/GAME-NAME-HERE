@@ -15,7 +15,7 @@ public class EnemySpawner {
 	}
 	
 	public static void renderEnemies(Graphics g,  StateBasedGame game) {
-		MainGame tl = (MainGame)game;
+		Game tl = (Game)game;
 		
 		for(int i = 0; i < tl.enemy.size(); i++) {
 			tl.enemy.get(i).render(g);
