@@ -93,6 +93,8 @@ public class LevelManager {
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 500, 500, 2);
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 700, 600, 3);
 		
+		tl.machine = new TimeMachine(20, 1420);
+		
 		//tl.items = ItemHandler.Spawn(tl.items, 200, 400, "hammer");
 		//tl.items = ItemHandler.Spawn(tl.items, 270, 450, "hammer");
 		//tl.items = ItemHandler.Spawn(tl.items, 300, 500, "feather");
@@ -142,12 +144,15 @@ public class LevelManager {
 		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC, 0, true);
 		//tl.image_control.setImage(tl.items.get(5), Game.ITEM_ACCELERATOR_RSC, 0, true);
 		//tl.image_control.setImage(tl.items.get(6), Game.ITEM_FIERY_RSC, 0, true);
+		tl.image_control.setImage(tl.machine, Game.ITEM_HAMMER_RSC, 0, true);
 		
 		
 		
 	}
 	private static void setLevel2(Game tl) {
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);
+		
+		tl.machine = new TimeMachine(20, 1460);
 		
 		tl.items = ItemHandler.Spawn(tl.items, 1700, 180, "machine_piece1");
 		tl.items = ItemHandler.Spawn(tl.items, 2700, 180, "machine_piece2");
@@ -170,6 +175,8 @@ public class LevelManager {
 	}
 	private static void setLevel3(Game tl) {
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);
+		
+		tl.machine = new TimeMachine(20, 740);
 		
 		tl.items = ItemHandler.Spawn(tl.items, 2780, 180, "machine_piece1");
 		tl.items = ItemHandler.Spawn(tl.items, 2740, 1340, "machine_piece2");

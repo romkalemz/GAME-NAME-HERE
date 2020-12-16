@@ -133,6 +133,7 @@ class PlayingState extends BasicGameState {
 		Animation curr_ani = null;
 		// render entities
 		tl.map.renderMap(g);
+		tl.machine.render(g);
 		if(debugMode)
 			tl.debug.renderDebug(g, tl);
 		if(tl.player.getDirection() == 0) {
