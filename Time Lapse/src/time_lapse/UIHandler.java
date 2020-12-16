@@ -140,9 +140,9 @@ public class UIHandler {
 			// draw a number next to the item if multiple of them have been collected
 			//System.out.print(items_collected.get(i).getIncrement());
 			if(items_collected.get(i).getIncrement() > 1)
-				g.drawString(""+items_collected.get(i).getIncrement(), 415 + (i*50) - translateX, 770 - translateY);
+				g.drawString(""+items_collected.get(i).getIncrement(), 445 + (i*100) - translateX, 770 - translateY);
 			
-			items_collected.get(i).setPosition(400 + (i*50) - translateX, 750 - translateY);
+			items_collected.get(i).setPosition(450 + (i*100) - translateX, 735 - translateY);
 			items_collected.get(i).render(g);
 		}
 	}
