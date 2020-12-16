@@ -98,6 +98,7 @@ public class Game extends StateBasedGame {
 	// items in the game
 	public Player player;
 	public Map map;
+	public TimeMachine machine;
 	public int storyTime;
 	public boolean cheatMode = false;
 	public int currLevel = 1;
@@ -192,7 +193,7 @@ public class Game extends StateBasedGame {
 
 		
 		// Initialize stuff
-		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);	
+		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);
 		player = new Player(400, 300);
 		enemy = new ArrayList<Enemy>();		
 		items = new ArrayList<Item>();

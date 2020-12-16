@@ -7,7 +7,7 @@ import jig.ResourceManager;
 
 public class ImageManager {
 	
-	public void setImage(Entity e, String rsc, int rotation, Boolean scale) {
+	public void setImage(Entity e, String rsc, float rotation, Boolean scale) {
 		if(scale) {
 			// Create copy of image so that entities already spawned
 			// don't change direction
@@ -19,6 +19,13 @@ public class ImageManager {
 			img.setRotation(rotation);
 			e.addImageWithBoundingBox(img);
 		}
+	}
+	
+	// this function allows for custom scaling if needed
+	public void setImage(Entity e, String rsc, float rotation, int xScale, int yScale) {
+		Image img = ResourceManager.getImage(rsc).getScaledCopy(xScale, yScale).copy();
+		img.setRotation(rotation);
+		e.addImageWithBoundingBox(img);
 	}
 	public void RemoveIMG(Entity e, String rsc) {
 			Image img = ResourceManager.getImage(rsc);

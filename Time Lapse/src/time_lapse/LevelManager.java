@@ -93,15 +93,23 @@ public class LevelManager {
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 500, 500, 2);
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 700, 600, 3);
 		
-		tl.items = ItemHandler.Spawn(tl.items, 200, 400, "hammer");
-		tl.items = ItemHandler.Spawn(tl.items, 270, 450, "hammer");
-		tl.items = ItemHandler.Spawn(tl.items, 300, 500, "feather");
-		tl.items = ItemHandler.Spawn(tl.items, 100, 200, "shield");
-		tl.items = ItemHandler.Spawn(tl.items, 240, 200, "arrow");
-		tl.items = ItemHandler.Spawn(tl.items, 250, 400, "accelerator");
-		tl.items = ItemHandler.Spawn(tl.items, 500, 400, "fiery");
+		tl.machine = new TimeMachine(20, 1420);
+		
+		//tl.items = ItemHandler.Spawn(tl.items, 200, 400, "hammer");
+		//tl.items = ItemHandler.Spawn(tl.items, 270, 450, "hammer");
+		//tl.items = ItemHandler.Spawn(tl.items, 300, 500, "feather");
+		//tl.items = ItemHandler.Spawn(tl.items, 100, 200, "shield");
+		//tl.items = ItemHandler.Spawn(tl.items, 240, 200, "arrow");
+		//tl.items = ItemHandler.Spawn(tl.items, 250, 400, "accelerator");
+		//tl.items = ItemHandler.Spawn(tl.items, 500, 400, "fiery");
+		
+		tl.items = ItemHandler.Spawn(tl.items, 900, 100, "machine_piece1");
+		tl.items = ItemHandler.Spawn(tl.items, 900, 1180, "machine_piece2");
+		tl.items = ItemHandler.Spawn(tl.items, 2780, 540, "machine_piece3");
+		tl.items = ItemHandler.Spawn(tl.items, 2583, 1020, "machine_piece4");
+		tl.items = ItemHandler.Spawn(tl.items, 360, 1483, "machine_piece5");
 
-		System.out.println(24*tl.map.getTileSize() + tl.map.getTileSize()/2 + ", " + 8.5f*tl.map.getTileSize() + tl.map.getTileSize()/2);
+
 		//doors for sublevels of level1
 		ArrayList<Door> door1 = new ArrayList<Door>();
 		door1.add(new Door(24*tl.map.getTileSize() + tl.map.getTileSize()/2, 8.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 0));
@@ -134,8 +142,9 @@ public class LevelManager {
 		tl.image_control.setImage(tl.items.get(2), Game.ITEM_FEATHER_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(5), Game.ITEM_ACCELERATOR_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(6), Game.ITEM_FIERY_RSC, 0, true);
+		//tl.image_control.setImage(tl.items.get(5), Game.ITEM_ACCELERATOR_RSC, 0, true);
+		//tl.image_control.setImage(tl.items.get(6), Game.ITEM_FIERY_RSC, 0, true);
+		tl.image_control.setImage(tl.machine, Game.ITEM_HAMMER_RSC, 0, true);
 		// add all rooms in lvl one 
 		// NOTE: the roomNum in Door.java must match the index of the room it opens!
 		tl.rooms.add(new Room(0, 1, tl));
@@ -147,9 +156,42 @@ public class LevelManager {
 	}
 	private static void setLevel2(Game tl) {
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);
+		
+		tl.machine = new TimeMachine(20, 1460);
+		
+		tl.items = ItemHandler.Spawn(tl.items, 1700, 180, "machine_piece1");
+		tl.items = ItemHandler.Spawn(tl.items, 2700, 180, "machine_piece2");
+		tl.items = ItemHandler.Spawn(tl.items, 2340, 500, "machine_piece3");
+		tl.items = ItemHandler.Spawn(tl.items, 2860, 540, "machine_piece4");
+		tl.items = ItemHandler.Spawn(tl.items, 860, 1460, "machine_piece5");
+		tl.items = ItemHandler.Spawn(tl.items, 2060, 1500, "machine_piece6");
+		tl.items = ItemHandler.Spawn(tl.items, 300, 1380, "machine_piece7");
+		tl.items = ItemHandler.Spawn(tl.items, 840, 540, "machine_piece8");
+		
+		tl.image_control.setImage(tl.items.get(0), Game.ITEM_HAMMER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(1), Game.ITEM_HAMMER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(2), Game.ITEM_FEATHER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(5), Game.ITEM_HAMMER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(6), Game.ITEM_HAMMER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(7), Game.ITEM_FEATHER_RSC, 0, true);
+
 	}
 	private static void setLevel3(Game tl) {
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);
+		
+		tl.machine = new TimeMachine(20, 740);
+		
+		tl.items = ItemHandler.Spawn(tl.items, 2780, 180, "machine_piece1");
+		tl.items = ItemHandler.Spawn(tl.items, 2740, 1340, "machine_piece2");
+		tl.items = ItemHandler.Spawn(tl.items, 900, 1220, "machine_piece3");
+		tl.items = ItemHandler.Spawn(tl.items, 260, 940, "machine_piece4");
+		
+		tl.image_control.setImage(tl.items.get(0), Game.ITEM_HAMMER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(1), Game.ITEM_HAMMER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(2), Game.ITEM_FEATHER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC, 0, true);
 	}
 	// Reads level text file and converts into string array
 	private static String[] getLevelText(int level) {

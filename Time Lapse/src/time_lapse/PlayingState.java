@@ -141,6 +141,7 @@ class PlayingState extends BasicGameState {
 		Animation curr_ani = null;
 		// render entities
 		tl.map.renderMap(g);
+		tl.machine.render(g);
 		if(debugMode)
 			tl.debug.renderDebug(g, tl);
 		if(tl.player.getDirection() == 0) {
@@ -346,8 +347,10 @@ class PlayingState extends BasicGameState {
 		Game tl = (Game)game;
 		for(int i = 0; i < tl.enemy.size(); i++) {
 			// check if they are still alive
-			if(tl.enemy.get(i).getHP() <= 0)
+			if(tl.enemy.get(i).getHP() <= 0) {
+				dropItem(tl, tl.enemy.get(i));
 				tl.enemy.remove(i);
+			}
 			else {
 				if(tl.enemy.get(i).getEnemyType() == chaser && tl.enemy.get(i).getKO() <= 0) {
 					tl.enemy.get(i).chasePath();
@@ -426,10 +429,8 @@ class PlayingState extends BasicGameState {
 					doorswitch.setIsSwitched(true);
 					for(int d = 0; d<doorswitch.getDoor().size(); d++) {
 						doorswitch.getDoor().get(d).setIsPass(true);
-						//g.rooms.get(doorswitch.getDoor().get(d).getRoomNum()).removeRoomFog();
 						doorswitch.getDoor().get(d).rmImage();
 						doorswitch.getDoor().get(d).setimage();
-						
 					}
 					doorswitch.removeImage(doorswitch.img);
 					doorswitch.addImage(ResourceManager.getImage(Game.DOOR_SWITCH_ON).getScaledCopy(40, 40));
@@ -549,8 +550,8 @@ class PlayingState extends BasicGameState {
 		
 		arrow_check = 0;
 		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)) {
-			//tl.player.setImageRotation(225);
-			//tl.player.setRotateDelay(50);
+			tl.player.setImageRotation(225);
+			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(1, -1),false);
 				tl.player.setShootDelay();
@@ -559,8 +560,8 @@ class PlayingState extends BasicGameState {
 			
 		}
 		if (input.isKeyDown(Input.KEY_RIGHT) && input.isKeyDown(Input.KEY_DOWN)) {
-			//tl.player.setImageRotation(315);
-			//tl.player.setRotateDelay(50);
+			tl.player.setImageRotation(315);
+			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(1, 1),false);
 				tl.player.setShootDelay();
@@ -569,8 +570,8 @@ class PlayingState extends BasicGameState {
 			
 		}
 		if (input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)) {
-			//tl.player.setImageRotation(45);
-			//tl.player.setRotateDelay(50);
+			tl.player.setImageRotation(45);
+			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(-1, 1),false);
 				tl.player.setShootDelay();
@@ -579,8 +580,8 @@ class PlayingState extends BasicGameState {
 			
 		}
 		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_LEFT)) {
-			//tl.player.setImageRotation(135);
-			//tl.player.setRotateDelay(50);
+			tl.player.setImageRotation(135);
+			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(-1, -1), false);
 				tl.player.setShootDelay();
@@ -590,13 +591,32 @@ class PlayingState extends BasicGameState {
 	}
 	
 	// add the item into the map
-	private void addItem(Game tl, Item activatable) {
+	private void addItem(Game tl, Item item) {
+		// check if Q has been pressed (activatable item)
 		// drop the item where the player is located
-		activatable.setPosition(tl.player.getPosition());
-		// set pick up delay so that the player doesn't instantly pick it back up
-		tl.player.setActiveDelay(500);
+		if(item.isActivatable())
+			// set pick up delay so that the player doesn't instantly pick it back up
+			tl.player.setActiveDelay(500);
+
+		item.setPosition(tl.player.getPosition());
 		// add the item back to the item list array in the game
-		tl.items.add(activatable);
+		tl.items.add(item);
+	}
+	
+	// items are dropped by percent chance by the enemies in the map
+	private void dropItem(Game tl, Entity e) {
+		Item item = null;
+		// a random item is being dropped from the enemy
+		// 50% of dropping
+		boolean dropItem = Item.randomGenerator(50);
+		if(dropItem) {
+			// pick a random item from the list of possible items
+			item = Item.pickRandItem();
+			// set position of item where enemy died
+			item.setPosition(e.getPosition());
+			// add the item back to the item list array in the game
+			tl.items.add(item);
+		}
 	}
 
 	private void addProjectile(StateBasedGame game, Entity e, Vector v, boolean fromEnemy) {
@@ -606,7 +626,7 @@ class PlayingState extends BasicGameState {
 		if (fromEnemy) {
 			// find the direction for the bullets to travel to
 			// check if the entity is an enemy
-			g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC, (int)g.player.getImageRotation() + 90, false);
+			
 			p.isFromEnemy = true;
 			Vector playerPos = g.player.getPosition();
 			
@@ -622,12 +642,13 @@ class PlayingState extends BasicGameState {
 			
 		} else {
 			// bullet is from the player, adjust speed and damage
-			g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC, (int)g.player.getImageRotation() + 90, false);
+			//g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC, g.player.getImageRotation() + 90, 15, 10);
 			p.setDamage(g.player.getAttackDamage());
 			p.setSpeed(g.player.getBulletSpeed());
 			
 //			g.player_shoot_cooldown = g.player.rof;
 		}
+		g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC, (float)v.getRotation(), 15, 10);
 		p.setDirection(e, v);
 		g.projectiles.add(p);
 	}
