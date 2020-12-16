@@ -57,6 +57,7 @@ public class Game extends StateBasedGame {
 	public static final String DOOR_SWITCH_OFF = "resources/switchoff.png";
 	public static final String OPEN_DOOR_VERT = "resources/dooropenvert.png";
 	public static final String CLOSED_DOOR_VERT = "resources/doorclosedvert.png";
+	public static final String TRANSPARENT_RSC = "resources/transparent.png";
 	public static final String GAME_OVER = "resources/gameover.png";
 	
 	// Animation resources
@@ -70,11 +71,16 @@ public class Game extends StateBasedGame {
 	public static final String PLAYER_DEFAULT_DOWN_IDLE_RSC = "resources/player_default_down_idle_ani.png";
 
 	// Enemy resources
+	
+	// Tree resources
 	public static final String ENEMY_DEFAULT_TREE_RSC = "resources/Tree_enemy.png";
 	public static final String ENEMY_DEFAULT_TREE_FRONT_ANI_RSC = "resources/Tree_enemy_front_ani.png";
 	public static final String ENEMY_DEFAULT_TREE_FRONT_RIGHT_ANI_RSC = "resources/Tree_enemy_front_right_ani.png";
 	public static final String ENEMY_DEFAULT_TREE_BACK_ANI_RSC = "resources/Tree_enemy_back_ani.png";
 	
+	// Wizard resources
+	public static final String ENEMY_DEFAULT_WIZARD_ANI_RSC = "resources/Wizard_enemy_front_right_ani.png";
+
 	// items in the game
 	public Player player;
 	public Map map;
@@ -129,6 +135,7 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(CLOSED_DOOR);
 		ResourceManager.loadImage(DOOR_SWITCH_ON);
 		ResourceManager.loadImage(DOOR_SWITCH_OFF);
+		ResourceManager.loadImage(TRANSPARENT_RSC);
 		ResourceManager.loadImage(GAME_OVER);
 		
 		
@@ -144,11 +151,17 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(CLOSED_DOOR_VERT);
 		
 		// LOAD ANIMATIONS FOR ENEMIES
+		
+		// Tree animations
 		ResourceManager.loadImage(ENEMY_DEFAULT_TREE_RSC);
 		ResourceManager.loadImage(ENEMY_DEFAULT_TREE_FRONT_ANI_RSC);
 		ResourceManager.loadImage(ENEMY_DEFAULT_TREE_FRONT_RIGHT_ANI_RSC);
 		ResourceManager.loadImage(ENEMY_DEFAULT_TREE_BACK_ANI_RSC);
+		
+		// Wizard animations
+		ResourceManager.loadImage(ENEMY_DEFAULT_WIZARD_ANI_RSC);
 
+		
 		
 		// Initialize stuff
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);	
