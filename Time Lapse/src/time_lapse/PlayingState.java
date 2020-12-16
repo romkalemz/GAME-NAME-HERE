@@ -86,8 +86,14 @@ class PlayingState extends BasicGameState {
 	private Animation enemyMimicAnimation1;
 	
 	/* ----- Item animations ----- */
+	
+	// Feather animations
 	private SpriteSheet itemFeatherAni;
 	private Animation itemFeatherAnimation1;
+	
+	// Hammer animations
+	private SpriteSheet itemHammerAni;
+	private Animation itemHammerAnimation1;
 
 	
 	@Override
@@ -140,6 +146,9 @@ class PlayingState extends BasicGameState {
 		
 		itemFeatherAni = new SpriteSheet("resources/feather_item.png",40,40);
 		itemFeatherAnimation1 = new Animation(itemFeatherAni, 100);
+		
+		itemHammerAni = new SpriteSheet("resources/hammer_item.png",40,40);
+		itemHammerAnimation1 = new Animation(itemHammerAni, 100);
 		
 	}
 
@@ -213,6 +222,9 @@ class PlayingState extends BasicGameState {
 				tl.items.get(i).render(g);
 				if(tl.items.get(i).getType() == "feather") {
 					itemFeatherAnimation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
+				}
+				if(tl.items.get(i).getType() == "hammer") {
+					itemHammerAnimation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
 				}
 			}
 		}
