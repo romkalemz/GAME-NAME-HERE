@@ -235,7 +235,7 @@ public class LevelManager {
 		tl.image_control.setImageMachineParts(tl.items.get(5), Game.MACHINE_PIECE_1_RSC, 0, true);
 		tl.image_control.setImageMachineParts(tl.items.get(6), Game.MACHINE_PIECE_1_RSC, 0, true);
 		tl.image_control.setImageMachineParts(tl.items.get(7), Game.MACHINE_PIECE_1_RSC, 0, true);
-
+		tl.image_control.setImage(tl.machine, Game.TIME_MACHINE_RSC, 0, true);
 	}
 	private static void setLevel3(Game tl) {
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);
@@ -275,6 +275,7 @@ public class LevelManager {
 		tl.image_control.setImageMachineParts(tl.items.get(1), Game.MACHINE_PIECE_1_RSC, 0, true);
 		tl.image_control.setImageMachineParts(tl.items.get(2), Game.MACHINE_PIECE_1_RSC, 0, true);
 		tl.image_control.setImageMachineParts(tl.items.get(3), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.machine, Game.TIME_MACHINE_RSC, 0, true);
 	}
 	// Reads level text file and converts into string array
 	private static String[] getLevelText(int level) {
