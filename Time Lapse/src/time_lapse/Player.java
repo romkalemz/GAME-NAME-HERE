@@ -132,6 +132,15 @@ import jig.Vector;
 		}
 		
 	}
+	public void checkTimeMachineWin(Game g, Map m) {
+		int totalCount = 0;
+		if(g.currLevel == 1) {
+			totalCount = g.UIHandler.quest_items.size();
+			if(totalCount == 5 ) {
+				
+			}
+		}
+	}
 	public void checkDoorCollision(Game g, Map m) {
 		Tile t;
 		int sideX = (int) Math.floor(getX() / m.getTileSize());

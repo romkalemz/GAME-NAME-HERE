@@ -116,7 +116,7 @@ public class LevelManager {
 		tl.items = ItemHandler.Spawn(tl.items, 250, 400, "accelerator");
 		tl.items = ItemHandler.Spawn(tl.items, 500, 400, "fiery");
 		
-		tl.items = ItemHandler.Spawn(tl.items, 900, 100, "machine_piece1");
+		tl.items = ItemHandler.Spawn(tl.items, 600, 400, "machine_piece1");
 		tl.items = ItemHandler.Spawn(tl.items, 900, 1180, "machine_piece2");
 		tl.items = ItemHandler.Spawn(tl.items, 2780, 540, "machine_piece3");
 		tl.items = ItemHandler.Spawn(tl.items, 2583, 1020, "machine_piece4");
@@ -159,6 +159,14 @@ public class LevelManager {
 		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(5), Game.ITEM_ACCELERATOR_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(6), Game.ITEM_FIERY_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(7), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(8), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(9), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(10), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(11), Game.MACHINE_PIECE_1_RSC, 0, true);
+		
+
+		tl.image_control.setImage(tl.machine, Game.ITEM_HAMMER_RSC, 0, true);
 		// add all rooms in lvl one 
 		// NOTE: the roomNum in Door.java must match the index of the room it opens!
 		tl.rooms.add(new Room(0, 1, tl));
@@ -219,14 +227,14 @@ public class LevelManager {
 		tl.items = ItemHandler.Spawn(tl.items, 300, 1380, "machine_piece7");
 		tl.items = ItemHandler.Spawn(tl.items, 840, 540, "machine_piece8");
 		
-		tl.image_control.setImage(tl.items.get(0), Game.ITEM_FEATHER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(1), Game.ITEM_FEATHER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(2), Game.ITEM_HAMMER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(5), Game.ITEM_HAMMER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(6), Game.ITEM_HAMMER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(7), Game.ITEM_FEATHER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(0), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(1), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(2), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(3), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(4), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(5), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(6), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(7), Game.MACHINE_PIECE_1_RSC, 0, true);
 
 	}
 	private static void setLevel3(Game tl) {
@@ -263,10 +271,10 @@ public class LevelManager {
 		tl.items = ItemHandler.Spawn(tl.items, 900, 1220, "machine_piece3");
 		tl.items = ItemHandler.Spawn(tl.items, 260, 940, "machine_piece4");
 		
-		tl.image_control.setImage(tl.items.get(0), Game.ITEM_HAMMER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(1), Game.ITEM_HAMMER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(2), Game.TRANSPARENT_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(0), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(1), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(2), Game.MACHINE_PIECE_1_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(3), Game.MACHINE_PIECE_1_RSC, 0, true);
 	}
 	// Reads level text file and converts into string array
 	private static String[] getLevelText(int level) {

@@ -111,6 +111,10 @@ class PlayingState extends BasicGameState {
 	private SpriteSheet itemFieryAni;
 	private Animation itemFieryAnimation1;
 	
+	// Fiery animations
+	private SpriteSheet machinePiece1;
+	private Animation machinePiece1Animation1;
+	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		Game tl = (Game)game;
@@ -176,6 +180,10 @@ class PlayingState extends BasicGameState {
 
 		itemFieryAni = new SpriteSheet("resources/fiery_item.png",40,40);
 		itemFieryAnimation1 = new Animation(itemFieryAni, 100);
+		
+		machinePiece1 = new SpriteSheet("resources/machine_piece1.png",40,40);
+		machinePiece1Animation1 = new Animation(machinePiece1, 100);
+		
 		
 	}
 
@@ -264,6 +272,30 @@ class PlayingState extends BasicGameState {
 				}
 				if(tl.items.get(i).getType() == "fiery") {
 					itemFieryAnimation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
+				}
+				if(tl.items.get(i).getType() == "machine_piece1") {
+					machinePiece1Animation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
+				}
+				if(tl.items.get(i).getType() == "machine_piece2") {
+					machinePiece1Animation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
+				}
+				if(tl.items.get(i).getType() == "machine_piece3") {
+					machinePiece1Animation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
+				}
+				if(tl.items.get(i).getType() == "machine_piece4") {
+					machinePiece1Animation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
+				}
+				if(tl.items.get(i).getType() == "machine_piece5") {
+					machinePiece1Animation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
+				}
+				if(tl.items.get(i).getType() == "machine_piece6") {
+					machinePiece1Animation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
+				}
+				if(tl.items.get(i).getType() == "machine_piece7") {
+					machinePiece1Animation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
+				}
+				if(tl.items.get(i).getType() == "machine_piece8") {
+					machinePiece1Animation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
 				}
 			}
 		}
