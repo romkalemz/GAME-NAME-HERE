@@ -1,5 +1,6 @@
 package time_lapse;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -18,9 +19,22 @@ import jig.Vector;
 	private int hp, max_hp, shield_hp;
 	private boolean activatable;
 	private int imgRotation;
+	private int prev_dir;  // This is for idle animations
+	private int direction; // This if for use with animations.'
+	private Animation animation; // This is the actual animation for character
 	// setters and getters for stats
 	public void canActivate(boolean b) { activatable = b; }
 	public boolean canActivate() { return activatable; }
+	
+	// This if for getting/setting the direction of character for animations
+	public int getDirection() { return direction; }
+	public void setDirection(int dir) { direction = dir;}
+	// This if for getting/setting the direction of character for animations
+	public int getPrevDirection() { return prev_dir; }
+	public void setPrevDirection(int dir) { prev_dir = dir;}
+	
+	public void setAnimation(Animation ani) { animation = ani;}
+	
 	
 	public void setMovementSpeed(float n) { movement_speed = n; }
 	public float getMovementSpeed() { return movement_speed; }
@@ -63,11 +77,14 @@ import jig.Vector;
 	
 	public Player(final float x, final float y) {
 		super(x, y);
-		
+
 		image = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(40, 40);
 		addImageWithBoundingBox(image);
+
 		imgRotation = 0;
 		reset();
+		direction = 1;
+		prev_dir = 1;
 	}
 	
 	
@@ -127,7 +144,7 @@ import jig.Vector;
 			}
 			//N
 			if(sideY + 1 < m.getNumOfTilesY()) {
-				t = m.getTile(sideX, sideY+1);
+				t = m.getTile(sideX, sideY + 1);
 				if((!g.doors.get(i).getIsPass()) && collides(g.doors.get(i)) != null) {
 					setY(t.getCoarseGrainedMinY()-pushback);
 				}
@@ -154,7 +171,7 @@ import jig.Vector;
 		int sideY = (int) Math.floor(getY() / m.getTileSize());
 		// checking W side
 		if(sideX + 1 < m.getNumOfTilesX()) {
-			t = m.getTile(sideX +1, sideY);
+			t = m.getTile(sideX + 1, sideY);
 			if(t.getSolid() && collides(t) != null) {
 				setX(t.getCoarseGrainedMinX() - pushback);
 			}

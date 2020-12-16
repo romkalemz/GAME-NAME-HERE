@@ -17,8 +17,8 @@ public class Map {
 	private int numOfTilesX;
 	private int numOfTilesY;
 	// mapsize is calculated by tileSize * numOfTiles
-	private int mapSizeX = 2368;
-	private int mapSizeY = 1280;
+	private int mapSizeX = 2960;
+	private int mapSizeY = 1600;
 	private int screenSizeX = 1200;
 	private int screenSizeY = 800;
 	private Tile[][] tiles;
@@ -49,6 +49,8 @@ public class Map {
 		tl.projectiles.clear();
 		tl.UIHandler.reset();
 		tl.player.reset();
+		tl.doors.clear();
+		tl.doorSwitch.clear();
 		// Reset scrolling world
 		translateX = 0;
 		translateY = 0;

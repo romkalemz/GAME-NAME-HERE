@@ -80,6 +80,12 @@ public class Projectile extends Entity {
 				return true;
 			}
 		}
+		//check doors
+		for(int i = 0; i < tl.doors.size(); i++) {
+			if((collides(tl.doors.get(i)) != null) && (!tl.doors.get(i).getIsPass())) {
+				return true;
+			}
+		}
 		return false;
 	}
 	public boolean hitOrMissForEnemies(StateBasedGame game) {
