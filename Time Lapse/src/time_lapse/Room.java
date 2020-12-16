@@ -29,7 +29,7 @@ public class Room {
 			for (int x = 25; x < 55; x++) {
 				for (int y = 2; y < 10; y++) {
 					if (tl.map.getTile(x, y).getType() != 3) {
-						if (!(y >= 6 && y <= 9 && x >= 50 && x <= 54)) {
+						if (!(y >= 6 && x >= 50 && x <= 54)) {
 							tl.map.getTile(x, y).addTileFog();
 							roomTiles.add(tl.map.getTile(x, y));
 						}
@@ -49,8 +49,10 @@ public class Room {
 			for (int x = 50; x < 72; x++) {
 				for (int y = 2; y < 18; y++) {
 					if (tl.map.getTile(x, y).getType() != 3) {
-						tl.map.getTile(x, y).addTileFog();
-						roomTiles.add(tl.map.getTile(x, y));
+						if (!(y <= 6 && x >= 50 && x <= 54)) {
+							tl.map.getTile(x, y).addTileFog();
+							roomTiles.add(tl.map.getTile(x, y));
+						}
 					}
 				}
 			}
@@ -65,7 +67,7 @@ public class Room {
 			}
 		} else if (roomNum == 4) {
 			for (int x = 27; x < 72; x++) {
-				for (int y = 29; y < 38; y++) {
+				for (int y = 30; y < 38; y++) {
 					if (tl.map.getTile(x, y).getType() != 3) {
 						tl.map.getTile(x, y).addTileFog();
 						roomTiles.add(tl.map.getTile(x, y));
@@ -95,7 +97,7 @@ public class Room {
 	public void removeRoomFog() {
 		System.out.println("yo");
 		for (int i = 0; i < roomTiles.size(); i++) {
-			roomTiles.get(i).removeTileFog();
+			roomTiles.get(i).removeImage(roomTiles.get(i).fogImg);
 		}
 	}
 

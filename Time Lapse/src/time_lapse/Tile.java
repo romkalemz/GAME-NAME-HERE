@@ -19,6 +19,7 @@ public class Tile extends Entity implements Comparable<Tile> {
 	private Tile prev;
 	private boolean corner;
 	private Image tileImg;
+	public Image fogImg;
 	public void setCost(float c) { cost = c; }
 	public float getCost() { return cost; }
 	public void setVisited(boolean sv) { visited = sv; }
@@ -73,11 +74,8 @@ public class Tile extends Entity implements Comparable<Tile> {
 		reset();
 	}
 	public void addTileFog() {
-		Image img = ResourceManager.getImage(Game.TILE_FOG_RSC).getScaledCopy(40, 40);
-		addImage(img);
-	}
-	public void removeTileFog() {
-		addImage(tileImg);
+		fogImg = ResourceManager.getImage(Game.TILE_FOG_RSC).getScaledCopy(40, 40);
+		addImage(fogImg);
 	}
 	public void reset() {
 		visited = false;

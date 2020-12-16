@@ -405,7 +405,7 @@ class PlayingState extends BasicGameState {
 					doorswitch.setIsSwitched(true);
 					for(int d = 0; d<doorswitch.getDoor().size(); d++) {
 						doorswitch.getDoor().get(d).setIsPass(true);
-						g.rooms.get(doorswitch.getDoor().get(d).getRoomNum()).removeRoomFog();
+						//g.rooms.get(doorswitch.getDoor().get(d).getRoomNum()).removeRoomFog();
 						doorswitch.getDoor().get(d).rmImage();
 						doorswitch.getDoor().get(d).setimage();
 						
