@@ -33,7 +33,7 @@ public class ImageManager {
 			Image img = ResourceManager.getImage(rsc).getScaledCopy(40, 40).copy();
 			img.setRotation(rotation);
 			e.addImageWithBoundingBox(img);
-			img.setColor(2, 255, 0, 0);
+			//img.setColor(2, 255, 0, 0);
 		}
 	
 	public void RemoveIMG(Entity e, String rsc) {
