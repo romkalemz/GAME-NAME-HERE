@@ -17,14 +17,14 @@ public class TransitionState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		// TODO Auto-generated method stub
-		
+		story = 0;
 	}
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) {
 		Game tl = (Game)game;
 		LevelManager.setLevel(game, tl.currLevel);
 		timer = 5000;
-		story = 0;
+		//story = 0;
 		next = false;
 	}
 	
@@ -36,7 +36,7 @@ public class TransitionState extends BasicGameState {
 			g.drawImage(ResourceManager.getImage(Game.story1), 300, 300);
 		}
 		if(story == 1) {
-			g.drawImage(ResourceManager.getImage(Game.story2), 400, 300);
+			g.drawImage(ResourceManager.getImage(Game.story2), 250, 300);
 		}
 		if(story == 2) {
 			g.drawImage(ResourceManager.getImage(Game.story3), 0, 0);
@@ -45,19 +45,20 @@ public class TransitionState extends BasicGameState {
 			g.drawImage(ResourceManager.getImage(Game.story4), 300, 300);
 		}
 		if(story == 4) {
-			g.drawImage(ResourceManager.getImage(Game.story5), 300, 300);
+			g.drawImage(ResourceManager.getImage(Game.story5), 300, 265);
+			next = true;
 		}
 		if(story == 5) {
 			next = true;
 		}
+		if(tl.currLevel == 2) {
+			g.drawImage(ResourceManager.getImage(Game.story6), 300, 265);
+		} else if(tl.currLevel == 3) {
+			g.drawImage(ResourceManager.getImage(Game.story7), 300, 265);
+		}
 		if(timer <= 0 && !next) {
 			story++;
-			timer = 7000;
-		}
-		if(tl.currLevel == 2) {
-			g.drawImage(ResourceManager.getImage(Game.LEVEL1_TRANSITION_RSC), 450, 300);
-		} else if(tl.currLevel == 3) {
-			g.drawImage(ResourceManager.getImage(Game.LEVEL2_TRANSITION_RSC), 450, 300);
+			timer = 8000;
 		}
 	}
 
@@ -68,6 +69,8 @@ public class TransitionState extends BasicGameState {
 		Game tl = (Game)game;
 		timer -= delta;
 		if(input.isKeyDown(Input.KEY_SPACE)) {
+				story = 6;
+				next = false;
 				game.enterState(Game.PLAYINGSTATE);
 		}
 		
