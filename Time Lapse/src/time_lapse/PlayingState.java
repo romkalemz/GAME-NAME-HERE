@@ -95,6 +95,9 @@ class PlayingState extends BasicGameState {
 	private SpriteSheet itemHammerAni;
 	private Animation itemHammerAnimation1;
 
+	// Shield animations
+	private SpriteSheet itemShieldAni;
+	private Animation itemShieldAnimation1;
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
@@ -149,6 +152,10 @@ class PlayingState extends BasicGameState {
 		
 		itemHammerAni = new SpriteSheet("resources/hammer_item.png",40,40);
 		itemHammerAnimation1 = new Animation(itemHammerAni, 100);
+		
+		itemShieldAni = new SpriteSheet("resources/shield_item.png",40,40);
+		itemShieldAnimation1 = new Animation(itemShieldAni, 100);
+		
 		
 	}
 
@@ -219,12 +226,15 @@ class PlayingState extends BasicGameState {
 		// render items
 		if(!tl.items.isEmpty()) {
 			for(int i = 0; i < tl.items.size(); i++) {
-				tl.items.get(i).render(g);
+				//tl.items.get(i).render(g);
 				if(tl.items.get(i).getType() == "feather") {
 					itemFeatherAnimation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
 				}
 				if(tl.items.get(i).getType() == "hammer") {
 					itemHammerAnimation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
+				}
+				if(tl.items.get(i).getType() == "shield") {
+					itemShieldAnimation1.draw(tl.items.get(i).getCoarseGrainedMinX(),tl.items.get(i).getCoarseGrainedMinY());
 				}
 			}
 		}
