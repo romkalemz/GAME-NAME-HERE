@@ -27,6 +27,7 @@ public class UIHandler {
 		quest_items =new ArrayList<Item>();
 		//this.image_activate = i2;
 		this.image_items = bottom_ui;
+		activatable = null;
 		reset();
 	}
 	
@@ -34,7 +35,6 @@ public class UIHandler {
 		if(!quest_items.isEmpty())
 			quest_items.clear();
 		quest_count = 0;
-		activatable = null;
 		show_cooldown = false;
 	}
 	

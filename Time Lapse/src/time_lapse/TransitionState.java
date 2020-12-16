@@ -24,6 +24,7 @@ public class TransitionState extends BasicGameState {
 		Game tl = (Game)game;
 		if(tl.currLevel != 4) {
 		LevelManager.setLevel(game, tl.currLevel);
+		tl.player.setPosition(400, 300);
 		}
 		timer = 5000;
 		//story = 0;

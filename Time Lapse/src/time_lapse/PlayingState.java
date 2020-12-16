@@ -506,6 +506,9 @@ class PlayingState extends BasicGameState {
 				g.UIHandler.addItem(item);
 				// adjust stats of the player
 				g.player.adjustStats(item);
+				if(!g.cheatMode) {
+					g.player.saveStats();
+				}
 				// remove item from the map
 				g.items.remove(i);
 			}
@@ -561,7 +564,7 @@ class PlayingState extends BasicGameState {
 			tl.UIHandler.setActivatable(null);			// remove the item from the UI
 		}
 		// activate activatable
-		if(input.isKeyDown(Input.KEY_SPACE) && tl.player.canActivate() && Item.current_cooldown <= 0) {
+		if(input.isKeyDown(Input.KEY_SPACE) && tl.player.canActivate() && Item.current_cooldown <= 0 && tl.UIHandler.getActivatable() != null) {
 			// do action / change stats of player
 			// accelerator action
 			if(tl.UIHandler.getActivatable().getType().equals("accelerator") && !tl.cheatMode) {
