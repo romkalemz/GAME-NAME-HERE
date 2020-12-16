@@ -282,6 +282,18 @@ import jig.Vector;
 					take_damage_delay = 800;
 				}
 			}
+			if(getHP()<=0) {
+				g.LIVES = g.LIVES - 1;
+				if(g.LIVES <= 0) {
+					setHP(100);
+					g.LIVES = 3;
+					g.map.clearAndReset(g);
+					g.enterState(Game.GAMEOVERSTATE);
+				}
+				else {
+					setHP(100);
+				}
+			}
 		}
 		
 		updateVariables(delta, g.cheatMode);

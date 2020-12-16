@@ -51,6 +51,7 @@ public class Map {
 		tl.player.reset();
 		tl.doors.clear();
 		tl.doorSwitch.clear();
+		tl.LIVES = 3;
 		// Reset scrolling world
 		translateX = 0;
 		translateY = 0;
