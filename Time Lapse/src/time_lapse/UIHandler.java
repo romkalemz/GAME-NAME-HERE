@@ -31,8 +31,6 @@ public class UIHandler {
 	}
 	
 	public void reset() {
-		if(!items_collected.isEmpty())
-			items_collected.clear();
 		if(!quest_items.isEmpty())
 			quest_items.clear();
 		quest_count = 0;
@@ -103,10 +101,10 @@ public class UIHandler {
 			g.drawImage(image_quest, 925 - translateX, 10 - translateY);
 			// draw each machine part item collected
 			for(int i = 0; i < quest_items.size(); i++) {
-				int y = 0;
-				if(tl.currLevel == 2)
-					y = 40;
-				quest_items.get(i).setPosition(950 + (i*50) - translateX, 40 + y - translateY);
+				if(tl.currLevel == 2 && i >= 5)
+					quest_items.get(i).setPosition(950 + ((i-4)*50) - translateX, 80 - translateY);
+				else
+					quest_items.get(i).setPosition(950 + (i*50) - translateX, 40 - translateY);
 				quest_items.get(i).render(g);
 			}
 			// draw the amount of collected and needed quest items
