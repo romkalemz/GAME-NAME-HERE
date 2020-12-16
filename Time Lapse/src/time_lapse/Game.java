@@ -17,6 +17,7 @@ public class Game extends StateBasedGame {
 	public static final int SPLASHSCREEN = 0;
 	public static final int PLAYINGSTATE = 1;
 	public static final int TRANSITIONSTATE = 2;
+	public static final int GAMEOVERSTATE = 3;
 	/*
 	 * TODO: Will need to adjust MapSize later
 	 * Map will be larger with scrolling
@@ -56,6 +57,7 @@ public class Game extends StateBasedGame {
 	public static final String DOOR_SWITCH_OFF = "resources/switchoff.png";
 	public static final String OPEN_DOOR_VERT = "resources/dooropenvert.png";
 	public static final String CLOSED_DOOR_VERT = "resources/doorclosedvert.png";
+	public static final String GAME_OVER = "resources/gameover.png";
 	
 	// Animation resources
 	public static final String PLAYER_DEFAULT_RIGHT_RSC = "resources/player_default_right_ani.png";
@@ -79,7 +81,7 @@ public class Game extends StateBasedGame {
 	
 	public boolean cheatMode = false;
 	public int currLevel = 1;
-	
+	public int LIVES;
 	public ArrayList<Enemy> enemy;
 	public ArrayList<Item> items;
 	public ArrayList<Door> doors;
@@ -101,6 +103,7 @@ public class Game extends StateBasedGame {
 		addState(new SplashScreen());
 		addState(new PlayingState());
 		addState(new TransitionState());
+		addState(new GameOverState());
 		
 		// LOAD RESOURCES
 		ResourceManager.loadImage(PLAYER_DEFAULT_RSC); 
@@ -126,7 +129,8 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(CLOSED_DOOR);
 		ResourceManager.loadImage(DOOR_SWITCH_ON);
 		ResourceManager.loadImage(DOOR_SWITCH_OFF);
-
+		ResourceManager.loadImage(GAME_OVER);
+		
 		
 		// LOAD ANIMATIONS FOR PLAYER && DOOR
 		ResourceManager.loadImage(PLAYER_DEFAULT_RIGHT_RSC);
@@ -154,7 +158,7 @@ public class Game extends StateBasedGame {
 		doors = new ArrayList<Door>();
 		doorSwitch = new ArrayList<DoorSwitch>();
 		projectiles = new ArrayList<Projectile>();
-
+		LIVES = 2;
 		debug = new Debug(10,20,"asdfasdf");
 		UIHandler = new UIHandler(ResourceManager.getImage(UI_BG_RSC));
 		

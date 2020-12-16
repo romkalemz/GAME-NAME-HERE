@@ -86,6 +86,7 @@ public class UIHandler {
 		g.drawString("Movement Speed: " + (int)(tl.player.getMovementSpeed() *100), 25 - translateX, 710 - translateY);
 		g.drawString("Attack Speed: " + (int)(tl.player.getRateOfFire() / 100), 25 - translateX, 735 - translateY);
 		g.drawString("Attack Damage: " + (int)(tl.player.getAttackDamage()), 25 - translateX, 760 - translateY);
+		g.drawString("Lives: " + (int)(tl.LIVES), 25 - translateX, 680 - translateY);
 		//g.drawString("Score: "+score, 550, 10);
 		
 		// draw all the items collected
