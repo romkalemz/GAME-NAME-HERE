@@ -384,10 +384,12 @@ class PlayingState extends BasicGameState {
 			if(tl.cheatMode) {
 				tl.player.returnStats();
 				tl.cheatMode = false;
-				for(int i = 0; i < tl.doors.size(); i++) {
-					for(int t = 0; t < tl.rooms.get(i).roomTiles.size(); t++) {
-						if(!tl.doors.get(i).getIsPass()) {
-							tl.rooms.get(tl.doors.get(i).getRoomNum()).roomTiles.get(t).addTileFog();
+				if(tl.currLevel == 1 || tl.currLevel == 3) {
+					for(int i = 0; i < tl.doors.size(); i++) {
+						for(int t = 0; t < tl.rooms.get(i).roomTiles.size(); t++) {
+							if(!tl.doors.get(i).getIsPass()) {
+								tl.rooms.get(tl.doors.get(i).getRoomNum()).roomTiles.get(t).addTileFog();
+							}
 						}
 					}
 				}
@@ -395,9 +397,11 @@ class PlayingState extends BasicGameState {
 			else {
 				tl.player.cheatStats();
 				tl.cheatMode = true;
-				for(int i = 0; i < tl.rooms.size(); i++) {
-					for(int t = 0; t < tl.rooms.get(i).roomTiles.size(); t++) {
-						tl.rooms.get(i).roomTiles.get(t).removeImage(tl.rooms.get(i).roomTiles.get(t).fogImg);
+				if(tl.currLevel == 1 || tl.currLevel == 3) {
+					for(int i = 0; i < tl.rooms.size(); i++) {
+						for(int t = 0; t < tl.rooms.get(i).roomTiles.size(); t++) {
+							tl.rooms.get(i).roomTiles.get(t).removeImage(tl.rooms.get(i).roomTiles.get(t).fogImg);
+						}
 					}
 				}
 			}
