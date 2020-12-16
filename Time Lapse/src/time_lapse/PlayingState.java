@@ -586,7 +586,7 @@ class PlayingState extends BasicGameState {
 		if (fromEnemy) {
 			// find the direction for the bullets to travel to
 			// check if the entity is an enemy
-			g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC, (int)g.player.getImageRotation() + 90, false);
+			
 			p.isFromEnemy = true;
 			Vector playerPos = g.player.getPosition();
 			
@@ -603,12 +603,13 @@ class PlayingState extends BasicGameState {
 			
 		} else {
 			// bullet is from the player, adjust speed and damage
-			g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC, (int)g.player.getImageRotation() + 90, false);
+			//g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC, g.player.getImageRotation() + 90, 15, 10);
 			p.setDamage(g.player.getAttackDamage());
 			p.setSpeed(g.player.getBulletSpeed());
 			
 //			g.player_shoot_cooldown = g.player.rof;
 		}
+		g.image_control.setImage(p, Game.PROJECTILE_DEFAULT_RSC, (float)v.getRotation(), 15, 10);
 		p.setDirection(e, v);
 		g.projectiles.add(p);
 	}
