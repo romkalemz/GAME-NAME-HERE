@@ -25,18 +25,17 @@ class PlayingState extends BasicGameState {
 	
 	// Animations and spritesheets
 	
+	
+	/* ----- Player animations ----- */
 	// Player idles right
 	private SpriteSheet playerRightIdleAni;
 	private Animation playerRightIdleAnimation1;
-	
 	// Player idles left
 	private SpriteSheet playerLeftIdleAni;
 	private Animation playerLeftIdleAnimation1;
-	
 	// Player idles up
 	private SpriteSheet playerUpIdleAni;
 	private Animation playerUpIdleAnimation1;
-		
 	// Player idles down
 	private SpriteSheet playerDownIdleAni;
 	private Animation playerDownIdleAnimation1;
@@ -54,6 +53,19 @@ class PlayingState extends BasicGameState {
 	private SpriteSheet playerUpAni;
 	private Animation playerUpAnimation1;
 	
+	/* ----- Enemy animations ----- */
+	
+	// Front left tree animations
+	private SpriteSheet enemyTreeAni;
+	private Animation enemyTreeAnimation1;
+	
+	// Front right animations
+	private SpriteSheet enemyTreeRightAni;
+	private Animation enemyTreeRightAnimation1;
+	
+	// Back tree animations
+	private SpriteSheet enemyTreeBackAni;
+	private Animation enemyTreeBackAnimation1;
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
@@ -84,6 +96,15 @@ class PlayingState extends BasicGameState {
 		
 		playerDownIdleAni = new SpriteSheet("resources/player_default_down_idle_ani.png",40,40);
 		playerDownIdleAnimation1 = new Animation(playerDownIdleAni, 100);
+		
+		enemyTreeAni = new SpriteSheet("resources/Tree_enemy_front_ani.png",40,40);
+		enemyTreeAnimation1 = new Animation(enemyTreeAni, 100);
+		
+		enemyTreeBackAni = new SpriteSheet("resources/Tree_enemy_back_ani.png",40,40);
+		enemyTreeBackAnimation1 = new Animation(enemyTreeBackAni, 100);
+		
+		enemyTreeRightAni = new SpriteSheet("resources/Tree_enemy_front_right_ani.png",40,40);
+		enemyTreeRightAnimation1 = new Animation(enemyTreeRightAni, 100);
 	}
 
 	@Override
@@ -102,7 +123,20 @@ class PlayingState extends BasicGameState {
 		// render enemies
 		if(!tl.enemy.isEmpty()) {
 			for(int i = 0; i < tl.enemy.size(); i++) {
-				tl.enemy.get(i).render(g);
+				//tl.enemy.get(i).render(g);
+				if(tl.enemy.get(i).getEnemyType() == 1) {
+					enemyTreeAnimation1.setSpeed(0.8f);
+					if(tl.enemy.get(i).getVelocity().getY() < 0) {
+						enemyTreeBackAnimation1.draw(tl.enemy.get(i).getCoarseGrainedMinX(),tl.enemy.get(i).getCoarseGrainedMinY());
+					}else if(tl.enemy.get(i).getVelocity().getY() >= 0) {
+						if(tl.enemy.get(i).getVelocity().getX() < 0) {
+							enemyTreeAnimation1.draw(tl.enemy.get(i).getCoarseGrainedMinX(),tl.enemy.get(i).getCoarseGrainedMinY());
+						} else {
+							enemyTreeRightAnimation1.draw(tl.enemy.get(i).getCoarseGrainedMinX(),tl.enemy.get(i).getCoarseGrainedMinY());
+	
+						}
+					}
+				}
 			}
 		}
 		// render items
@@ -284,7 +318,7 @@ class PlayingState extends BasicGameState {
 						tl.enemy.get(i).chasePath();
 					}
 				}
-				tl.enemy.get(i).shootCooldown -= delta;
+
 				tl.enemy.get(i).update(game, delta);
 			}
 		}
@@ -311,6 +345,20 @@ class PlayingState extends BasicGameState {
 	}
 
 	private void updateDoorStatus(Game g, int delta) {
+		for(int i = 0; i<g.doors.size(); i++) {
+			if(g.doors.get(i).getIsPass()) {
+				System.out.println("door is passable");
+			}
+			else {
+				System.out.println("Denied");
+			}
+//			Tile[][] s = g.map.getTileMap();
+//			for(int x = 0; x<g.map.getMapSizeX(); x++) {
+//				for(int y = 0; y<g.map.getMapSizeY();y++) {
+//					System.out.println(s[x][y].getSolid());
+//				}
+//			}
+		}
 	}
 	
 	private void doorFunctions(Game g, int delta) {
@@ -322,13 +370,9 @@ class PlayingState extends BasicGameState {
 					doorswitch.setIsSwitched(true);
 					for(int d = 0; d<doorswitch.getDoor().size(); d++) {
 						doorswitch.getDoor().get(d).setIsPass(true);
-						doorswitch.getDoor().get(d).rmImage();
-						doorswitch.getDoor().get(d).setimage();
 					}
-					
-					doorswitch.removeImage(doorswitch.img);
-					doorswitch.addImage(ResourceManager.getImage(Game.DOOR_SWITCH_ON).getScaledCopy(40, 40));
-					
+					g.image_control.RemoveIMG(doorswitch, Game.DOOR_SWITCH_OFF);
+					g.image_control.setImage(doorswitch, Game.DOOR_SWITCH_ON, 0, true);
 					
 				}
 			}

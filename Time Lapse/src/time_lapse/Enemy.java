@@ -17,13 +17,14 @@ public class Enemy extends Entity {
 	private ArrayList<Vector> path;	// the path the enemy follows in the game
 	public ArrayList<Vector> getPath() { return path; }
 	private int enemyType;
-	public int shootCooldown;
 	private int followPoint;
 	private Image newEnemy, healthBar;
 	private Vector velocity;
 	private int hp, total_hp, KO;
 	private float translateX, translateY;
 	
+	public int shootCooldown;
+
 	public int getKO() { return KO; }
 	public int getHP() { return hp; }
 	
@@ -39,29 +40,49 @@ public class Enemy extends Entity {
 	public Enemy(final float x, final float y, int type){
 		super(x,y);
 		
-		newEnemy = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(32, 32);
-		addImageWithBoundingBox(newEnemy);
+		//newEnemy = ResourceManager.getImage(Game.PLAYER_DEFAULT_RSC).getScaledCopy(32, 32);
+		//addImageWithBoundingBox(newEnemy);
 		// set the healthBar image
-		healthBar = ResourceManager.getImage(Game.UI_HEALTHPIECE_RSC).getScaledCopy(50, 5);
 		enemyType = type;
+		// Chaser
 		if(type == 1) {
+			newEnemy = ResourceManager.getImage(Game.ENEMY_DEFAULT_TREE_RSC).getScaledCopy(40, 40);
+			addImageWithBoundingBox(newEnemy);
 			newEnemy.setColor(2, 255, 0, 0);
 		}
+		// Shooter
 		else if(type == 2){
+			newEnemy = ResourceManager.getImage(Game.ENEMY_DEFAULT_TREE_RSC).getScaledCopy(40, 40);
+			addImageWithBoundingBox(newEnemy);
 			newEnemy.setColor(2, 0, 255, 0);
 		}
+		// Mimic
 		else if(type == 3) {
+			newEnemy = ResourceManager.getImage(Game.ENEMY_DEFAULT_TREE_RSC).getScaledCopy(40, 40);
+			addImageWithBoundingBox(newEnemy);
 			newEnemy.setColor(2, 0, 0, 255);
 		}
+		healthBar = ResourceManager.getImage(Game.UI_HEALTHPIECE_RSC).getScaledCopy(50, 5);
 		path = new ArrayList<Vector>();
 		reset();
 	}
 	
 	public void reset() {
 		velocity = new Vector(0, 0);
-		speed = 0.2f;
-		pushback = 20;
-		total_hp = hp = 15;
+		if(enemyType == 1) {
+			speed = 0.2f;
+			total_hp = hp = 12;
+		}
+		if(enemyType == 2) {
+			speed = 0.15f;
+			total_hp = hp = 15;
+		}
+		if(enemyType == 3) {
+			speed = 0.10f;
+			total_hp = hp = 20;
+		}
+
+		pushback = 16;
 		KO = 0;
 	}
 	
@@ -155,6 +176,7 @@ public class Enemy extends Entity {
 	
 	private void updateVariables(final int delta) {
 		KO -= delta;
+		shootCooldown -= delta;
 		// update the healthBar image
 		healthBar = healthBar.getScaledCopy(30 * hp/total_hp, 5);
 	}
