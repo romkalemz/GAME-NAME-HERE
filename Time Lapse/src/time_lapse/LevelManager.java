@@ -129,6 +129,7 @@ public class LevelManager {
 		tl.doorSwitch.add(new DoorSwitch(54*tl.map.getTileSize() + tl.map.getTileSize()/2, 14f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door3));
 		tl.doorSwitch.add(new DoorSwitch(35*tl.map.getTileSize() + tl.map.getTileSize()/2, 18f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door4));
 		tl.doorSwitch.add(new DoorSwitch(55*tl.map.getTileSize() + tl.map.getTileSize()/2, 34f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door5));
+		
 		//adding all doors for entire level1
 		tl.doors.add(door1.get(0));
 		tl.doors.add(door1.get(1));
@@ -136,14 +137,13 @@ public class LevelManager {
 		tl.doors.add(door3.get(0));
 		tl.doors.add(door4.get(0));
 		tl.doors.add(door5.get(0));
+		
 		// load images for all active entities / tiles
 		tl.image_control.setImage(tl.items.get(0), Game.TRANSPARENT_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(1), Game.TRANSPARENT_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(2), Game.TRANSPARENT_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC, 0, true);
-		//tl.image_control.setImage(tl.items.get(5), Game.ITEM_ACCELERATOR_RSC, 0, true);
-		//tl.image_control.setImage(tl.items.get(6), Game.ITEM_FIERY_RSC, 0, true);
 		tl.image_control.setImage(tl.machine, Game.ITEM_HAMMER_RSC, 0, true);
 		// add all rooms in lvl one 
 		// NOTE: the roomNum in Door.java must match the index of the room it opens!
@@ -159,6 +159,31 @@ public class LevelManager {
 		
 		tl.machine = new TimeMachine(20, 1460);
 		
+		//adding doors
+		ArrayList<Door> door1 = new ArrayList<Door>();
+		door1.add(new Door(19*tl.map.getTileSize() + tl.map.getTileSize()/2, 15.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 0));
+		ArrayList<Door> door2 = new ArrayList<Door>();
+		door2.add(new Door(48*tl.map.getTileSize() + tl.map.getTileSize()/2, 5.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 2));
+		ArrayList<Door> door3 = new ArrayList<Door>();
+		door3.add(new Door(67f*tl.map.getTileSize() + tl.map.getTileSize()/2, 17.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 3));
+		ArrayList<Door> door4 = new ArrayList<Door>();
+		door4.add(new Door(55f*tl.map.getTileSize() + tl.map.getTileSize()/2, 36.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 4));
+		ArrayList<Door> door5 = new ArrayList<Door>();
+		door5.add(new Door(21f*tl.map.getTileSize() + tl.map.getTileSize()/2, 35.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 5));
+		
+		//adding all doors to main door list
+		tl.doors.add(door1.get(0));
+		tl.doors.add(door2.get(0));
+		tl.doors.add(door3.get(0));
+		tl.doors.add(door4.get(0));
+		tl.doors.add(door5.get(0));
+		
+		// adding switches with proper doors
+		tl.doorSwitch.add(new DoorSwitch(2*tl.map.getTileSize() + tl.map.getTileSize()/2, 2f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door1));
+		tl.doorSwitch.add(new DoorSwitch(50*tl.map.getTileSize() + tl.map.getTileSize()/2, 2*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door2));
+		tl.doorSwitch.add(new DoorSwitch(2*tl.map.getTileSize() + tl.map.getTileSize()/2, 34f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door3));
+		tl.doorSwitch.add(new DoorSwitch(73*tl.map.getTileSize() + tl.map.getTileSize()/2, 18f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door4));
+		tl.doorSwitch.add(new DoorSwitch(28*tl.map.getTileSize() + tl.map.getTileSize()/2, 35f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door5));
 		
 		
 		tl.items = ItemHandler.Spawn(tl.items, 1700, 180, "machine_piece1");
