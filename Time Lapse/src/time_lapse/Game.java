@@ -46,7 +46,7 @@ public class Game extends StateBasedGame {
 	public static final String UI_HEALTHSHIELD_RSC = "resources/shield_piece.png";
 	public static final String PROJECTILE_DEFAULT_RSC = "resources/bullet.png";
 	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
-	public static final String ITEM_FEATHER_RSC = "resources/item_temp.png";
+	public static final String ITEM_FEATHER_RSC = "resources/feather.png";
 	public static final String ITEM_SHIELD_RSC = "resources/item_temp.png";
 	public static final String ITEM_ARROW_RSC = "resources/item_temp.png";
 	public static final String ITEM_ACCELERATOR_RSC = "resources/item_temp.png";
