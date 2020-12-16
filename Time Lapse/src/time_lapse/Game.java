@@ -144,7 +144,7 @@ public class Game extends StateBasedGame {
 		doors = new ArrayList<Door>();
 		doorSwitch = new ArrayList<DoorSwitch>();
 		projectiles = new ArrayList<Projectile>();
-		LIVES = 3;
+		LIVES = 2;
 		debug = new Debug(10,20,"asdfasdf");
 		UIHandler = new UIHandler(ResourceManager.getImage(UI_BG_RSC));
 		

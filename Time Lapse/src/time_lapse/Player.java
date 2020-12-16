@@ -286,7 +286,7 @@ import jig.Vector;
 				g.LIVES = g.LIVES - 1;
 				if(g.LIVES <= 0) {
 					setHP(100);
-					g.LIVES = 3;
+					g.LIVES = 2;
 					g.map.clearAndReset(g);
 					g.enterState(Game.GAMEOVERSTATE);
 				}
