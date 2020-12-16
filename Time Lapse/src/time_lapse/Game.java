@@ -47,7 +47,7 @@ public class Game extends StateBasedGame {
 	public static final String PROJECTILE_DEFAULT_RSC = "resources/bullet.png";
 	public static final String ITEM_HAMMER_RSC = "resources/hammer.png";
 	public static final String ITEM_FEATHER_RSC = "resources/feather.png";
-	public static final String ITEM_SHIELD_RSC = "resources/item_temp.png";
+	public static final String ITEM_SHIELD_RSC = "resources/shield.png";
 	public static final String ITEM_ARROW_RSC = "resources/item_temp.png";
 	public static final String ITEM_ACCELERATOR_RSC = "resources/item_temp.png";
 	public static final String ITEM_FIERY_RSC = "resources/item_temp.png";
@@ -93,7 +93,7 @@ public class Game extends StateBasedGame {
 	
 	// Mimic resources
 	public static final String ENEMY_DEFAULT_MIMIC_ANI_RSC = "resources/mimic.png";
-	public static final String ENEMY_DEFAULT_MIMIC_FRONT_ANI_RSC = "mimic_front_ani.png";
+	public static final String ENEMY_DEFAULT_MIMIC_FRONT_ANI_RSC = "resources/mimic_front_ani.png";
 	
 	// items in the game
 	public Player player;

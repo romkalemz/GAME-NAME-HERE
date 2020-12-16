@@ -137,14 +137,16 @@ import jig.Vector;
 		int sideX = (int) Math.floor(getX() / m.getTileSize());
 		int sideY = (int) Math.floor(getY() / m.getTileSize());
 		
-		for(int i = 0; i<g.doors.size();i++) {
+		for(int i = 0; i<g.doors.size(); i++) {
 			//W
 			if(sideX + 1 < m.getNumOfTilesX()) {
 				t = m.getTile(sideX + 1, sideY);
 				if((!g.doors.get(i).getIsPass()) && collides(g.doors.get(i)) != null) {
 					setX(t.getCoarseGrainedMinX()-pushback);
 				} else if(collides(g.doors.get(i)) != null) {
-					g.rooms.get(g.doors.get(i).getRoomNum()).removeRoomFog();
+					if(g.currLevel == 1) {//temp
+						g.rooms.get(g.doors.get(i).getRoomNum()).removeRoomFog();
+					}
 				}
 			}
 			//N
