@@ -86,7 +86,12 @@ public class Game extends StateBasedGame {
 	
 	// Wizard resources
 	public static final String ENEMY_DEFAULT_WIZARD_ANI_RSC = "resources/Wizard_enemy_front_right_ani.png";
-
+	public static final String ENEMY_DEFAULT_WIZARD_LEFT_ANI_RSC = "resources/Wizard_enemy_front_left_ani.png";
+	
+	// Mimic resources
+	public static final String ENEMY_DEFAULT_MIMIC_ANI_RSC = "resources/mimic.png";
+	public static final String ENEMY_DEFAULT_MIMIC_FRONT_ANI_RSC = "mimic_front_ani.png";
+	
 	// items in the game
 	public Player player;
 	public Map map;
@@ -173,8 +178,12 @@ public class Game extends StateBasedGame {
 		
 		// Wizard animations
 		ResourceManager.loadImage(ENEMY_DEFAULT_WIZARD_ANI_RSC);
+		ResourceManager.loadImage(ENEMY_DEFAULT_WIZARD_LEFT_ANI_RSC);
 
-		
+		// Mimic animations
+		ResourceManager.loadImage(ENEMY_DEFAULT_MIMIC_ANI_RSC);
+		ResourceManager.loadImage(ENEMY_DEFAULT_MIMIC_FRONT_ANI_RSC);
+
 		
 		// Initialize stuff
 		map = new Map(NUM_OF_TILESX, NUM_OF_TILESY, TILESIZE);	
