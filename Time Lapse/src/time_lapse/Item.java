@@ -9,13 +9,14 @@ import jig.Entity;
 public class Item extends Entity {
 	
 	private String type;
-	private boolean activatable;
+	private boolean activatable, isQuest;
 	static long startTime, elapsedTime, start_cooldown, current_cooldown;
 	private int ui_count;
 	
 	public String getType() { return type; }
 	public boolean isActivatable() { return activatable; }
 	public int getIncrement() { return ui_count; }
+	public boolean isQuest() { return isQuest; }
 
 	public Item(final float x, final float y, String type) {
 		super(x, y);
@@ -23,6 +24,10 @@ public class Item extends Entity {
 		this.ui_count = 1;
 		if(type == "accelerator" || type == "fiery")
 			activatable = true;
+		if(type == "machine_piece1" || type == "machine_piece2" || type == "machine_piece3"
+				|| type == "machine_piece4" || type == "machine_piece5")
+			isQuest = true;
+
 	}
 	
 	public void increment() {

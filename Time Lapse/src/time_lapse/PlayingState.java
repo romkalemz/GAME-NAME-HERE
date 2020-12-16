@@ -528,8 +528,8 @@ class PlayingState extends BasicGameState {
 		
 		arrow_check = 0;
 		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)) {
-			//tl.player.setImageRotation(225);
-			//tl.player.setRotateDelay(50);
+			tl.player.setImageRotation(225);
+			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(1, -1),false);
 				tl.player.setShootDelay();
@@ -538,8 +538,8 @@ class PlayingState extends BasicGameState {
 			
 		}
 		if (input.isKeyDown(Input.KEY_RIGHT) && input.isKeyDown(Input.KEY_DOWN)) {
-			//tl.player.setImageRotation(315);
-			//tl.player.setRotateDelay(50);
+			tl.player.setImageRotation(315);
+			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(1, 1),false);
 				tl.player.setShootDelay();
@@ -548,8 +548,8 @@ class PlayingState extends BasicGameState {
 			
 		}
 		if (input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)) {
-			//tl.player.setImageRotation(45);
-			//tl.player.setRotateDelay(50);
+			tl.player.setImageRotation(45);
+			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(-1, 1),false);
 				tl.player.setShootDelay();
@@ -558,8 +558,8 @@ class PlayingState extends BasicGameState {
 			
 		}
 		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_LEFT)) {
-			//tl.player.setImageRotation(135);
-			//tl.player.setRotateDelay(50);
+			tl.player.setImageRotation(135);
+			tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(-1, -1), false);
 				tl.player.setShootDelay();
