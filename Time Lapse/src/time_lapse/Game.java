@@ -64,6 +64,8 @@ public class Game extends StateBasedGame {
 	//temp 
 	
 	public static final String MACHINE_PIECE_1_RSC = "resources/machine_piece_1.png";
+	public static final String TIME_MACHINE_RSC = "resources/timemachine.png";
+
 	
 	// Animation resources
 	public static final String PLAYER_DEFAULT_RIGHT_RSC = "resources/player_default_right_ani.png";
@@ -163,6 +165,7 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(ITEM_FIERY_RSC);
 		ResourceManager.loadImage(ITEM_TEMP_RSC);
 		ResourceManager.loadImage(MACHINE_PIECE_1_RSC);
+		ResourceManager.loadImage(TIME_MACHINE_RSC);
 
 		
 		// LOAD ANIMATIONS FOR PLAYER && DOOR
