@@ -48,7 +48,7 @@ public class Item extends Entity {
 	
 	public static String pickRandItem() {
 		// get a random num generator from 1 to 6
-		int rand = (int)(Math.random() * (6 - 1)) + 1;
+		int rand = (int)(Math.random() * (7 - 1)) + 1;
 		String type = null;
 		if(rand == 1) {
 			type = "hammer";
