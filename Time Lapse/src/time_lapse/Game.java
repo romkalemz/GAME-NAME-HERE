@@ -77,6 +77,7 @@ public class Game extends StateBasedGame {
 	public Player player;
 	public Map map;
 	
+	public boolean cheatMode = false;
 	public int currLevel = 1;
 	
 	public ArrayList<Enemy> enemy;

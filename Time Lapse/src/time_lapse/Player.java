@@ -12,10 +12,10 @@ import jig.Vector;
 
 	
 	// stats 
-	private float movement_speed;
+	private float movement_speed, movement_speed_buffer;
 	private int rate_of_fire, rate_of_fire_buffer;
 	private float bullet_speed, bullet_speed_buffer;
-	private int attack_damage;
+	private int attack_damage, attack_damage_buffer;
 	private int hp, max_hp, shield_hp;
 	private boolean activatable;
 	private int imgRotation;
@@ -92,9 +92,9 @@ import jig.Vector;
 		velocity = new Vector(0, 0);
 		setPosition(400, 300);
 		// reset, or set initial stats
-		movement_speed = 0.2f;
+		movement_speed_buffer = movement_speed = 0.2f;
 		rate_of_fire_buffer = rate_of_fire = 450;
-		attack_damage = 5;
+		attack_damage_buffer = attack_damage = 5;
 		max_hp = hp = 100;
 		bullet_speed_buffer = bullet_speed = 0.3f;
 		activatable = false;
@@ -220,16 +220,32 @@ import jig.Vector;
 		}
 	}
 	
-	public void updateStats() {
+	public void cheatStats() {
+		saveStats();
+		attack_damage = 100;
+		bullet_speed = 0.7f;
+		rate_of_fire = 10;
+		movement_speed = 0.5f;
+	}
+	
+	public void saveStats() {
+		bullet_speed_buffer = bullet_speed;
+		rate_of_fire_buffer = rate_of_fire;
+		movement_speed_buffer = movement_speed;
+		attack_damage_buffer = attack_damage;
+	}
+	
+	public void returnStats() {
 		bullet_speed = bullet_speed_buffer;
 		rate_of_fire = rate_of_fire_buffer;
+		attack_damage = attack_damage_buffer;
+		movement_speed = movement_speed_buffer;
 	}
 	
 	// do the action of the target activatable item
 	public void doAction(Item i) {
 		if(i.getType() == "accelerator") {
-			bullet_speed_buffer = bullet_speed;
-			rate_of_fire_buffer = rate_of_fire;
+			saveStats();
 			bullet_speed = 0.5f;
 			rate_of_fire = 250;
 			// start the active timer
@@ -240,14 +256,14 @@ import jig.Vector;
 		}
 	}
 	
-	private void updateVariables(final int delta) {
+	private void updateVariables(final int delta, boolean isCheatMode) {
 		rotate_delay -= delta;
 		shoot_delay -= delta;
 		active_delay -= delta;
 		action_duration -= delta;
 		take_damage_delay -= delta;
-		if(action_duration <= 0)
-			updateStats();
+		if(action_duration <= 0 && !isCheatMode)
+			returnStats();
 	}
 	
 
@@ -255,17 +271,20 @@ import jig.Vector;
 		Game g = (Game) game;
 		
 		checkBounds(g.map);
-		checkDoorCollision(g,g.map);
-		checkCollision(g.map);
-		// check if the player collides with any enemy
-		for(int i = 0; i < g.enemy.size(); i++) {
-			if(this.collides(g.enemy.get(i)) != null && take_damage_delay <= 0) {
-				takeDamage(5);
-				take_damage_delay = 800;
+		
+		if(!g.cheatMode) {
+			checkDoorCollision(g,g.map);
+			checkCollision(g.map);
+			// check if the player collides with any enemy
+			for(int i = 0; i < g.enemy.size(); i++) {
+				if(this.collides(g.enemy.get(i)) != null && take_damage_delay <= 0) {
+					takeDamage(5);
+					take_damage_delay = 800;
+				}
 			}
 		}
 		
-		updateVariables(delta);
+		updateVariables(delta, g.cheatMode);
 		
 		translate(velocity.scale(delta * movement_speed));
 	}
