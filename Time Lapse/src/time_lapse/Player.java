@@ -151,7 +151,7 @@ import jig.Vector;
 		else if(g.currLevel == 3) {
 			totalCount = g.UIHandler.quest_items.size();
 			if(totalCount == 5 && collides(g.machine)!=null) {
-				g.currLevel = 3;
+				g.currLevel = 4;
 				g.enterState(Game.TRANSITIONSTATE);
 			}
 		}
@@ -168,7 +168,7 @@ import jig.Vector;
 				if((!g.doors.get(i).getIsPass()) && collides(g.doors.get(i)) != null) {
 					setX(t.getCoarseGrainedMinX()-pushback);
 				} else if(collides(g.doors.get(i)) != null) {
-					if(g.currLevel == 1) {//temp
+					if(g.currLevel == 1 || g.currLevel == 3) {//temp
 						g.rooms.get(g.doors.get(i).getRoomNum()).removeRoomFog();
 					}
 				}
@@ -178,18 +178,30 @@ import jig.Vector;
 				t = m.getTile(sideX, sideY + 1);
 				if((!g.doors.get(i).getIsPass()) && collides(g.doors.get(i)) != null) {
 					setY(t.getCoarseGrainedMinY()-pushback);
+				}else if(collides(g.doors.get(i)) != null) {
+					if(g.currLevel == 1 || g.currLevel == 3) {//temp
+						g.rooms.get(g.doors.get(i).getRoomNum()).removeRoomFog();
+					}
 				}
 			}
 			if(sideX - 1 < 0) {
 				t = m.getTile(sideX - 1, sideY);
 				if((!g.doors.get(i).getIsPass()) && collides(g.doors.get(i)) != null) {
 					setX(t.getCoarseGrainedMaxX()+pushback);
+				}else if(collides(g.doors.get(i)) != null) {
+					if(g.currLevel == 1 || g.currLevel == 3) {//temp
+						g.rooms.get(g.doors.get(i).getRoomNum()).removeRoomFog();
+					}
 				}
 			}
 			if(sideX - 1 < 0) {
 				t = m.getTile(sideX, sideY - 1);
 				if((!g.doors.get(i).getIsPass()) && collides(g.doors.get(i)) != null) {
 					setY(t.getCoarseGrainedMaxY() + pushback);
+				}else if(collides(g.doors.get(i)) != null) {
+					if(g.currLevel == 1 || g.currLevel == 3) {//temp
+						g.rooms.get(g.doors.get(i).getRoomNum()).removeRoomFog();
+					}
 				}
 			}
 		}
@@ -302,7 +314,6 @@ import jig.Vector;
 
 	public void update(StateBasedGame game, final int delta) {
 		Game g = (Game) game;
-	
 		checkBounds(g.map);
 		checkTimeMachineWin(g);
 		if(!g.cheatMode) {

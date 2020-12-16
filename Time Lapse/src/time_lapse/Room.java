@@ -87,11 +87,83 @@ public class Room {
 	}
 
 	private void setFogLvl2(Game tl) {
-
+		
 	}
 
 	private void setFogLvl3(Game tl) {
-
+		if(roomNum == 0) {
+			for (int x = 19; x < 48; x++) {
+				for (int y = 2; y < 7; y++) {
+					if (tl.map.getTile(x, y).getType() != 3) {
+						tl.map.getTile(x, y).addTileFog();
+						roomTiles.add(tl.map.getTile(x, y));
+					}
+				}
+			}
+		} else if(roomNum == 1) {
+			for(int x = 52; x < 55; x++) {
+				for(int y =2; y < 5; y++ ) {
+					if(y != 4 && x != 52) {
+						if (tl.map.getTile(x, y).getType() != 3) {
+							tl.map.getTile(x, y).addTileFog();
+							roomTiles.add(tl.map.getTile(x, y));
+						}
+					}
+					
+				}
+			}
+			for(int x = 48; x < 55; x++) {
+				for(int y = 4; y < 7; y++) {
+					if (tl.map.getTile(x, y).getType() != 3) {
+						tl.map.getTile(x, y).addTileFog();
+						roomTiles.add(tl.map.getTile(x, y));
+					}
+				}
+			}
+			for (int x = 55; x < 72; x++) {
+				for (int y = 2; y < 38; y++) {
+					if (tl.map.getTile(x, y).getType() != 3) {
+						tl.map.getTile(x, y).addTileFog();
+						roomTiles.add(tl.map.getTile(x, y));
+					}
+				}
+			}
+		} else if(roomNum == 3) {
+			for (int x = 21; x < 55; x++) {
+				for (int y = 29; y < 38; y++) {
+					if (tl.map.getTile(x, y).getType() != 3) {
+						tl.map.getTile(x, y).addTileFog();
+						roomTiles.add(tl.map.getTile(x, y));
+					}
+				}
+			}
+		} else if(roomNum == 4) {
+			for (int x = 2; x < 21; x++) {
+				for (int y = 21; y < 38; y++) {
+					if (tl.map.getTile(x, y).getType() != 3) {
+						tl.map.getTile(x, y).addTileFog();
+						roomTiles.add(tl.map.getTile(x, y));
+					}
+				}
+			}
+		} else if(roomNum == 2) {
+			for(int x = 0; x < 11; x++) {
+				for(int y = 14; y < 20; y++) {
+					if (tl.map.getTile(x, y).getType() != 3) {
+						tl.map.getTile(x, y).addTileFog();
+						roomTiles.add(tl.map.getTile(x, y));
+					}
+				}
+			}
+			for (int x = 11; x < 55; x++) {
+				for (int y = 9; y < 28; y++) {
+					if (tl.map.getTile(x, y).getType() != 3) {
+						tl.map.getTile(x, y).addTileFog();
+						roomTiles.add(tl.map.getTile(x, y));
+					}
+				}
+			}
+		}
 	}
 	public void removeRoomFog() {
 		for (int i = 0; i < roomTiles.size(); i++) {
