@@ -59,8 +59,8 @@ public class Enemy extends Entity {
 	
 	public void reset() {
 		velocity = new Vector(0, 0);
-		speed = 0.2f;
-		pushback = 20;
+		speed = 0.15f;
+		pushback = 16;
 		total_hp = hp = 15;
 		KO = 0;
 	}
