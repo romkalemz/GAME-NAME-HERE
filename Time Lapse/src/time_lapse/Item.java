@@ -26,7 +26,7 @@ public class Item extends Entity {
 			activatable = true;
 		if(type == "machine_piece1" || type == "machine_piece2" || type == "machine_piece3"
 				|| type == "machine_piece4" || type == "machine_piece5" || type == "machine_piece6"
-				|| type == "machine_piece7" || type == "machine_piece8");
+				|| type == "machine_piece7" || type == "machine_piece8")
 			isQuest = true;
 
 	}

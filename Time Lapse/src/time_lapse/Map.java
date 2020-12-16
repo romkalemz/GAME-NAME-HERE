@@ -161,7 +161,7 @@ public class Map {
 
 	// find shortest path between two entities
 	// returns an array of points needed to follow
-	public void dijkstraPath(Entity player) {
+	public void dijkstraPath(Entity player, ArrayList<Door> doorList) {
 		// populate graph with costs of tiles from player to enemies
 		// place initial tile and neighbors into queue and adjust costs
 		Tile startTile = getTile((int) player.getX() / tileSize, (int) player.getY() / tileSize); // grab first tile
@@ -180,11 +180,13 @@ public class Map {
 				// check if you can walk on the neighbor tile AND adjust costs
 				// first check if this is a neighboring corner tile
 				double travelDistance = travelCost(curTile, neighbor);
-				if (!neighbor.getSolid() && neighbor.getCost() > curTile.getCost() + travelDistance) {
-					neighbor.setCost((float) (curTile.getCost() + travelDistance)); // reduce cost of neighbor
-					// since its closer than before
-					neighbor.setPrev(curTile); // keep track of the prev
+				for(int j = 0; j < doorList.size(); j++) {
+					if (!doorList.get(j).getIsPass() && !neighbor.getSolid() && neighbor.getCost() > curTile.getCost() + travelDistance) {
+						neighbor.setCost((float) (curTile.getCost() + travelDistance)); // reduce cost of neighbor
+						// since its closer than before
+						neighbor.setPrev(curTile); // keep track of the prev
 												// so you can backtrack
+					}
 				}
 
 				if (!neighbor.getVisited())
@@ -262,7 +264,7 @@ public class Map {
 
 		// find shortest path from enemies to player
 		for (int i = 0; i < g.enemy.size(); i++) {
-			dijkstraPath(g.player);
+			dijkstraPath(g.player, g.doors);
 			g.enemy.get(i)
 					.setPath(getTile((int) g.enemy.get(i).getX() / tileSize, (int) g.enemy.get(i).getY() / tileSize));
 		}
