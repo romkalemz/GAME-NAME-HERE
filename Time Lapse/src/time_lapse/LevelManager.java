@@ -95,13 +95,13 @@ public class LevelManager {
 		
 		tl.machine = new TimeMachine(20, 1420);
 		
-		//tl.items = ItemHandler.Spawn(tl.items, 200, 400, "hammer");
-		//tl.items = ItemHandler.Spawn(tl.items, 270, 450, "hammer");
-		//tl.items = ItemHandler.Spawn(tl.items, 300, 500, "feather");
-		//tl.items = ItemHandler.Spawn(tl.items, 100, 200, "shield");
-		//tl.items = ItemHandler.Spawn(tl.items, 240, 200, "arrow");
-		//tl.items = ItemHandler.Spawn(tl.items, 250, 400, "accelerator");
-		//tl.items = ItemHandler.Spawn(tl.items, 500, 400, "fiery");
+		tl.items = ItemHandler.Spawn(tl.items, 200, 400, "hammer");
+		tl.items = ItemHandler.Spawn(tl.items, 270, 450, "hammer");
+		tl.items = ItemHandler.Spawn(tl.items, 300, 550, "feather");
+		tl.items = ItemHandler.Spawn(tl.items, 100, 200, "shield");
+		tl.items = ItemHandler.Spawn(tl.items, 240, 200, "arrow");
+		tl.items = ItemHandler.Spawn(tl.items, 250, 400, "accelerator");
+		tl.items = ItemHandler.Spawn(tl.items, 500, 400, "fiery");
 		
 		tl.items = ItemHandler.Spawn(tl.items, 900, 100, "machine_piece1");
 		tl.items = ItemHandler.Spawn(tl.items, 900, 1180, "machine_piece2");
@@ -139,7 +139,7 @@ public class LevelManager {
 		// load images for all active entities / tiles
 		tl.image_control.setImage(tl.items.get(0), Game.ITEM_HAMMER_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(1), Game.ITEM_HAMMER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(2), Game.ITEM_FEATHER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(2), Game.TRANSPARENT_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC, 0, true);
 		//tl.image_control.setImage(tl.items.get(5), Game.ITEM_ACCELERATOR_RSC, 0, true);
@@ -170,7 +170,7 @@ public class LevelManager {
 		
 		tl.image_control.setImage(tl.items.get(0), Game.ITEM_HAMMER_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(1), Game.ITEM_HAMMER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(2), Game.ITEM_FEATHER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(2), Game.TRANSPARENT_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(5), Game.ITEM_HAMMER_RSC, 0, true);
@@ -190,7 +190,7 @@ public class LevelManager {
 		
 		tl.image_control.setImage(tl.items.get(0), Game.ITEM_HAMMER_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(1), Game.ITEM_HAMMER_RSC, 0, true);
-		tl.image_control.setImage(tl.items.get(2), Game.ITEM_FEATHER_RSC, 0, true);
+		tl.image_control.setImage(tl.items.get(2), Game.TRANSPARENT_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(3), Game.ITEM_SHIELD_RSC, 0, true);
 	}
 	// Reads level text file and converts into string array
