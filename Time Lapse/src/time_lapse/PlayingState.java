@@ -326,8 +326,10 @@ class PlayingState extends BasicGameState {
 		Game tl = (Game)game;
 		for(int i = 0; i < tl.enemy.size(); i++) {
 			// check if they are still alive
-			if(tl.enemy.get(i).getHP() <= 0)
+			if(tl.enemy.get(i).getHP() <= 0) {
+				dropItem(tl, tl.enemy.get(i));
 				tl.enemy.remove(i);
+			}
 			else {
 				if(tl.enemy.get(i).getEnemyType() == chaser && tl.enemy.get(i).getKO() <= 0) {
 					tl.enemy.get(i).chasePath();
@@ -569,14 +571,32 @@ class PlayingState extends BasicGameState {
 	}
 	
 	// add the item into the map
-	private void addItem(Game tl, Item activatable) {
+	private void addItem(Game tl, Item item) {
+		// check if Q has been pressed (activatable item)
 		// drop the item where the player is located
-		System.out.println(activatable);
-		activatable.setPosition(tl.player.getPosition());
-		// set pick up delay so that the player doesn't instantly pick it back up
-		tl.player.setActiveDelay(500);
+		if(item.isActivatable())
+			// set pick up delay so that the player doesn't instantly pick it back up
+			tl.player.setActiveDelay(500);
+
+		item.setPosition(tl.player.getPosition());
 		// add the item back to the item list array in the game
-		tl.items.add(activatable);
+		tl.items.add(item);
+	}
+	
+	// items are dropped by percent chance by the enemies in the map
+	private void dropItem(Game tl, Entity e) {
+		Item item = null;
+		// a random item is being dropped from the enemy
+		// 50% of dropping
+		boolean dropItem = Item.randomGenerator(50);
+		if(dropItem) {
+			// pick a random item from the list of possible items
+			item = Item.pickRandItem();
+			// set position of item where enemy died
+			item.setPosition(e.getPosition());
+			// add the item back to the item list array in the game
+			tl.items.add(item);
+		}
 	}
 
 	private void addProjectile(StateBasedGame game, Entity e, Vector v, boolean fromEnemy) {
