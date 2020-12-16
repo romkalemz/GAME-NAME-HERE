@@ -37,6 +37,19 @@ public class LevelManager {
 		for(int y = 0; y < tl.map.getNumOfTilesY(); y++) {
 			int [] type = new int[mapData[y].length()];
 			for (int i = 0; i < mapData[y].length(); i ++) {
+				// enemy positioning
+				if(Character.getNumericValue(mapData[y].charAt(i)) ==  1) {
+					// spawn enemy type chaser
+					EnemySpawner.Spawn(tl.enemy, viewStart + (i*tileSize), viewStart + (y*tileSize), 1);
+				}
+				if(Character.getNumericValue(mapData[y].charAt(i)) ==  2) {
+					// spawn enemy type shooter
+					EnemySpawner.Spawn(tl.enemy, viewStart + (i*tileSize), viewStart + (y*tileSize), 2);
+				}
+				if(Character.getNumericValue(mapData[y].charAt(i)) ==  4) {
+					// spawn enemy type mimic
+					EnemySpawner.Spawn(tl.enemy, viewStart + (i*tileSize), viewStart + (y*tileSize), 3);
+				}
 				//Convert each char to int
 				if(Character.getNumericValue(mapData[y].charAt(i)) ==  0) {	// Normal dirt tile
 					type[i] = 0;
@@ -89,9 +102,9 @@ public class LevelManager {
 		
 	}
 	private static void setLevel1(Game tl) {
-		tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);
-		tl.enemy = EnemySpawner.Spawn(tl.enemy, 500, 500, 2);
-		tl.enemy = EnemySpawner.Spawn(tl.enemy, 700, 600, 3);
+		//tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);
+		//tl.enemy = EnemySpawner.Spawn(tl.enemy, 500, 500, 2);
+		//tl.enemy = EnemySpawner.Spawn(tl.enemy, 700, 600, 3);
 		
 		tl.machine = new TimeMachine(20, 1420);
 		
