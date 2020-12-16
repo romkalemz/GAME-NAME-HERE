@@ -3,6 +3,24 @@ CS 447 Group Project 2
 
 Hello, welcome to Time-Lapse!
 
+Point of the game:
+
+You travel through the world you are dropped in and need to collect time machine parts to get back home.
+There are many enemies around you that are trying to hurt you.
+You can kill those enemies to get items that will boost your stats.
+
+----- Passives -----
+Feather - Movement speed
+Shield - Shield protection on top of your hp
+Hammer - Increases damage
+Arrow - Increased bullet velocity
+Accelerator - Increased shot speed and bullet velocity
+
+----- Activatables -----
+Fiery - Shoots out bullets in every direction
+Syringe - Increase shot speed for 3 seconds
+
+
 Controls for the game:
 
 WASD is used for movement.

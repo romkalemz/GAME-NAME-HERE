@@ -151,6 +151,56 @@ public class Enemy extends Entity {
 		}
 	}
 	
+	public void checkDoorCollision(Game g, Map m) {
+		Tile t;
+		int sideX = (int) Math.floor(getX() / m.getTileSize());
+		int sideY = (int) Math.floor(getY() / m.getTileSize());
+		
+		for(int i = 0; i<g.doors.size(); i++) {
+			//W
+			if(sideX + 1 < m.getNumOfTilesX()) {
+				t = m.getTile(sideX + 1, sideY);
+				if((!g.doors.get(i).getIsPass()) && collides(g.doors.get(i)) != null) {
+					setX(t.getCoarseGrainedMinX()-pushback);
+				} else if(collides(g.doors.get(i)) != null) {
+					if(g.currLevel == 1 || g.currLevel == 3) {//temp
+						g.rooms.get(g.doors.get(i).getRoomNum()).removeRoomFog();
+					}
+				}
+			}
+			//N
+			if(sideY + 1 < m.getNumOfTilesY()) {
+				t = m.getTile(sideX, sideY + 1);
+				if((!g.doors.get(i).getIsPass()) && collides(g.doors.get(i)) != null) {
+					setY(t.getCoarseGrainedMinY()-pushback);
+				}else if(collides(g.doors.get(i)) != null) {
+					if(g.currLevel == 1 || g.currLevel == 3) {//temp
+						g.rooms.get(g.doors.get(i).getRoomNum()).removeRoomFog();
+					}
+				}
+			}
+			if(sideX - 1 < 0) {
+				t = m.getTile(sideX - 1, sideY);
+				if((!g.doors.get(i).getIsPass()) && collides(g.doors.get(i)) != null) {
+					setX(t.getCoarseGrainedMaxX()+pushback);
+				}else if(collides(g.doors.get(i)) != null) {
+					if(g.currLevel == 1 || g.currLevel == 3) {//temp
+						g.rooms.get(g.doors.get(i).getRoomNum()).removeRoomFog();
+					}
+				}
+			}
+			if(sideX - 1 < 0) {
+				t = m.getTile(sideX, sideY - 1);
+				if((!g.doors.get(i).getIsPass()) && collides(g.doors.get(i)) != null) {
+					setY(t.getCoarseGrainedMaxY() + pushback);
+				}else if(collides(g.doors.get(i)) != null) {
+					if(g.currLevel == 1 || g.currLevel == 3) {//temp
+						g.rooms.get(g.doors.get(i).getRoomNum()).removeRoomFog();
+					}
+				}
+			}
+		}
+	}
 	public void chasePath() {
 		Vector vel = new Vector(0, 0);
 		if(path.isEmpty())
@@ -204,9 +254,8 @@ public class Enemy extends Entity {
 		
 		checkBounds(g.map);
 		checkCollision(g.map);
-		
+		checkDoorCollision(g,g.map);
 		updateVariables(delta);
-		
 		translate(velocity.scale(delta * speed));
 	}
 }
