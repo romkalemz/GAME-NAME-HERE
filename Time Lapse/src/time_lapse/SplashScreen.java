@@ -56,7 +56,7 @@ class SplashScreen extends BasicGameState {
 				
 			}
 			//System.out.println(timer);
-		container.setShowFPS(false);
+		container.setShowFPS(true);
 
 	}
 
