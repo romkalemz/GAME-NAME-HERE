@@ -23,6 +23,7 @@ class PlayingState extends BasicGameState {
 	private int shooter = 2;
 	private int arrow_check = 0;
 	
+	private int wizard_prev = 0;
 	// Animations and spritesheets
 	
 	
@@ -55,6 +56,8 @@ class PlayingState extends BasicGameState {
 	
 	/* ----- Enemy animations ----- */
 	
+	/* ----- Tree ----- */
+	
 	// Front left tree animations
 	private SpriteSheet enemyTreeAni;
 	private Animation enemyTreeAnimation1;
@@ -66,6 +69,16 @@ class PlayingState extends BasicGameState {
 	// Back tree animations
 	private SpriteSheet enemyTreeBackAni;
 	private Animation enemyTreeBackAnimation1;
+	
+	/* ----- Wizard ----- */
+	
+	// Front right animation
+	private SpriteSheet enemyWizardAni;
+	private Animation enemyWizardAnimation1;
+	
+	// Front left animation
+	private SpriteSheet enemyWizardLeftAni;
+	private Animation enemyWizardLeftAnimation1;
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
@@ -105,6 +118,12 @@ class PlayingState extends BasicGameState {
 		
 		enemyTreeRightAni = new SpriteSheet("resources/Tree_enemy_front_right_ani.png",40,40);
 		enemyTreeRightAnimation1 = new Animation(enemyTreeRightAni, 100);
+		
+		enemyWizardAni = new SpriteSheet("resources/Wizard_enemy_front_right_ani.png",40,40);
+		enemyWizardAnimation1 = new Animation(enemyWizardAni, 100);
+		
+		enemyWizardLeftAni = new SpriteSheet("resources/Wizard_enemy_front_left_ani.png",40,40);
+		enemyWizardLeftAnimation1 = new Animation(enemyWizardLeftAni, 100);
 	}
 
 	@Override
@@ -123,7 +142,7 @@ class PlayingState extends BasicGameState {
 		// render enemies
 		if(!tl.enemy.isEmpty()) {
 			for(int i = 0; i < tl.enemy.size(); i++) {
-				//tl.enemy.get(i).render(g);
+				tl.enemy.get(i).render(g);
 				if(tl.enemy.get(i).getEnemyType() == 1) {
 					enemyTreeAnimation1.setSpeed(0.8f);
 					if(tl.enemy.get(i).getVelocity().getY() < 0) {
@@ -137,8 +156,26 @@ class PlayingState extends BasicGameState {
 						}
 					}
 				}
+				if(tl.enemy.get(i).getEnemyType() == 2) {
+					enemyWizardAnimation1.setSpeed(0.6f);
+						if(tl.enemy.get(i).getVelocity().getX() <= 0) {
+							if(wizard_prev == 0) {
+								enemyWizardLeftAnimation1.draw(tl.enemy.get(i).getCoarseGrainedMinX(),tl.enemy.get(i).getCoarseGrainedMinY());
+							}else if(wizard_prev == 1) {
+								enemyWizardAnimation1.draw(tl.enemy.get(i).getCoarseGrainedMinX(),tl.enemy.get(i).getCoarseGrainedMinY());
+							}
+						} else if(tl.enemy.get(i).getVelocity().getX() >= 0) {
+							if(wizard_prev == 1) {
+								enemyWizardAnimation1.draw(tl.enemy.get(i).getCoarseGrainedMinX(),tl.enemy.get(i).getCoarseGrainedMinY());
+							}else if(wizard_prev == 0) {
+								enemyWizardLeftAnimation1.draw(tl.enemy.get(i).getCoarseGrainedMinX(),tl.enemy.get(i).getCoarseGrainedMinY());
+							}
+						}
+					}
+				}
 			}
-		}
+		
+		
 		// render items
 		if(!tl.items.isEmpty()) {
 			for(int i = 0; i < tl.items.size(); i++) {
@@ -347,10 +384,10 @@ class PlayingState extends BasicGameState {
 	private void updateDoorStatus(Game g, int delta) {
 		for(int i = 0; i<g.doors.size(); i++) {
 			if(g.doors.get(i).getIsPass()) {
-				System.out.println("door is passable");
+				//System.out.println("door is passable");
 			}
 			else {
-				System.out.println("Denied");
+				//System.out.println("Denied");
 			}
 //			Tile[][] s = g.map.getTileMap();
 //			for(int x = 0; x<g.map.getMapSizeX(); x++) {
@@ -552,6 +589,13 @@ class PlayingState extends BasicGameState {
 			
 				double dir = playerPos.subtract(e.getPosition()).getRotation();
 				v = new Vector(1, 1).setRotation(dir);
+				System.out.println("V = " + v.getX());
+				if(v.getX() >= 0) {
+					wizard_prev = 1;
+				}else {
+					wizard_prev = 0;
+				}
+				//wizard_prev = v.getX();
 				p.setSpeed(0.2f);
 			
 		} else {
