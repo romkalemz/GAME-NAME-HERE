@@ -80,7 +80,9 @@ public class TransitionState extends BasicGameState {
 				}
 				else {
 					tl.currLevel = 1;
+					tl.map.clearAndReset(tl);
 					game.enterState(Game.SPLASHSCREEN);
+					
 				}	
 		}
 	}

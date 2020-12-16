@@ -138,7 +138,12 @@ public class Projectile extends Entity {
 		if(collides(tl.player) != null) {
 				return true;
 		}
-		
+		// doors
+		for(int i = 0; i < tl.doors.size(); i++) {
+			if((collides(tl.doors.get(i)) != null) && (!tl.doors.get(i).getIsPass())) {
+				return true;
+			}
+		}
 		return false;
 	}
 	public void setDirection(Entity e, Vector v) {
