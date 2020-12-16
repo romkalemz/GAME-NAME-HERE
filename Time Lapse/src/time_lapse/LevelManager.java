@@ -101,19 +101,19 @@ public class LevelManager {
 		tl.items = ItemHandler.Spawn(tl.items, 250, 400, "accelerator");
 		tl.items = ItemHandler.Spawn(tl.items, 500, 400, "fiery");
 
-
+		System.out.println(24*tl.map.getTileSize() + tl.map.getTileSize()/2 + ", " + 8.5f*tl.map.getTileSize() + tl.map.getTileSize()/2);
 		//doors for sublevels of level1
 		ArrayList<Door> door1 = new ArrayList<Door>();
-		door1.add(new Door(24*tl.map.getTileSize() + tl.map.getTileSize()/2, 8.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90));
-		door1.add(new Door(17.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 16f*tl.map.getTileSize() + tl.map.getTileSize()/2, 180));
+		door1.add(new Door(24*tl.map.getTileSize() + tl.map.getTileSize()/2, 8.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 0));
+		door1.add(new Door(17.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 16f*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 1));
 		ArrayList<Door> door2 = new ArrayList<Door>();
-		door2.add(new Door(54*tl.map.getTileSize() + tl.map.getTileSize()/2, 4.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90));
+		door2.add(new Door(54*tl.map.getTileSize() + tl.map.getTileSize()/2, 4.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 2));
 		ArrayList<Door> door3 = new ArrayList<Door>();
-		door3.add(new Door(58.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 17f*tl.map.getTileSize() + tl.map.getTileSize()/2, 180));
+		door3.add(new Door(58.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 17f*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 3));
 		ArrayList<Door> door4 = new ArrayList<Door>();
-		door4.add(new Door(44.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 29f*tl.map.getTileSize() + tl.map.getTileSize()/2, 180));
+		door4.add(new Door(44.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 29f*tl.map.getTileSize() + tl.map.getTileSize()/2, 180, 4));
 		ArrayList<Door> door5 = new ArrayList<Door>();
-		door5.add(new Door(27f*tl.map.getTileSize() + tl.map.getTileSize()/2, 34.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90));
+		door5.add(new Door(27f*tl.map.getTileSize() + tl.map.getTileSize()/2, 34.5f*tl.map.getTileSize() + tl.map.getTileSize()/2, 90, 5));
 		
 		//adding switches for corresponding doors
 		tl.doorSwitch.add(new DoorSwitch(10*tl.map.getTileSize() + tl.map.getTileSize()/2, 8f*tl.map.getTileSize() + tl.map.getTileSize()/2, 0, door1));
@@ -136,9 +136,14 @@ public class LevelManager {
 		tl.image_control.setImage(tl.items.get(4), Game.ITEM_ARROW_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(5), Game.ITEM_ACCELERATOR_RSC, 0, true);
 		tl.image_control.setImage(tl.items.get(6), Game.ITEM_FIERY_RSC, 0, true);
-		
-		
-		
+		// add all rooms in lvl one 
+		// NOTE: the roomNum in Door.java must match the index of the room it opens!
+		tl.rooms.add(new Room(0, 1, tl));
+		tl.rooms.add(new Room(1, 1, tl));
+		tl.rooms.add(new Room(2, 1, tl));
+		tl.rooms.add(new Room(3, 1, tl));
+		tl.rooms.add(new Room(4, 1, tl));
+		tl.rooms.add(new Room(5, 1, tl));
 	}
 	private static void setLevel2(Game tl) {
 		tl.enemy = EnemySpawner.Spawn(tl.enemy, 200, 300, 1);

@@ -52,6 +52,7 @@ public class Map {
 		tl.doors.clear();
 		tl.doorSwitch.clear();
 		tl.LIVES = 2;
+		tl.rooms.clear();
 		// Reset scrolling world
 		translateX = 0;
 		translateY = 0;
@@ -140,12 +141,13 @@ public class Map {
 		g.translate(translateX, translateY);
 		double offsetX = Math.abs(Math.ceil((translateX / tileSize)));
 		double offsetY = Math.abs(Math.ceil((translateY / tileSize)));
-		System.out.println(offsetY);
 		for (int x = (int)offsetX; x < 31 + offsetX; x++) {
 			for (int y = (int)offsetY; y < 21 + offsetY; y++) {
-				if (tiles[x][y] != null) {
-					tiles[x][y].render(g);
-				}
+					if(x < 74 && y < 40) {
+						if (tiles[x][y] != null) {
+							tiles[x][y].render(g);
+						}
+					}
 			}
 		}
 	}
