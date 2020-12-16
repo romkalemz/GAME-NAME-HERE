@@ -5,10 +5,13 @@ import jig.Entity;
 import jig.ResourceManager;
 import jig.Vector;
 import org.newdawn.slick.Image;
+
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -18,22 +21,83 @@ class PlayingState extends BasicGameState {
 	private int chaser = 1;
 	private int runner = 3;
 	private int shooter = 2;
+	private int arrow_check = 0;
+	
+	// Animations and spritesheets
+	
+	// Player idles right
+	private SpriteSheet playerRightIdleAni;
+	private Animation playerRightIdleAnimation1;
+	
+	// Player idles left
+	private SpriteSheet playerLeftIdleAni;
+	private Animation playerLeftIdleAnimation1;
+	
+	// Player idles up
+	private SpriteSheet playerUpIdleAni;
+	private Animation playerUpIdleAnimation1;
+		
+	// Player idles down
+	private SpriteSheet playerDownIdleAni;
+	private Animation playerDownIdleAnimation1;
+	
+	// Player moves right
+	private SpriteSheet playerRightAni;
+	private Animation playerRightAnimation1;
+	// Player moves left
+	private SpriteSheet playerleftAni;
+	private Animation playerLeftAnimation1;
+	// Player moves down
+	private SpriteSheet playerDownAni;
+	private Animation playerDownAnimation1;
+	// Player moves up
+	private SpriteSheet playerUpAni;
+	private Animation playerUpAnimation1;
+	
+	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		Game tl = (Game)game;
 		debugMode = false;
+		
+		// Initialize sprite sheets and animations
+		playerRightAni = new SpriteSheet("resources/player_default_right_ani.png",40,40);
+		playerRightAnimation1 = new Animation(playerRightAni, 100);
+		
+		playerleftAni = new SpriteSheet("resources/player_default_left_ani.png",40,40);
+		playerLeftAnimation1 = new Animation(playerleftAni, 100);
+		
+		playerRightIdleAni = new SpriteSheet("resources/player_default_right_idle_ani.png",40,40);
+		playerRightIdleAnimation1 = new Animation(playerRightIdleAni, 100);
+		
+		playerLeftIdleAni = new SpriteSheet("resources/player_default_left_idle_ani.png",40,40);
+		playerLeftIdleAnimation1 = new Animation(playerLeftIdleAni, 100);
+		
+		playerDownAni = new SpriteSheet("resources/player_default_down_ani.png",40,40);
+		playerDownAnimation1 = new Animation(playerDownAni, 100);
+		 
+		playerUpAni = new SpriteSheet("resources/player_default_up_ani.png",40,40);
+		playerUpAnimation1 = new Animation(playerUpAni, 100);
+		
+		playerUpIdleAni = new SpriteSheet("resources/player_default_up_idle_ani.png",40,40);
+		playerUpIdleAnimation1 = new Animation(playerUpIdleAni, 100);
+		
+		playerDownIdleAni = new SpriteSheet("resources/player_default_down_idle_ani.png",40,40);
+		playerDownIdleAnimation1 = new Animation(playerDownIdleAni, 100);
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		
 		Game tl = (Game)game;
-		
+		Animation curr_ani = null;
 		// render entities
 		tl.map.renderMap(g);
 		if(debugMode)
 			tl.debug.renderDebug(g, tl);
-		tl.player.render(g);
+		if(tl.player.getDirection() == 0) {
+			//tl.player.render(g);
+		}
 		
 		// render enemies
 		if(!tl.enemy.isEmpty()) {
@@ -65,6 +129,55 @@ class PlayingState extends BasicGameState {
 				tl.doorSwitch.get(i).render(g);
 			}
 		}
+		if(tl.player.getVelocity().getX() != 0 || tl.player.getVelocity().getY() != 0) {
+		// 1 = right, 2 = down, 3 = left, 4 = up
+		if(tl.player.getDirection() == 1) {
+			curr_ani = playerRightAnimation1;
+			playerRightAnimation1.setSpeed(0.8f);
+			playerRightAnimation1.draw(tl.player.getCoarseGrainedMinX(),tl.player.getCoarseGrainedMinY());
+		}
+		if(tl.player.getDirection() == 2) {
+			curr_ani = playerDownAnimation1;
+			playerDownAnimation1.setSpeed(0.8f);
+			playerDownAnimation1.draw(tl.player.getCoarseGrainedMinX(),tl.player.getCoarseGrainedMinY());
+		}
+		if(tl.player.getDirection() == 3) {
+			curr_ani = playerLeftAnimation1;
+			playerLeftAnimation1.setSpeed(0.8f);
+			playerLeftAnimation1.draw(tl.player.getCoarseGrainedMinX(),tl.player.getCoarseGrainedMinY());
+		}
+		if(tl.player.getDirection() == 4) {
+			curr_ani = playerUpAnimation1;
+			playerUpAnimation1.setSpeed(0.8f);
+			playerUpAnimation1.draw(tl.player.getCoarseGrainedMinX(),tl.player.getCoarseGrainedMinY());
+		}
+		}
+		
+		if(tl.player.getVelocity().getX() == 0 && tl.player.getVelocity().getY() == 0) {
+			//curr_ani.stop();
+			if(tl.player.getDirection() == 3) {
+				curr_ani = playerLeftIdleAnimation1;
+				playerLeftIdleAnimation1.setSpeed(0.8f);
+				playerLeftIdleAnimation1.draw(tl.player.getCoarseGrainedMinX(),tl.player.getCoarseGrainedMinY());
+			}
+			if(tl.player.getDirection() == 2 ) {
+				curr_ani = playerDownIdleAnimation1;
+				playerDownIdleAnimation1.setSpeed(0.8f);
+				playerDownIdleAnimation1.draw(tl.player.getCoarseGrainedMinX(),tl.player.getCoarseGrainedMinY());
+			}
+			if(tl.player.getDirection() == 1 ) {
+				curr_ani = playerRightIdleAnimation1;
+				playerRightIdleAnimation1.setSpeed(0.8f);
+				playerRightIdleAnimation1.draw(tl.player.getCoarseGrainedMinX(),tl.player.getCoarseGrainedMinY());
+			}
+			if(tl.player.getDirection() == 4 ) {
+				curr_ani = playerUpIdleAnimation1;
+				playerUpIdleAnimation1.setSpeed(0.8f);
+				playerUpIdleAnimation1.draw(tl.player.getCoarseGrainedMinX(),tl.player.getCoarseGrainedMinY());
+			}
+			
+		}
+		
 		// render UI
 		tl.UIHandler.render(tl, g);
 	}
@@ -247,15 +360,31 @@ class PlayingState extends BasicGameState {
 		// player movement
 		if (input.isKeyDown(Input.KEY_W)) {
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(0, -1)));
+			if(arrow_check == 0) {
+				tl.player.setPrevDirection(tl.player.getDirection());
+				tl.player.setDirection(4);
+			}
 		}
 		if (input.isKeyDown(Input.KEY_S)) {
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(0, 1)));
+			if(arrow_check == 0) {
+				tl.player.setPrevDirection(tl.player.getDirection());
+				tl.player.setDirection(2);
+			}
 		}
 		if (input.isKeyDown(Input.KEY_A)) {
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(-1, 0)));
+			if(arrow_check == 0) {
+				tl.player.setPrevDirection(tl.player.getDirection());
+				tl.player.setDirection(3);
+			}
 		}
 		if (input.isKeyDown(Input.KEY_D)) {
 			tl.player.setVelocity(tl.player.getVelocity().add(new Vector(1, 0)));
+			if(arrow_check == 0) {
+				tl.player.setDirection(1);
+				tl.player.setPrevDirection(tl.player.getDirection());
+			}
 		}	
 		
 		// player direction / aim
@@ -264,6 +393,8 @@ class PlayingState extends BasicGameState {
 		if (tl.player.getRotateDelay() <= 0) {
 			if (input.isKeyDown(Input.KEY_UP)) {
 				tl.player.setImageRotation(180);
+				tl.player.setPrevDirection(tl.player.getDirection());
+				tl.player.setDirection(4);
 				if(tl.player.getShootDelay() <= 0) {
 					addProjectile(tl, tl.player, new Vector(0, -1), false);
 					tl.player.setShootDelay();
@@ -271,6 +402,8 @@ class PlayingState extends BasicGameState {
 			}
 			if (input.isKeyDown(Input.KEY_RIGHT)) {
 				tl.player.setImageRotation(270);
+				tl.player.setPrevDirection(tl.player.getDirection());
+				tl.player.setDirection(1);
 				if(tl.player.getShootDelay() <= 0) {
 					addProjectile(tl, tl.player, new Vector(1, 0),false);
 					tl.player.setShootDelay();
@@ -278,6 +411,8 @@ class PlayingState extends BasicGameState {
 			}
 			if (input.isKeyDown(Input.KEY_DOWN)) {
 				tl.player.setImageRotation(0);
+				tl.player.setPrevDirection(tl.player.getDirection());
+				tl.player.setDirection(2);
 				if(tl.player.getShootDelay() <= 0) {
 					addProjectile(tl, tl.player, new Vector(0, 1),false);
 					tl.player.setShootDelay();
@@ -285,6 +420,8 @@ class PlayingState extends BasicGameState {
 			}
 			if (input.isKeyDown(Input.KEY_LEFT)) {
 				tl.player.setImageRotation(90);
+				tl.player.setPrevDirection(tl.player.getDirection());
+				tl.player.setDirection(3);
 				if(tl.player.getShootDelay() <= 0) {
 					addProjectile(tl, tl.player, new Vector(-1, 0),false);
 					tl.player.setShootDelay();
@@ -292,39 +429,44 @@ class PlayingState extends BasicGameState {
 			}
 		}
 		
+		arrow_check = 0;
 		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)) {
-			tl.player.setImageRotation(225);
-			tl.player.setRotateDelay(50);
+			//tl.player.setImageRotation(225);
+			//tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(1, -1),false);
 				tl.player.setShootDelay();
+				arrow_check = 1;
 			}
 			
 		}
 		if (input.isKeyDown(Input.KEY_RIGHT) && input.isKeyDown(Input.KEY_DOWN)) {
-			tl.player.setImageRotation(315);
-			tl.player.setRotateDelay(50);
+			//tl.player.setImageRotation(315);
+			//tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(1, 1),false);
 				tl.player.setShootDelay();
+				arrow_check = 1;
 			}
 			
 		}
 		if (input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)) {
-			tl.player.setImageRotation(45);
-			tl.player.setRotateDelay(50);
+			//tl.player.setImageRotation(45);
+			//tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(-1, 1),false);
 				tl.player.setShootDelay();
+				arrow_check = 1;
 			}
 			
 		}
 		if (input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_LEFT)) {
-			tl.player.setImageRotation(135);
-			tl.player.setRotateDelay(50);
+			//tl.player.setImageRotation(135);
+			//tl.player.setRotateDelay(50);
 			if(tl.player.getShootDelay() <= 0) {
 				addProjectile(tl, tl.player, new Vector(-1, -1), false);
 				tl.player.setShootDelay();
+				arrow_check = 1;
 			}
 		}
 	}

@@ -56,6 +56,17 @@ public class Game extends StateBasedGame {
 	public static final String DOOR_SWITCH_OFF = "resources/switchoff.png";
 	public static final String OPEN_DOOR_VERT = "resources/dooropenvert.png";
 	public static final String CLOSED_DOOR_VERT = "resources/doorclosedvert.png";
+	
+	// Animation resources
+	public static final String PLAYER_DEFAULT_RIGHT_RSC = "resources/player_default_right_ani.png";
+	public static final String PLAYER_DEFAULT_LEFT_RSC = "resources/player_default_left_ani.png";
+	public static final String PLAYER_DEFAULT_RIGHT_IDLE_RSC = "resources/player_default_right_idle_ani.png";
+	public static final String PLAYER_DEFAULT_LEFT_IDLE_RSC = "resources/player_default_left_idle_ani.png";
+	public static final String PLAYER_DEFAULT_DOWN_RSC = "resources/player_default_down_ani.png";
+	public static final String PLAYER_DEFAULT_UP_RSC = "resources/player_default_up_ani.png";
+	public static final String PLAYER_DEFAULT_UP_IDLE_RSC = "resources/player_default_up_idle_ani.png";
+	public static final String PLAYER_DEFAULT_DOWN_IDLE_RSC = "resources/player_default_down_idle_ani.png";
+
 	// items in the game
 	public Player player;
 	public Map map;
@@ -108,6 +119,16 @@ public class Game extends StateBasedGame {
 		ResourceManager.loadImage(CLOSED_DOOR);
 		ResourceManager.loadImage(DOOR_SWITCH_ON);
 		ResourceManager.loadImage(DOOR_SWITCH_OFF);
+
+		
+		// LOAD ANIMATIONS
+		ResourceManager.loadImage(PLAYER_DEFAULT_RIGHT_RSC);
+		ResourceManager.loadImage(PLAYER_DEFAULT_LEFT_RSC);
+		ResourceManager.loadImage(PLAYER_DEFAULT_RIGHT_IDLE_RSC);
+		ResourceManager.loadImage(PLAYER_DEFAULT_DOWN_RSC);
+		ResourceManager.loadImage(PLAYER_DEFAULT_UP_RSC);
+		ResourceManager.loadImage(PLAYER_DEFAULT_UP_IDLE_RSC);
+		ResourceManager.loadImage(PLAYER_DEFAULT_DOWN_IDLE_RSC);
 		ResourceManager.loadImage(OPEN_DOOR_VERT);
 		ResourceManager.loadImage(CLOSED_DOOR_VERT);
 		// Initialize stuff
